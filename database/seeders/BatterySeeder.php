@@ -14,6 +14,6 @@ class BatterySeeder extends Seeder
      */
     public function run()
     {
-        Battery::factory(100)->create();
+        Battery::factory(200)->create();
     }
 }

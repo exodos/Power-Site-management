@@ -14,6 +14,6 @@ class RectifierSeeder extends Seeder
      */
     public function run()
     {
-        Rectifier::factory(100)->create();
+        Rectifier::factory(200)->create();
     }
 }

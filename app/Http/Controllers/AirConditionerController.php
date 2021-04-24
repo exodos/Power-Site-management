@@ -60,7 +60,6 @@ class AirConditionerController extends Controller
 
         session()->flash('success', 'Air Conditioner Created Successfully.');
 
-
         return redirect()->route('airconditioners.index');
     }
 

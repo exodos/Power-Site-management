@@ -14,6 +14,6 @@ class TowerSeeder extends Seeder
      */
     public function run()
     {
-        Tower::factory(100)->create();
+        Tower::factory(200)->create();
     }
 }

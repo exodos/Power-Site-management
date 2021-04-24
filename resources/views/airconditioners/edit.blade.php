@@ -7,7 +7,7 @@
 @section('sitemap')
     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
     <li class="breadcrumb-item active"><a href="{{route('airconditioners.index')}}">Index</a></li>
-    <li class="breadcrumb-item active"><a href="#">Create</a></li>
+    <li class="breadcrumb-item active"><a href="#">Edit</a></li>
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="air_conditioners_model">Air Conditioner Model</label>
-                        <input type="text" class="form-control" id="air_conditioners_model"
+                        <input type="text" class="form-control" id="air_conditioners_model" placeholder="{{$air->air_conditioners_model}}"
                                name="air_conditioners_model">
                     </div>
                     <div class="form-group">

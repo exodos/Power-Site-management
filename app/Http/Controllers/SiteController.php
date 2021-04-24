@@ -13,37 +13,40 @@ use App\Models\WorkOrder;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Validation\ValidationException;
 
 class SiteController extends Controller
 {
-//    public function __construct()
+//    function __construct()
 //    {
-//        $this->middleware('auth');
+//        $this->middleware('permission:site-list|site-create|site-edit|site-delete', ['only'=>['index', 'show']]);
+//        $this->middleware('permission:site-create', ['only' => ['create','store']]);
+//        $this->middleware('permission:site-edit', ['only' => ['edit','update']]);
+//        $this->middleware('permission:site-delete', ['only' => ['destroy']]);
 //    }
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-
-//        if (Auth::guest()) {
-//            return redirect()->route('login');
-//        }
-
-        $sites = Site::paginate(10);
-
+        $sites = Site::latest()->paginate(10);
         return view('sites.index', compact('sites'));
+
+
+//        $sites = Site::latest()->paginate(10);
+//        return view('sites.index',compact('sites'))
+//            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -54,8 +57,8 @@ class SiteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -76,22 +79,24 @@ class SiteController extends Controller
             'commercial_power_line_voltage' => 'required',
         ]);
 
-        Site::create([
-            'id' => $request->id,
-            'sites_name' => $request->sites_name,
-            'sites_latitude' => $request->sites_latitude,
-            'sites_longitude' => $request->sites_longitude,
-            'sites_region_zone' => $request->sites_region_zone,
-            'sites_political_region' => $request->sites_political_region,
-            'sites_category' => $request->sites_category,
-            'sites_class' => $request->sites_class,
-            'sites_value' => $request->sites_value,
-            'sites_type' => $request->sites_type,
-            'sites_configuration' => $request->sites_configuration,
-            'monitoring_system_name' => $request->monitoring_system_name,
-            'commercial_power_line_voltage' => $request->commercial_power_line_voltage,
-            'distance_maintenance_center' => $request->distance_maintenance_center
-        ]);
+//        Site::create([
+//            'id' => $request->id,
+//            'sites_name' => $request->sites_name,
+//            'sites_latitude' => $request->sites_latitude,
+//            'sites_longitude' => $request->sites_longitude,
+//            'sites_region_zone' => $request->sites_region_zone,
+//            'sites_political_region' => $request->sites_political_region,
+//            'sites_category' => $request->sites_category,
+//            'sites_class' => $request->sites_class,
+//            'sites_value' => $request->sites_value,
+//            'sites_type' => $request->sites_type,
+//            'sites_configuration' => $request->sites_configuration,
+//            'monitoring_system_name' => $request->monitoring_system_name,
+//            'commercial_power_line_voltage' => $request->commercial_power_line_voltage,
+//            'distance_maintenance_center' => $request->distance_maintenance_center
+//        ]);
+
+        Site::create($request->all());
 
         session()->flash('success', 'Site Created Successfully.');
 
@@ -101,17 +106,16 @@ class SiteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Site $site
+     * @return Response
      */
-    public function show($id)
+    public function show(Site $site)
     {
-
-        $site = Site::find($id);
-        if (empty($site)) {
+        $sites = Site::find($site);
+        if (empty($sites)) {
             redirect()->route('sites.index');
         }
-        $site = $site->load('air_conditioners', 'batteries', 'powers', 'rectifiers', 'solar_panels', 'towers', 'ups', 'work_orders');
+        $sites = $sites->load('air_conditioners', 'batteries', 'powers', 'rectifiers', 'solar_panels', 'towers', 'ups', 'work_orders');
 
 //        $site = $site->load('batteries');
 //        $airconditioners_id = $site->air_conditioners_id;
@@ -140,12 +144,12 @@ class SiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Site $site
+     * @return Response
      */
-    public function edit($id)
+    public function edit(Site $site)
     {
-        $sites = Site::find($id);
+        $sites = Site::find($site);
 
         return View::make('sites.edit')->with('sites', $sites);
     }
@@ -153,13 +157,14 @@ class SiteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Site $site
+     * @return Response
+     * @throws ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Site $site)
     {
-        $sites_id = Site::find($id);
+        $sites_id = Site::find($site);
 
         $this->validate($request, [
             'id' => 'required',
@@ -190,19 +195,18 @@ class SiteController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function destroy($id)
+    public function destroy(Site $site)
     {
-        $site = Site::find($id);
+        $sites = Site::find($site);
 
         try {
-            $site->delete();
+            $sites->delete();
             session()->flash('deleted', 'Site Successfully Deleted!');
             return redirect()->route('sites.index');
         } catch (QueryException $e) {
             session()->flash('unable', 'Integrity constraint violation: Cannot Delete Site With This Id!');
-//            session()->flash('unable', $e->getMessage());
             return redirect()->route('sites.index');
         }
 

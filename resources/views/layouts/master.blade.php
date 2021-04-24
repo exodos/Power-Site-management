@@ -7,15 +7,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
 </head>
-<!--
-`body` tag options:
-
-  Apply one or more of the following classes to to the body tag
-  to get the desired effect
-
-  * sidebar-collapse
-  * sidebar-mini
--->
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
     <!-- Navbar -->
@@ -197,7 +188,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('sites.create')}}" class="nav-link">
-                                    <i class="fas fa-tools nav-icon"></i>
+                                    <i class="fas fa-plus-square nav-icon"></i>
                                     <p>Add Site</p>
                                 </a>
                             </li>
@@ -637,11 +628,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="text-center">
-    <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
-        Modal Login Form</a>
 </div>
 </body>
 </html>
