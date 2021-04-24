@@ -28,70 +28,70 @@
                     </div>
                 @endif
 
-                <form action="{{route('sites.update', isset($sites)?$sites->id:'')}}" method="post">
+                <form action="{{route('sites.update', isset($site)?$site->id:'')}}" method="post">
                     @csrf
                     @method('put')
                     <div class="form-group">
                         <label for="id">Site Id</label>
                         <input type="number" class="form-control" id="id"
-                               name="id">
+                               name="id" placeholder="{{$site->id}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_name">Sites Name</label>
-                        <input type="text" class="form-control" id="sites_name" name="sites_name">
+                        <input type="text" class="form-control" id="sites_name" name="sites_name" placeholder="{{$site->sites_name}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_latitude">Sites Latitude</label>
-                        <input type="number" class="form-control" id="sites_latitude" name="sites_latitude" step="0.001">
+                        <input type="number" class="form-control" id="sites_latitude" name="sites_latitude" step="0.001" placeholder="{{$site->sites_latitude}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_longitude">Sites Longitude</label>
                         <input type="number" class="form-control" id="sites_longitude" name="sites_longitude"
-                               step="0.001">
+                               step="0.001" placeholder="{{$site->sites_longitude}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_region_zone">Sites Region Zone</label>
-                        <input type="text" class="form-control" id="sites_region_zone" name="sites_region_zone">
+                        <input type="text" class="form-control" id="sites_region_zone" name="sites_region_zone" placeholder="{{$site->sites_region_zone}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_political_region">Sites Political Region</label>
                         <input type="text" class="form-control" id="sites_political_region"
-                               name="sites_political_region">
+                               name="sites_political_region" placeholder="{{$site->sites_political_region}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_category">Sites Category</label>
-                        <input type="text" class="form-control" id="sites_category" name="sites_category">
+                        <input type="text" class="form-control" id="sites_category" name="sites_category" placeholder="{{$site->sites_category}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_class">Sites Class</label>
-                        <input type="text" class="form-control" id="sites_class" name="sites_class">
+                        <input type="text" class="form-control" id="sites_class" name="sites_class" placeholder="{{$site->sites_class}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_value">Sites Value</label>
-                        <input type="text" class="form-control" id="sites_value" name="sites_value">
+                        <input type="text" class="form-control" id="sites_value" name="sites_value" placeholder="{{$site->sites_value}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_type">Sites Type</label>
-                        <input type="text" class="form-control" id="sites_type" name="sites_type">
+                        <input type="text" class="form-control" id="sites_type" name="sites_type" placeholder="{{$site->sites_type}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_configuration">Sites Configuration</label>
-                        <input type="text" class="form-control" id="sites_configuration" name="sites_configuration">
+                        <input type="text" class="form-control" id="sites_configuration" name="sites_configuration" placeholder="{{$site->sites_configuration}}">
                     </div>
                     <div class="form-group">
                         <label for="monitoring_system_name">Monitoring System Name</label>
                         <input type="text" class="form-control" id="monitoring_system_name"
-                               name="monitoring_system_name">
+                               name="monitoring_system_name" placeholder="{{$site->monitoring_system_name}}">
                     </div>
                     <div class="form-group">
                         <label for="commercial_power_line_voltage">Commercial Power Line Voltage</label>
                         <input type="number" class="form-control" id="commercial_power_line_voltage"
-                               name="commercial_power_line_voltage">
+                               name="commercial_power_line_voltage" placeholder="{{$site->commercial_power_line_voltage}}">
                     </div>
                     <div class="form-group">
                         <label for="distance_maintenance_center">Distance From Maintenance Center</label>
                         <input type="number" class="form-control" id="distance_maintenance_center"
-                               name="distance_maintenance_center" step="0.001">
+                               name="distance_maintenance_center" step="0.001" placeholder="{{$site->distance_maintenance_center}}">
                     </div>
                     <div class="form-group text-center">
                         <button class="btn btn-success">Update Site</button>
