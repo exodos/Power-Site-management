@@ -54,9 +54,10 @@
                     @endforeach
                     </tbody>
                 </table>
+                {!! $roles->render() !!}
             </div>
             <div class="d-flex justify-content-center">
-                {!! $role->links() !!}
+                {!! $roles->links() !!}
             </div>
         </div>
         <form action="" method="post" id="deleteForm">

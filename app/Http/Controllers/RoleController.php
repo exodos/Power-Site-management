@@ -31,6 +31,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id', 'DESC')->paginate(5);
+
         return view('roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -62,8 +63,8 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role created successfully');
+        session()->flash('success', 'Role created successfully!');
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -119,8 +120,8 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+        session()->flash('success', 'Role updated successfully!');
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -132,7 +133,8 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id', $id)->delete();
-        return redirect()->route('roles.index')
-            ->with('success', 'Role deleted successfully');
+
+        session()->flash('success', 'Role deleted successfully!');
+        return redirect()->route('roles.index');
     }
 }

@@ -72,12 +72,18 @@
                             <td>{{ $site->distance_maintenance_center }}</td>
                             <td><a href="{{route('sites.show', $site->id)}}" class="btn btn-primary btn-sm">Details</a>
                             </td>
-                            <td><a href="{{route('sites.edit', $site->id)}}" class="btn btn-success btn-sm">Update</a>
+                            <td>
+                                @can('site-edit')
+                                    <a href="{{route('sites.edit', $site->id)}}"
+                                       class="btn btn-success btn-sm">Update</a>
+                                @endcan
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="handleDelete({{$site->id}})">
-                                    Delete
-                                </button>
+                                @can('site-delete')
+                                    <button class="btn btn-danger btn-sm" onclick="handleDelete({{$site->id}})">
+                                        Delete
+                                    </button>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

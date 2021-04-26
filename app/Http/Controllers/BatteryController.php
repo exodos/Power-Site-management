@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\View;
 
 class BatteryController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:site-list|site-create|site-edit|site-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:site-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:site-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:site-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
