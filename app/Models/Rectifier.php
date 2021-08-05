@@ -16,8 +16,18 @@ class Rectifier extends Model
     protected $fillable = [
         'id',
         'rectifiers_model',
-        'number_of_rectifiers',
         'rectifiers_capacity',
+        'rectifiers_module_model',
+        'number_of_rectifiers_model_slots',
+        'rectifiers_module_capacity',
+        'rectifier_module_Qty',
+        'llvd_capacity',
+        'blvd_capacity',
+        'battery_fuess_Qty',
+        'power_of_msag_msan_connected_company',
+        'monitoring_system_name',
+        'lld_number',
+        'commission_date',
         'site_id',
     ];
 

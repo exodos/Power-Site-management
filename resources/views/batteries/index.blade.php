@@ -4,10 +4,10 @@
     Batteries Information
 @endsection
 
-@section('sitemap')
-    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{route('batteries.index')}}">Batteries</a></li>
-@endsection
+{{--@section('sitemap')--}}
+{{--    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>--}}
+{{--    <li class="breadcrumb-item active"><a href="{{route('batteries.index')}}">Batteries</a></li>--}}
+{{--@endsection--}}
 
 @section('content')
     <div class="container-fluid">
@@ -23,47 +23,98 @@
             <div class="alert alert-danger">
                 {{session()->get('deleted')}}
             </div>
+        @elseif(session()->has('connection'))
+            <div class="alert alert-danger">
+                {{session()->get('connection')}}
+            </div>
         @endif
-        <div class="card border-primary mb-3">
-            <div class="card-header font-weight-bold">Batteries</div>
+        <div class="row">
+            <div class="col-md-4 col-xl-4 mb-3">
+                <div class="sidebar px-4 py-md-0">
+                    <form action="{{route('batteries.index')}}" class="input-group" method="get">
+                        <input type="text" class="form-control" name="search"
+                               placeholder="Search By Battery Id, Type Or Model">
+                        <div class="input-group-addon">
+                            <button id="search" type="button" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                @canany(['site-create','site-edit','site-delete'])
+                    <div class="text-right">
+                        <a href="{{route('batteries.create')}}" class="btn btn-outline-primary mb-2"><i
+                                class="fas fa-plus-square fa-2x"></i></a>
+                    </div>
+                @endcanany
+            </div>
+        </div>
+        <div class="card border-success mb-3">
+            <div class="card-header bg-gradient-primary font-weight-bold">Batteries</div>
             <div class="card-body text-black-50">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr class="bg-primary">
-                        <th scope="col">Battery Id</th>
-                        <th scope="col">Battery Model</th>
-                        <th scope="col">Number Of Batteries Group</th>
-                        <th scope="col">Site Id</th>
-                        <th scope="col">Capacity</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($batteries as $battery)
-                        <tr>
-                            <th scope="row">{{ $battery->id }}</th>
-                            <td>{{ $battery->batteries_model }}</td>
-                            <td>{{ $battery->number_of_batteries_group }}</td>
-                            <td>{{ $battery->batteries_capacity }}</td>
-                            <td>{{ $battery->site_id }}</td>
-                            <td>{{ $battery->created_at }}</td>
-                            <td>{{ $battery->updated_at }}</td>
-                            <td><a href="{{route('batteries.edit', $battery->id)}}"
-                                   class="btn btn-info btn-sm">Update</a></td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" onclick="handleDelete({{$battery->id}})">
-                                    Delete
-                                </button>
-                            </td>
+                @if($batteries->isNotEmpty())
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="bg-gradient-primary">
+                            <th scope="col">Id</th>
+                            <th scope="col">Battery Type</th>
+                            <th scope="col">Battery Model</th>
+                            <th scope="col">Battery Voltage</th>
+                            <th scope="col">Battery Capacity</th>
+                            <th scope="col">Number Of Batteries Banks</th>
+                            <th scope="col">Battery Holding Time</th>
+                            <th scope="col">Commission Date</th>
+                            <th scope="col">LLD Number</th>
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Work Order Id</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Updated At</th>
+                            @canany(['site-create','site-edit','site-delete'])
+                                <th scope="col">Update</th>
+                                <th scope="col">Delete</th>
+                            @endcanany
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($batteries as $battery)
+                            <tr>
+                                <th scope="row">{{ $battery->id }}</th>
+                                <td>{{ $battery->batteries_type }}</td>
+                                <td>{{ $battery->batteries_model }}</td>
+                                <td>{{ $battery->batteries_voltage }}</td>
+                                <td>{{ $battery->batteries_capacity }}</td>
+                                <td>{{ $battery->number_of_batteries_banks }}</td>
+                                <td>{{ $battery->battery_holding_time }}</td>
+                                <td>{{ $battery->commission_date }}</td>
+                                <td>{{ $battery->lld_number }}</td>
+                                <td>{{ $battery->site_id }}</td>
+                                <td>{{$battery->work_order_id}}</td>
+                                <td>{{ $battery->created_at->format('Y-m-d')}}</td>
+                                <td>{{ $battery->updated_at->format('Y-m-d')}}</td>
+                                @canany(['site-create','site-edit','site-delete'])
+                                    <td><a href="{{route('batteries.edit', $battery->id)}}"
+                                           class="btn btn-primary btn-sm">Update</a></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" onclick="handleDelete({{$battery->id}})">
+                                            Delete
+                                        </button>
+                                    </td>
+                                @endcanany
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="alert alert-danger px-4" role="alert">
+                        No results found for query {{ request()->query('search') }}
+                    </div>
+                @endif
                 <div class="d-flex justify-content-center">
-                    {!! $batteries->links() !!}
+                    {!! $batteries->appends(['search' => request()->query('search')])->links() !!}
+                    {{--                    {!! $batteries->appends(\Request::except('page'))->render() !!}--}}
+
                 </div>
             </div>
         </div>
@@ -106,6 +157,5 @@
             // console.log('deleting', form);
             $('#deleteModal').modal('show')
         }
-
     </script>
 @endsection

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Site;
 use App\Models\SolarPanel;
+use App\Models\WorkOrder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SolarPanelFactory extends Factory
@@ -24,12 +25,22 @@ class SolarPanelFactory extends Factory
     {
         return [
             'id' => $this->faker->unique()->randomNumber(),
-            'solar_panels_number' => $this->faker->randomNumber(),
-            'solar_panels_capacity' => $this->faker->randomFloat(),
-            'solar_panels_regulatory_model' => $this->faker->sentence(1),
+            'number_solar_system' => $this->faker->randomNumber(),
+            'solar_panel_type' => $this->faker->sentence(1),
             'solar_panels_module_capacity' => $this->faker->randomFloat(),
+            'number_of_arrays' => $this->faker->randomNumber(),
+            'solar_controller_type' => $this->faker->sentence(1),
+            'regulator_capacity' => $this->faker->randomNumber(),
+            'solar_regulator_Qty' => $this->faker->randomNumber(),
+            'number_of_structure_group' => $this->faker->randomNumber(),
+            'solar_structure_front_height' => $this->faker->randomNumber(),
+            'solar_structure_rear_height' => $this->faker->randomNumber(),
+            'commission_date' => $this->faker->date(),
             'site_id' => function () {
                 return Site::inRandomOrder()->first()->id;
+            },
+            'work_order_id' => function () {
+                return WorkOrder::inRandomOrder()->first()->id;
             },
         ];
     }

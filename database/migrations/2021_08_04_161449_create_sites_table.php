@@ -16,18 +16,26 @@ class CreateSitesTable extends Migration
         Schema::create('sites', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('sites_name');
+            $table->string('ps_configuration');
+            $table->string('monitoring_status');
             $table->decimal('sites_latitude');
             $table->decimal('sites_longitude');
             $table->string('sites_region_zone');
             $table->string('sites_political_region');
-            $table->string('sites_category');
+            $table->string('sites_location');
             $table->string('sites_class');
             $table->string('sites_value');
             $table->string('sites_type');
-            $table->string('sites_configuration');
-            $table->string('monitoring_system_name');
-            $table->integer('commercial_power_line_voltage');
-            $table->double('distance_maintenance_center');
+            $table->string('maintenance_center');
+            $table->double('distance_mc');
+            $table->string('list_of_ne');
+            $table->integer('number_of_towers');
+            $table->integer('number_of_generator');
+            $table->integer('number_of_airconditioners');
+            $table->integer('number_of_rectifiers');
+            $table->integer('number_of_solar_system');
+            $table->integer('number_of_down_links');
+            $table->foreignId('work_order_id')->constrained('work_orders');
             $table->timestamps();
         });
     }

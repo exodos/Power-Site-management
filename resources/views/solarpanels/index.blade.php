@@ -4,10 +4,10 @@
     Solar Panels Information
 @endsection
 
-@section('sitemap')
-    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{route('solarpanels.index')}}">Solar Panel</a></li>
-@endsection
+{{--@section('sitemap')--}}
+{{--    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>--}}
+{{--    <li class="breadcrumb-item active"><a href="{{route('solarpanels.index')}}">Solar Panel</a></li>--}}
+{{--@endsection--}}
 
 @section('content')
 
@@ -24,49 +24,102 @@
             <div class="alert alert-danger">
                 {{session()->get('deleted')}}
             </div>
+        @elseif(session()->has('connection'))
+            <div class="alert alert-danger">
+                {{session()->get('connection')}}
+            </div>
         @endif
-        <div class="card border-primary mb-3">
-            <div class="card-header font-weight-bold">Solar Panel</div>
+        <div class="row">
+            <div class="col-md-3 col-xl-4 mb-3">
+                <div class="sidebar px-4 py-md-0">
+                    <form action="{{route('solarpanels.index')}}" class="input-group" method="get">
+                        <input type="text" class="form-control" name="search" placeholder="Search By Id, Number Of Solar System Or Solar Panel Type"
+                               value="{{request()->query('search')}}">
+                        <div class="input-group-addon">
+                            {{--                            <span class="input-group-text"><i class="fas fa-search"></i></span>--}}
+                            <button id="search" type="button" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                @canany(['site-create','site-edit','site-delete'])
+                    <div class="text-right">
+                        <a href="{{route('solarpanels.create')}}" class="btn btn-outline-primary mb-2"><i
+                                class="fas fa-plus-square fa-2x"></i></a>
+                    </div>
+                @endcanany
+            </div>
+        </div>
+        <div class="card border-success mb-3">
+            <div class="card-header bg-gradient-primary font-weight-bold">Solar Panel</div>
             <div class="card-body text-black-50">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr class="bg-primary">
-                        <th scope="col">Solar Panel Id</th>
-                        <th scope="col">Solar Panel Number</th>
-                        <th scope="col">Solar Panel Capacity</th>
-                        <th scope="col">Solar Panel Regulatory Model</th>
-                        <th scope="col">Solar Panel Module Capacity</th>
-                        <th scope="col">Site Id</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($solarpanels as $solarpanel)
-                        <tr>
-                            <th scope="row">{{ $solarpanel->id }}</th>
-                            <td>{{ $solarpanel->solar_panels_number }}</td>
-                            <td>{{ $solarpanel->solar_panels_capacity }}</td>
-                            <td>{{ $solarpanel->solar_panels_regulatory_model }}</td>
-                            <td>{{ $solarpanel->solar_panels_module_capacity }}</td>
-                            <td>{{ $solarpanel->site_id }}</td>
-                            <td>{{ $solarpanel->created_at }}</td>
-                            <td>{{ $solarpanel->updated_at }}</td>
-                            <td><a href="{{route('solarpanels.edit', $solarpanel->id)}}"
-                                   class="btn btn-info btn-sm">Update</a></td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" onclick="handleDelete({{$solarpanel->id}})">
-                                    Delete
-                                </button>
-                            </td>
+                @if($solarpanels->isNotEmpty())
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                        <tr class="bg-gradient-primary">
+                            <th scope="col">Id</th>
+                            <th scope="col">Number Of Solar System</th>
+                            <th scope="col">Solar Panel Type</th>
+                            <th scope="col">Solar Panel Module Capacity</th>
+                            <th scope="col">Number Of Arrays</th>
+                            <th scope="col">Solar Controller Type</th>
+                            <th scope="col">Regulator Capacity</th>
+                            <th scope="col">Solar Regulator Qty</th>
+                            <th scope="col">Number Of Structure Group</th>
+                            <th scope="col">Solar Structure Front Height</th>
+                            <th scope="col">Solar Structure Rear Height</th>
+                            <th scope="col">Commission Date</th>
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Updated At</th>
+                            @canany(['site-create','site-edit','site-delete'])
+                                <th scope="col">Update</th>
+                                <th scope="col">Delete</th>
+                            @endcanany
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($solarpanels as $solarpanel)
+                            <tr>
+                                <th scope="row">{{ $solarpanel->id }}</th>
+                                <th scope="row">{{ $solarpanel->number_solar_system }}</th>
+                                <td>{{ $solarpanel->solar_panel_type }}</td>
+                                <td>{{ $solarpanel->solar_panels_module_capacity }}</td>
+                                <td>{{ $solarpanel->number_of_arrays }}</td>
+                                <td>{{ $solarpanel->solar_controller_type }}</td>
+                                <td>{{ $solarpanel->regulator_capacity }}</td>
+                                <td>{{ $solarpanel->solar_regulator_Qty }}</td>
+                                <td>{{ $solarpanel->number_of_structure_group }}</td>
+                                <td>{{ $solarpanel->solar_structure_front_height }}</td>
+                                <td>{{ $solarpanel->solar_structure_rear_height }}</td>
+                                <td>{{ $solarpanel->commission_date }}</td>
+                                <td>{{ $solarpanel->site_id }}</td>
+                                <td>{{ $solarpanel->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $solarpanel->updated_at->format('Y-m-d') }}</td>
+                                @canany(['site-create','site-edit','site-delete'])
+                                    <td><a href="{{route('solarpanels.edit', $solarpanel->id)}}"
+                                           class="btn btn-primary btn-sm">Update</a></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm"
+                                                onclick="handleDelete({{$solarpanel->id}})">
+                                            Delete
+                                        </button>
+                                    </td>
+                                @endcanany
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="alert alert-danger px-4" role="alert">
+                        No results found for query {{ request()->query('search') }}
+                    </div>
+                @endif
                 <div class="d-flex justify-content-center">
-                    {!! $solarpanels->links() !!}
+                    {!! $solarpanels->appends(['search' => request()->query('search')])->links() !!}
                 </div>
             </div>
         </div>

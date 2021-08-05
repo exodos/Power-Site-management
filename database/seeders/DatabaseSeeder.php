@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\WorkOrder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class,
+            WorkOrderSeeder::class,
             SiteSeeder::class,
             AirConditionerSeeder::class,
             BatterySeeder::class,
@@ -22,7 +26,6 @@ class DatabaseSeeder extends Seeder
             SolarPanelSeeder::class,
             TowerSeeder::class,
             UpsSeeder::class,
-            WorkOrderSeeder::class,
         ]);
     }
 }

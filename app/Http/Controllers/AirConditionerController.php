@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\AirConditioner;
+use App\Notifications\AirConditionerCreateNotify;
+use App\Notifications\AirConditionerDeleteNotify;
+use App\Notifications\AirConditionerUpdateNotify;
+use App\Notifications\SiteCreateNotify;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\View;
+use Swift_SmtpTransport;
 
 class AirConditionerController extends Controller
 {
@@ -18,6 +23,7 @@ class AirConditionerController extends Controller
         $this->middleware('permission:site-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:site-delete', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,10 +31,16 @@ class AirConditionerController extends Controller
      */
     public function index()
     {
-        if (Auth::guest()) {
-            return redirect()->route('login');
+        $search = request()->query('search');
+        if ($search) {
+            $airconditioners = AirConditioner::where('id', 'LIKE', "%{$search}%")
+                ->orWhere('air_conditioners_type', 'LIKE', "{$search}")
+                ->orWhere('air_conditioners_model', 'LIKE', "{$search}")
+                ->paginate(10);
+        } else {
+            $airconditioners = AirConditioner::latest()->paginate(10);
         }
-        $airconditioners = AirConditioner::paginate(10);
+
 
         return view('airconditioners.index', compact('airconditioners'));
 
@@ -54,22 +66,39 @@ class AirConditionerController extends Controller
     {
 
         $this->validate($request, [
-            'id' => 'required|unique:air_conditioners',
+            'id' => 'required|unique:air_conditioners|min:6|max:6',
+            'air_conditioners_type' => 'required',
             'air_conditioners_model' => 'required',
             'air_conditioners_capacity' => 'required',
+            'functional_type' => 'required',
+            'gas_type' => 'required',
+            'lld_number' => 'required',
+            'commission_date' => 'required',
             'site_id' => 'required',
         ]);
 
-        AirConditioner::create([
-            'id' => $request->id,
-            'air_conditioners_model' => $request->air_conditioners_model,
-            'air_conditioners_capacity' => $request->air_conditioners_capacity,
-            'site_id' => $request->site_id,
-        ]);
 
-        session()->flash('success', 'Air Conditioner Created Successfully.');
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        return redirect()->route('airconditioners.index');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
+
+            $airConditioner = AirConditioner::create($request->all());
+
+            Notification::route('mail', 'exodosbob@gmail.com') //Sending mail to subscriber
+            ->notify(new AirConditionerCreateNotify($airConditioner));
+
+            session()->flash('success', 'Air Conditioner Created Successfully.');
+            return redirect()->route('airconditioners.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('airconditioners.index');
+        }
+
     }
 
     /**
@@ -101,25 +130,48 @@ class AirConditionerController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return string
      */
+
     public function update(Request $request, $id)
     {
-        $air_id = AirConditioner::find($id);
+
+        $airConditioner = AirConditioner::find($id);
         $this->validate($request, [
-            'id' => 'required|unique:air_conditioners',
+            'id' => 'required|min:6|max:6',
+            'air_conditioners_type' => 'required',
             'air_conditioners_model' => 'required',
             'air_conditioners_capacity' => 'required',
-            'site_id' => 'required'
+            'functional_type' => 'required',
+            'gas_type' => 'required',
+            'lld_number' => 'required',
+            'commission_date' => 'required',
+            'site_id' => 'required',
         ]);
 
-        $input = $request->all();
 
-        $air_id->fill($input)->save();
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        session()->flash('updated', 'Air Conditioners Successfully Updated!');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        return redirect()->route('airconditioners.index');
+            $input = $request->all();
+            $airConditioner->fill($input)->save();
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new AirConditionerUpdateNotify($airConditioner));
+
+            session()->flash('updated', 'Air Conditioners Successfully Updated!');
+            return redirect()->route('airconditioners.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('airconditioners.index');
+        }
+
+
     }
 
     /**
@@ -130,12 +182,26 @@ class AirConditionerController extends Controller
      */
     public function destroy($id)
     {
-        $air_conditioner = AirConditioner::find($id);
-        $air_conditioner->delete();
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        session()->flash('deleted', 'Air Conditioners Successfully Deleted!');
+            $airConditioner = AirConditioner::find($id);
+            $airConditioner->delete();
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new AirConditionerDeleteNotify($airConditioner));
 
-        return redirect()->route('airconditioners.index');
+            session()->flash('deleted', 'Air Conditioners Successfully Deleted!');
+            return redirect()->route('airconditioners.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('airconditioners.index');
+        }
+
     }
 }

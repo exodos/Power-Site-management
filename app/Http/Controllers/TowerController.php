@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SolarPanel;
 use App\Models\Tower;
+use App\Notifications\SolarPanelCreateNotify;
+use App\Notifications\TowerCreateNotify;
+use App\Notifications\TowerDeleteNotify;
+use App\Notifications\TowerUpdateNotify;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\View;
+use Swift_SmtpTransport;
 
 class TowerController extends Controller
 {
@@ -17,6 +23,7 @@ class TowerController extends Controller
         $this->middleware('permission:site-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:site-delete', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,11 +31,16 @@ class TowerController extends Controller
      */
     public function index()
     {
-        if (Auth::guest()){
-            return redirect()->route('login');
-        }
-        $towers = Tower::paginate(10);
+        $search = request()->query('search');
+        if ($search) {
+            $towers = Tower::where('id', 'LIKE', "%{$search}%")
+                ->orWhere('towers_type', 'LIKE', "%{$search}%")
+                ->orWhere('towers_brand', 'LIKE', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $towers = Tower::latest()->paginate(10);
 
+        }
         return view('towers.index', compact('towers'));
     }
 
@@ -46,39 +58,56 @@ class TowerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
         $this->validate($request, [
-            'id' => 'required|unique:towers',
-            'towers_brand' => 'required',
+            'id' => 'required|unique:towers|min:6|max:6',
+            'towers_type' => 'required',
             'towers_height' => 'required',
-            'towers_load_capacity' => 'required',
+            'towers_brand' => 'required',
+            'towers_soil_type' => 'required',
+            'towers_foundation_type' => 'required',
+            'towers_design_load_capacity' => 'required',
             'towers_sharing_operator' => 'required',
-            'site_id'=>'required'
+            'tower_used_load_capacity' => 'required',
+            'ethio_antenna_weight' => 'required',
+            'ethio_antenna_height' => 'required',
+            'operator_antenna_height' => 'required',
+            'operator_tower_load' => 'required',
+            'operator_antenna_weight' => 'required',
+            'tower_installation_date' => 'required',
+            'site_id' => 'required',
         ]);
 
-        Tower::create([
-            'id' => $request->id,
-            'towers_brand' => $request->towers_brand,
-            'towers_height' => $request->towers_height,
-            'towers_load_capacity' => $request->towers_load_capacity,
-            'towers_sharing_operator' => $request->towers_sharing_operator,
-            'site_id'=>$request->site_id
-        ]);
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        session()->flash('success', 'Tower Created Successfully.');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        return redirect()->route('towers.index');
+
+            $tower = Tower::create($request->all());
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new TowerCreateNotify($tower));
+            session()->flash('success', 'Tower Created Successfully.');
+            return redirect()->route('towers.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('towers.index');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -89,7 +118,7 @@ class TowerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -103,48 +132,80 @@ class TowerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $towers_id = Tower::find($id);
+        $tower = Tower::find($id);
 
         $this->validate($request, [
-            'id' => 'required|unique:towers',
-            'towers_brand' => 'required',
+            'id' => 'required|min:6|max:6',
+            'towers_type' => 'required',
             'towers_height' => 'required',
-            'towers_load_capacity' => 'required',
+            'towers_brand' => 'required',
+            'towers_soil_type' => 'required',
+            'towers_foundation_type' => 'required',
+            'towers_design_load_capacity' => 'required',
             'towers_sharing_operator' => 'required',
-            'site_id'=>'required',
+            'tower_used_load_capacity' => 'required',
+            'ethio_antenna_weight' => 'required',
+            'ethio_antenna_height' => 'required',
+            'operator_antenna_height' => 'required',
+            'operator_tower_load' => 'required',
+            'operator_antenna_weight' => 'required',
+            'tower_installation_date' => 'required',
+            'site_id' => 'required',
         ]);
 
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        $input = $request->all();
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        $towers_id->fill($input)->save();
-
-        session()->flash('updated', 'Towers Successfully Updated!');
-
-        return redirect()->route('towers.index');
+            $input = $request->all();
+            $tower->fill($input)->save();
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new TowerUpdateNotify($tower));
+            session()->flash('updated', 'Towers Successfully Updated!');
+            return redirect()->route('towers.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('towers.index');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        $tower = Tower::find($id);
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        $tower->delete();
-
-        session()->flash('deleted', 'Tower Successfully Deleted!');
-
-        return redirect()->route('towers.index');
+            $tower = Tower::find($id);
+            $tower->delete();
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new TowerDeleteNotify($tower));
+            session()->flash('deleted', 'Tower Successfully Deleted!');
+            return redirect()->route('towers.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('towers.index');
+        }
     }
 }

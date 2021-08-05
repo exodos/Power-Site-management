@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Site;
+use App\Notifications\SiteCreateNotify;
+use App\Notifications\SiteDeleteNotify;
+use App\Notifications\SiteUpdateNotify;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
+use Swift_SmtpTransport;
 
 class SiteController extends Controller
 {
@@ -35,9 +40,18 @@ class SiteController extends Controller
 
     public function index()
     {
-        $sites = Site::latest()->paginate(10);
-        return view('sites.index', compact('sites'));
+        $search = request()->query('search');
+        if ($search) {
+            $sites = Site::where('id', 'LIKE', "%{$search}%")
+                ->orWhere('sites_name', 'LIKE', "%{$search}%")
+                ->orWhere('ps_configuration', 'LIKE', "%{$search}%")
+                ->orWhere('monitoring_status', 'LIKE', "{$search}")
+                ->paginate(10);
+        } else {
+            $sites = Site::latest()->paginate(10);
+        }
 
+        return view('sites.index', compact('sites'));
     }
 
     /**
@@ -60,25 +74,53 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'id' => 'required|unique:sites',
+            'id' => 'required|unique:sites|min:6|max:6',
             'sites_name' => 'required',
+            'ps_configuration' => 'required',
+            'monitoring_status' => 'required',
             'sites_latitude' => 'required',
             'sites_longitude' => 'required',
             'sites_region_zone' => 'required',
             'sites_political_region' => 'required',
-            'sites_category' => 'required',
+            'sites_location' => 'required',
             'sites_class' => 'required',
             'sites_value' => 'required',
             'sites_type' => 'required',
-            'sites_configuration' => 'required',
-            'monitoring_system_name' => 'required',
-            'commercial_power_line_voltage' => 'required',
+            'maintenance_center' => 'required',
+            'distance_mc' => 'required',
+            'list_of_ne' => 'required',
+            'number_of_towers' => 'required',
+            'number_of_generator' => 'required',
+            'number_of_airconditioners' => 'required',
+            'number_of_rectifiers' => 'required',
+            'number_of_solar_system' => 'required',
+            'number_of_down_links'=>'required'
         ]);
 
-        Site::create($request->all());
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        session()->flash('success', 'Site Created Successfully.');
-        return redirect()->route('sites.index');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
+
+            $site = Site::create($request->all());
+
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new SiteCreateNotify($site));
+
+            session()->flash('success', 'Site Created Successfully.');
+            return redirect()->route('sites.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('sites.index');
+        } catch (\Exception $e) {
+            session()->flash('unable', 'Cannot Update Site With This Id!');
+            return redirect()->route('sites.index');
+        }
+
     }
 
     /**
@@ -94,31 +136,17 @@ class SiteController extends Controller
         if (empty($sites)) {
             redirect()->route('sites.index');
         }
-        $sites = $sites->load('air_conditioners', 'batteries', 'powers', 'rectifiers', 'solar_panels', 'towers', 'ups', 'work_orders');
-
-//        $site = $site->load('batteries');
-//        $airconditioners_id = $site->air_conditioners_id;
-////        $airconditioner = AirConditioner::find($airconditioners_id);
-//        $batteries_id = $site->batteries_id;
-//        $battery = Battery::find($batteries_id);
-//        $power_id = $site->powers_id;
-//        $powers = Power::find($power_id);
-//        $rectifiers_id = $site->rectifiers_id;
-//        $rectifiers = Rectifier::find($rectifiers_id);
-//        $solar_panels_id = $site->solar_panels_id;
-//        $solar_panels = SolarPanel::find($solar_panels_id);
-//        $tower_id = $site->towers_id;
-//        $towers = Tower::find($tower_id);
-//        $ups_id = $site->ups_id;
-//        $ups = Ups::find($ups_id);
-//        $work_orders_id = $site->work_orders_id;
-//        $work_orders = WorkOrder::find($work_orders_id);
-
+//        $sites = $sites->load('air_conditioners', 'batteries', 'powers', 'rectifiers', 'solar_panels', 'towers', 'ups', 'work_orders');
 
         return view('sites.show', compact('site'));
 
-//       die(print_r($airconditioners));
     }
+
+    public function search()
+    {
+        return view('sites.search');
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -142,54 +170,55 @@ class SiteController extends Controller
     public function update(Request $request, Site $site)
     {
         request()->validate([
-            'id' => 'required',
+            'id' => 'required|min:6|max:6',
             'sites_name' => 'required',
+            'ps_configuration' => 'required',
+            'monitoring_status' => 'required',
             'sites_latitude' => 'required',
             'sites_longitude' => 'required',
             'sites_region_zone' => 'required',
             'sites_political_region' => 'required',
-            'sites_category' => 'required',
+            'sites_location' => 'required',
             'sites_class' => 'required',
             'sites_value' => 'required',
             'sites_type' => 'required',
-            'sites_configuration' => 'required',
-            'monitoring_system_name' => 'required',
-            'commercial_power_line_voltage' => 'required',
-            'distance_maintenance_center' => 'required',
+            'maintenance_center' => 'required',
+            'distance_mc' => 'required',
+            'list_of_ne' => 'required',
+            'number_of_towers' => 'required',
+            'number_of_generator' => 'required',
+            'number_of_airconditioners' => 'required',
+            'number_of_rectifiers' => 'required',
+            'number_of_solar_system' => 'required',
+            'number_of_down_links'=>'required'
         ]);
 
-        $site->update($request->all());
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        session()->flash('updated', 'Sites Successfully Updated!');
-        return redirect()->route('sites.index');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
+            $site->update($request->all());
+
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new SiteUpdateNotify($site));
+
+            session()->flash('updated', 'Sites Successfully Updated!');
+            return redirect()->route('sites.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('sites.index');
+        } catch (\Exception $e) {
+
+            session()->flash('unable', 'Cannot Update Site With This Id!');
+            return redirect()->route('sites.index');
+        }
 
 //        $site->update($request->all());
-//        $sites_id = Site::find($site);
-//
-//        $this->validate($request, [
-//            'id' => 'required',
-//            'sites_name' => 'required',
-//            'sites_latitude' => 'required',
-//            'sites_longitude' => 'required',
-//            'sites_region_zone' => 'required',
-//            'sites_political_region' => 'required',
-//            'sites_category' => 'required',
-//            'sites_class' => 'required',
-//            'sites_value' => 'required',
-//            'sites_type' => 'required',
-//            'sites_configuration' => 'required',
-//            'monitoring_system_name' => 'required',
-//            'commercial_power_line_voltage' => 'required',
-//            'distance_maintenance_center' => 'required',
-//        ]);
-//
-//        $input = $request->all();
-//        $sites_id->fill($input)->save();
-//
-//        session()->flash('updated', 'Sites Successfully Updated!');
-//
-//        return redirect()->route('sites.index');
 
 
     }
@@ -204,12 +233,44 @@ class SiteController extends Controller
     public function destroy(Site $site)
     {
         try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
+
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
+
             $site->delete();
+
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new SiteDeleteNotify($site));
+
+            session()->flash('deleted', 'Site Successfully Deleted!');
+            return redirect()->route('sites.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+//            session()->flash('connection', 'Connection Error! Please Check If You Have Internet Connection');
+            session()->flash('connection', $message);
+            return redirect()->route('sites.index');
+        } catch (\Exception $e) {
+
+            session()->flash('unable', 'Cannot Delete Site With This Id: Please Check If This Site Id Is Connected To Any Devices');
+            return redirect()->route('sites.index');
+        }
+
+        /*
+        try {
+            $site->delete();
+
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new SiteDeleteNotify($site));
+
             session()->flash('deleted', 'Site Successfully Deleted!');
             return redirect()->route('sites.index');
         } catch (QueryException $e) {
             session()->flash('unable', 'Integrity constraint violation: Cannot Delete Site With This Id!');
             return redirect()->route('sites.index');
-        }
+        }*/
     }
+
 }

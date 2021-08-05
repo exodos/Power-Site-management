@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Power;
 use App\Models\Rectifier;
+use App\Notifications\PowerDeleteNotify;
+use App\Notifications\RectifierCreateNotify;
+use App\Notifications\RectifierDeleteNotify;
+use App\Notifications\RectifierUpdateNotify;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\View;
+use Swift_SmtpTransport;
 
 class RectifierController extends Controller
 {
@@ -17,6 +23,7 @@ class RectifierController extends Controller
         $this->middleware('permission:site-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:site-delete', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +31,16 @@ class RectifierController extends Controller
      */
     public function index()
     {
-        if (Auth::guest()){
-            return redirect()->route('login');
+        $search = request()->query('search');
+        if ($search) {
+            $rectifiers = Rectifier::where('id', 'LIKE', "%{$search}%")
+                ->orWhere('rectifiers_model', 'LIKE', "%{$search}%")
+                ->orWhere('rectifiers_capacity', 'LIKE', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $rectifiers = Rectifier::latest()->paginate(10);
+
         }
-        $rectifiers = Rectifier::paginate(10);
 
         return view('rectifiers.index', compact('rectifiers'));
     }
@@ -46,38 +59,54 @@ class RectifierController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
         $this->validate($request, [
-            'id' => 'required|unique:rectifiers',
+            'id' => 'required|unique:rectifiers|min:6|max:6',
             'rectifiers_model' => 'required',
-            'number_of_rectifiers' => 'required',
             'rectifiers_capacity' => 'required',
-            'site_id'=>'required'
+            'rectifiers_module_model' => 'required',
+            'number_of_rectifiers_model_slots' => 'required',
+            'rectifiers_module_capacity' => 'required',
+            'rectifier_module_Qty' => 'required',
+            'llvd_capacity' => 'required',
+            'blvd_capacity' => 'required',
+            'battery_fuess_Qty' => 'required',
+            'power_of_msag_msan_connected_company' => 'required',
+            'monitoring_system_name' => 'required',
+            'lld_number' => 'required',
+            'commission_date' => 'required',
+            'site_id' => 'required'
         ]);
 
-        Rectifier::create([
-            'id' => $request->id,
-            'rectifiers_model' => $request->rectifiers_model,
-            'number_of_rectifiers' => $request->number_of_rectifiers,
-            'rectifiers_capacity' => $request->rectifiers_capacity,
-            'site_id'=>$request->site_id
-        ]);
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        session()->flash('success', 'Rectifier Created Successfully.');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-
-        return redirect()->route('rectifiers.index');
+            $rectifier = Rectifier::create($request->all());
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new RectifierCreateNotify($rectifier));
+            session()->flash('success', 'Rectifier Created Successfully.');
+            return redirect()->route('rectifiers.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('rectifiers.index');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -88,7 +117,7 @@ class RectifierController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -102,49 +131,79 @@ class RectifierController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
 
-        $rectifiers_id = Rectifier::find($id);
+        $rectifier = Rectifier::find($id);
 
         $this->validate($request, [
-            'id' => 'required|unique:rectifiers',
+            'id' => 'required|min:6|max:6',
             'rectifiers_model' => 'required',
-            'number_of_rectifiers' => 'required',
             'rectifiers_capacity' => 'required',
-            'site_id'=>'required'
+            'rectifiers_module_model' => 'required',
+            'number_of_rectifiers_model_slots' => 'required',
+            'rectifiers_module_capacity' => 'required',
+            'rectifier_module_Qty' => 'required',
+            'llvd_capacity' => 'required',
+            'blvd_capacity' => 'required',
+            'battery_fuess_Qty' => 'required',
+            'power_of_msag_msan_connected_company' => 'required',
+            'monitoring_system_name' => 'required',
+            'lld_number' => 'required',
+            'commission_date' => 'required',
+            'site_id' => 'required'
         ]);
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        $input = $request->all();
-
-        $rectifiers_id->fill($input)->save();
-
-        session()->flash('updated', 'Rectifier Successfully Updated!');
-
-        return redirect()->route('rectifiers.index');
+            $input = $request->all();
+            $rectifier->fill($input)->save();
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new RectifierUpdateNotify($rectifier));
+            session()->flash('updated', 'Rectifier Successfully Updated!');
+            return redirect()->route('rectifiers.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('rectifiers.index');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
 
-        $rectifier = Rectifier::find($id);
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        $rectifier->delete();
-
-
-        session()->flash('deleted', 'Rectifier Successfully Deleted!');
-
-        return redirect()->route('rectifiers.index');
+            $rectifier = Rectifier::find($id);
+            $rectifier->delete();
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new RectifierDeleteNotify($rectifier));
+            session()->flash('deleted', 'Rectifier Successfully Deleted!');
+            return redirect()->route('rectifiers.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('rectifiers.index');
+        }
     }
 }

@@ -14,7 +14,7 @@ class AirConditionerSeeder extends Seeder
      */
     public function run()
     {
-        AirConditioner::factory(200)->create();
+        AirConditioner::factory(300)->create();
 
     }
 }

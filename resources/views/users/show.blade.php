@@ -6,16 +6,15 @@
 @section('content')
     <div class="container-fluid">
         <div class="text-right">
-            <a href="{{route('users.index')}}" class="btn btn-outline-info btn-lg nav-item mb-2"><i
-                    class="fas fa-caret-left"></i>
-                Back</a>
+            <a href="{{route('users.index')}}" class="btn btn-outline-info btn-sm mb-2"><i
+                    class="fas fa-caret-left fa-2x"></i></a>
         </div>
-        <div class="card border-primary mb-3">
-            <div class="card-header font-weight-bold">User Details</div>
+        <div class="card border-success mb-3">
+            <div class="card-header bg-gradient-primary font-weight-bold">User Details</div>
             <div class="card-body text-black-50">
                 <table class="table table-bordered">
                     <thead>
-                    <tr class="bg-primary">
+                    <tr class="bg-gradient-primary">
                         <th scope="col">Employee Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>

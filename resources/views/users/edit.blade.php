@@ -11,15 +11,14 @@
 @endsection
 
 @section('content')
-
     <div class="container">
         <div class="text-right">
             <a href="{{route('users.index')}}" class="btn btn-outline-info btn-lg nav-item mb-2"><i
                     class="fas fa-caret-left"></i>
                 Back</a>
         </div>
-        <div class="card border-primary">
-            <div class="card-header font-weight-bold bg-primary"><h3 class="mb-0">Edit User</h3></div>
+        <div class="card border-success">
+            <div class="card-header bg-success font-weight-bold bg-gradient-primary"><h3 class="mb-0">Edit User</h3></div>
             <div class="card-body">
                 @if($errors->any())
                     <div class="alert alert-danger">
@@ -32,25 +31,23 @@
                         </ul>
                     </div>
                 @endif
-
-
                 <form action="{{route('users.update', isset($user)?$user->id:'')}}" method="post">
                     @csrf
                     @method('put')
                     <div class="form-group">
                         <label for="employee_id">Employee Id</label>
                         <input type="number" class="form-control" id="employee_id"
-                               name="employee_id" placeholder="{{$user->employee_id}}">
+                               name="employee_id" value="{{$user->employee_id}}">
                     </div>
                     <div class="form-group">
                         <label for="name">User Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="{{$user->name}}"
+                        <input type="text" class="form-control" id="name" value="{{$user->name}}"
                                name="name">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email"
-                               name="email" placeholder="{{$user->email}}">
+                               name="email" value="{{$user->email}}">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -67,7 +64,7 @@
                         {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
                     </div>
                     <div class="form-group text-center">
-                        <button class="btn btn-success">Update User</button>
+                        <button class="btn btn-primary btn-lg">Update User</button>
                     </div>
                 </form>
             </div>

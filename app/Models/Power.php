@@ -15,11 +15,27 @@ class Power extends Model
 
     protected $fillable = [
         'id',
-        'powers_type',
-        'dg_model',
-        'dg_capacity',
+        'generator_type',
+        'generator_capacity',
+        'engine_model',
         'fuel_tanker_capacity',
-        'site_id',
+        'alternator_model',
+        'alternator_capacity',
+        'controller_mode_model',
+        'ats_model',
+        'ats_capacity',
+        'generator_foundation_size',
+        'fuel_tank_foundation_size',
+        'fuel_tanker_type',
+        'fuel_tank_Qty',
+        'starter_battery_capacity',
+        'starter_battery_type',
+        'functionality_status',
+        'dg_commission_date',
+        'dg_lld_number',
+        'grid_power_line_voltage_and_transformer_capacity',
+        'transformer_installation_date',
+        'site_id'
     ];
 
     protected $hidden = [

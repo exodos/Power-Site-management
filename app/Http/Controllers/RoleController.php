@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\RoleCreateNotify;
+use App\Notifications\RoleDeleteNotify;
+use App\Notifications\RoleUpdateNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Swift_SmtpTransport;
 
 class RoleController extends Controller
 {
@@ -30,7 +36,16 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        $search = request()->query('search');
+        if ($search) {
+            $roles = Role::where('id', 'LIKE', "%{$search}%")
+                ->orWhere('name', 'LIKE', "{$search}")
+                ->orderBy('id', 'DESC')
+                ->paginate(5);
+        } else {
+            $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        }
+//        $roles = Role::orderBy('id', 'DESC')->paginate(5);
 
         return view('roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -59,12 +74,25 @@ class RoleController extends Controller
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
         ]);
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+            $role = Role::create(['name' => $request->input('name')]);
+            $role->syncPermissions($request->input('permission'));
 
-        session()->flash('success', 'Role created successfully!');
-        return redirect()->route('roles.index');
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new RoleCreateNotify($role));
+            session()->flash('success', 'Role created successfully!');
+            return redirect()->route('roles.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('roles.index');
+        }
     }
 
     /**
@@ -113,15 +141,27 @@ class RoleController extends Controller
             'name' => 'required',
             'permission' => 'required',
         ]);
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
+            $role = Role::find($id);
+            $role->name = $request->input('name');
+            $role->save();
+            $role->syncPermissions($request->input('permission'));
 
-        $role->syncPermissions($request->input('permission'));
-
-        session()->flash('success', 'Role updated successfully!');
-        return redirect()->route('roles.index');
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new RoleUpdateNotify($role));
+            session()->flash('success', 'Role updated successfully!');
+            return redirect()->route('roles.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('roles.index');
+        }
     }
 
     /**
@@ -132,9 +172,24 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("roles")->where('id', $id)->delete();
+        try {
+            $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
+                ->setUsername('645ace6a2e58b0')
+                ->setPassword('68fbc1cbe10b31');
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
 
-        session()->flash('success', 'Role deleted successfully!');
-        return redirect()->route('roles.index');
+            $role = Role::find($id);
+            $role->delete();
+
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new RoleDeleteNotify($role));
+            session()->flash('success', 'Role deleted successfully!');
+            return redirect()->route('roles.index');
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            session()->flash('connection', $message);
+            return redirect()->route('roles.index');
+        }
     }
 }

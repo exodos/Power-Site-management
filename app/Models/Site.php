@@ -16,18 +16,25 @@ class Site extends Model
     protected $fillable = [
         'id',
         'sites_name',
+        'ps_configuration',
+        'monitoring_status',
         'sites_latitude',
         'sites_longitude',
         'sites_region_zone',
         'sites_political_region',
-        'sites_category',
+        'sites_location',
         'sites_class',
         'sites_value',
         'sites_type',
-        'sites_configuration',
-        'monitoring_system_name',
-        'commercial_power_line_voltage',
-        'distance_maintenance_center',
+        'maintenance_center',
+        'distance_mc',
+        'list_of_ne',
+        'number_of_towers',
+        'number_of_generator',
+        'number_of_airconditioners',
+        'number_of_rectifiers',
+        'number_of_solar_system',
+        'number_of_down_links'
     ];
 
     protected $hidden = [

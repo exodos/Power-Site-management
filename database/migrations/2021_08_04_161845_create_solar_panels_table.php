@@ -15,11 +15,19 @@ class CreateSolarPanelsTable extends Migration
     {
         Schema::create('solar_panels', function (Blueprint $table) {
             $table->bigInteger('id')->unsigned();
-            $table->integer('solar_panels_number');
-            $table->double('solar_panels_capacity');
-            $table->string('solar_panels_regulatory_model');
+            $table->integer('number_solar_system');
+            $table->string('solar_panel_type');
             $table->double('solar_panels_module_capacity');
+            $table->integer('number_of_arrays');
+            $table->string('solar_controller_type');
+            $table->double('regulator_capacity');
+            $table->integer('solar_regulator_Qty');
+            $table->integer('number_of_structure_group');
+            $table->double('solar_structure_front_height');
+            $table->double('solar_structure_rear_height');
+            $table->date('commission_date');
             $table->foreignId('site_id')->constrained('sites')->onUpdate('cascade');
+            $table->foreignId('work_order_id')->constrained('work_orders');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class CreateAdminUserSeeder extends Seeder
         $user = User::create([
             'employee_id'=>'8820',
             'name' => 'Administrator',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@ethiotelecom.et',
             'password' => bcrypt('123456')
         ]);
 

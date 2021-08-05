@@ -15,10 +15,20 @@ class Tower extends Model
 
     protected $fillable = [
         'id',
-        'towers_brand',
+        'towers_type',
         'towers_height',
-        'towers_load_capacity',
+        'towers_brand',
+        'towers_soil_type',
+        'towers_foundation_type',
+        'towers_design_load_capacity',
         'towers_sharing_operator',
+        'tower_used_load_capacity',
+        'ethio_antenna_weight',
+        'ethio_antenna_height',
+        'operator_antenna_height',
+        'operator_tower_load',
+        'operator_antenna_weight',
+        'tower_installation_date',
         'site_id',
     ];
     protected $hidden = [

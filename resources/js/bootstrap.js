@@ -12,7 +12,10 @@ try {
 
     require('bootstrap');
     require('admin-lte');
-} catch (e) {}
+    require('chart.js');
+    require('@fortawesome/fontawesome-free');
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

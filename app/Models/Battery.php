@@ -15,10 +15,16 @@ class Battery extends Model
 
     protected $fillable = [
         'id',
+        'batteries_type',
         'batteries_model',
-        'number_of_batteries_group',
+        'batteries_voltage',
         'batteries_capacity',
+        'number_of_batteries_banks',
+        'battery_holding_time',
+        'commission_date',
+        'lld_number',
         'site_id',
+
     ];
 
     protected $hidden = [

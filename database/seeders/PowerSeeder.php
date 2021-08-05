@@ -14,6 +14,6 @@ class PowerSeeder extends Seeder
      */
     public function run()
     {
-        Power::factory(200)->create();
+        Power::factory(300)->create();
     }
 }

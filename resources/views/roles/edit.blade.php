@@ -14,8 +14,8 @@
 @section('content')
 
     <div class="container">
-        <div class="card border-primary">
-            <div class="card-header font-weight-bold bg-primary"><h3 class="mb-0">Update Site</h3></div>
+        <div class="card border-success">
+            <div class="card-header font-weight-bold bg-gradient-primary"><h3 class="mb-0">Update Role</h3></div>
             <div class="card-body">
                 @if($errors->any())
                     <div class="alert alert-danger">
@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name"
-                               name="name" placeholder="{{$role->name}}">
+                               name="name" value="{{$role->name}}">
                     </div>
                     <div class="form-group">
                         <strong>Permission:</strong>
@@ -47,7 +47,7 @@
                         @endforeach
                     </div>
                     <div class="form-group text-center">
-                        <button class="btn btn-success">Update Role</button>
+                        <button class="btn btn-primary btn-lg">Update Role</button>
                     </div>
                 </form>
             </div>

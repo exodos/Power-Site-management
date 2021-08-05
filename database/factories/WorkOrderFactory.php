@@ -25,9 +25,6 @@ class WorkOrderFactory extends Factory
         return [
             'id' => $this->faker->unique()->randomNumber(),
             'work_orders_number' => $this->faker->sentence(1),
-            'site_id' => function () {
-                return Site::inRandomOrder()->first()->id;
-            },
         ];
     }
 }

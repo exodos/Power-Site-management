@@ -3,10 +3,10 @@
 @section('title')
     Work Orders Information
 @endsection
-@section('sitemap')
-    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{route('workorders.index')}}">Index</a></li>
-@endsection
+{{--@section('sitemap')--}}
+{{--    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>--}}
+{{--    <li class="breadcrumb-item active"><a href="{{route('workorders.index')}}">Index</a></li>--}}
+{{--@endsection--}}
 
 @section('content')
 
@@ -23,43 +23,81 @@
             <div class="alert alert-danger">
                 {{session()->get('deleted')}}
             </div>
+        @elseif(session()->has('connection'))
+            <div class="alert alert-danger">
+                {{session()->get('connection')}}
+            </div>
         @endif
-        <div class="card border-primary mb-3">
-            <div class="card-header font-weight-bold">Work Orders</div>
+        <div class="row">
+            <div class="col-md-4 col-xl-4 mb-3">
+                <div class="sidebar px-4 py-md-0">
+                    <form action="{{route('workorders.index')}}" class="input-group" method="get">
+                        <input type="text" class="form-control" name="search" placeholder="Search By Work Order Id Or Number">
+                        <div class="input-group-addon">
+                            <button id="search" type="button" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                @canany(['site-create','site-edit','site-delete'])
+                    <div class="text-right">
+                        <a href="{{route('workorders.create')}}" class="btn btn-outline-primary mb-2"><i
+                                class="fas fa-plus-square fa-2x"></i></a>
+                    </div>
+                @endcanany
+            </div>
+        </div>
+        <div class="card border-success mb-3">
+            <div class="card-header bg-gradient-primary font-weight-bold">Work Orders</div>
             <div class="card-body text-black-50">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr class="bg-primary">
-                        <th scope="col">Work Orders Id</th>
-                        <th scope="col">Work Order Number</th>
-                        <th scope="col">Site Id</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($workorders as $workorder)
-                        <tr>
-                            <th scope="row">{{ $workorder->id }}</th>
-                            <td>{{ $workorder->work_orders_number }}</td>
-                            <td>{{ $workorder->site_id }}</td>
-                            <td>{{ $workorder->created_at }}</td>
-                            <td>{{ $workorder->updated_at }}</td>
-                            <td><a href="{{route('workorders.edit', $workorder->id)}}"
-                                   class="btn btn-info btn-sm">Update</a></td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" onclick="handleDelete({{$workorder->id}})">
-                                    Delete
-                                </button>
-                            </td>
+                @if($workorders->isNotEmpty())
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="bg-gradient-primary">
+                            <th scope="col">Id</th>
+                            <th scope="col">Work Order Number</th>
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Updated At</th>
+                            @canany(['site-create','site-edit','site-delete'])
+                                <th scope="col">Update</th>
+                                <th scope="col">Delete</th>
+                            @endcanany
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($workorders as $workorder)
+                            <tr>
+                                <th scope="row">{{ $workorder->id }}</th>
+                                <td>{{ $workorder->work_orders_number }}</td>
+                                <td>{{ $workorder->site_id }}</td>
+                                <td>{{ $workorder->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $workorder->updated_at->format('Y-m-d') }}</td>
+                                @canany(['site-create','site-edit','site-delete'])
+                                    <td><a href="{{route('workorders.edit', $workorder->id)}}"
+                                           class="btn btn-primary btn-sm">Update</a></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm"
+                                                onclick="handleDelete({{$workorder->id}})">
+                                            Delete
+                                        </button>
+                                    </td>
+                                @endcanany
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="alert alert-danger px-4" role="alert">
+                        No results found for query {{ request()->query('search') }}
+                    </div>
+                @endif
                 <div class="d-flex justify-content-center">
-                    {!! $workorders->links() !!}
+                    {!! $workorders->appends(['search' => request()->query('search')])->links() !!}
+                    {{--                    {!! $airconditioners->appends(\Request::except('page'))->render() !!}--}}
                 </div>
             </div>
         </div>

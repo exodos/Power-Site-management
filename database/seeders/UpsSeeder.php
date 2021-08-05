@@ -14,6 +14,6 @@ class UpsSeeder extends Seeder
      */
     public function run()
     {
-        Ups::factory(200)->create();
+        Ups::factory(300)->create();
     }
 }

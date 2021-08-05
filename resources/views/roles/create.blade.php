@@ -12,8 +12,8 @@
 
 @section('content')
     <div class="container">
-        <div class="card border-primary">
-            <div class="card-header font-weight-bold bg-primary bg-primary"><h3 class="mb-0">Create New Roles</h3></div>
+        <div class="card border-success">
+            <div class="card-header font-weight-bold bg-gradient-primary"><h3 class="mb-0">Create New Roles</h3></div>
             <div class="card-body">
                 @if($errors->any())
                     <div class="alert alert-danger">
@@ -42,7 +42,7 @@
                         @endforeach
                     </div>
                     <div class="form-group text-center">
-                        <button class="btn btn-success">Add Role</button>
+                        <button class="btn btn-primary btn-lg">Add Role</button>
                     </div>
                 </form>
             </div>

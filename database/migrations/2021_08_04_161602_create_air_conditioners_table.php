@@ -15,9 +15,15 @@ class CreateAirConditionersTable extends Migration
     {
         Schema::create('air_conditioners', function (Blueprint $table) {
             $table->bigInteger('id')->unsigned();
+            $table->string('air_conditioners_type');
             $table->string('air_conditioners_model');
-            $table->double('air_conditioners_capacity');
+            $table->string('air_conditioners_capacity');
+            $table->string('functional_type');
+            $table->string('gas_type');
+            $table->integer('lld_number');
+            $table->date('commission_date');
             $table->foreignId('site_id')->constrained('sites')->onUpdate('cascade');
+            $table->foreignId('work_order_id')->constrained('work_orders');
             $table->timestamps();
         });
     }

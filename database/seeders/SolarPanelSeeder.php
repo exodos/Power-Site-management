@@ -14,6 +14,6 @@ class SolarPanelSeeder extends Seeder
      */
     public function run()
     {
-        SolarPanel::factory(200)->create();
+        SolarPanel::factory(300)->create();
     }
 }

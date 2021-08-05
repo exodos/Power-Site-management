@@ -4,13 +4,12 @@
     AirConditioners Information
 @endsection
 
-@section('sitemap')
-    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{route('airconditioners.index')}}">Air Conditioner</a></li>
-@endsection
+{{--@section('sitemap')--}}
+{{--    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>--}}
+{{--    <li class="breadcrumb-item active"><a href="{{route('airconditioners.index')}}">Air Conditioner</a></li>--}}
+{{--@endsection--}}
 
 @section('content')
-
     <div class="container-fluid">
         @if(session()->has('success'))
             <div class="alert alert-success">
@@ -24,45 +23,98 @@
             <div class="alert alert-danger">
                 {{session()->get('deleted')}}
             </div>
+        @elseif(session()->has('connection'))
+            <div class="alert alert-danger">
+                {{session()->get('connection')}}
+            </div>
         @endif
-        <div class="card border-primary mb-3">
-            <div class="card-header font-weight-bold">Air Conditioners</div>
+        <div class="row">
+            <div class="col-md-4 col-xl-4">
+                <div class="sidebar px-4 py-md-0">
+                    <form action="{{route('airconditioners.index')}}" class="input-group" method="get">
+                        <input type="text" class="form-control" name="search"
+                               placeholder="Search By Air Conditioner Id, Type Or Model">
+                        <div class="input-group-addon">
+                            <button id="search" type="button" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                @canany(['site-create','site-edit','site-delete'])
+                    <div class="text-right">
+                        <a href="{{route('airconditioners.create')}}" class="btn btn-outline-primary mb-2"><i
+                                class="fas fa-plus-square fa-2x"></i></a>
+                    </div>
+                @endcanany
+            </div>
+        </div>
+        <div class="card border-success mb-3">
+            <div class="card-header bg-gradient-primary font-weight-bold">Air Conditioners</div>
             <div class="card-body text-black-50">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr class="bg-primary">
-                        <th scope="col">AirConditioner Id</th>
-                        <th scope="col">AirConditioner Model</th>
-                        <th scope="col">AirConditioner Capacity</th>
-                        <th scope="col">Site Id</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($airconditioners as $airconditioner)
-                        <tr>
-                            <th scope="row">{{ $airconditioner->id }}</th>
-                            <td>{{ $airconditioner->air_conditioners_model }}</td>
-                            <td>{{ $airconditioner->air_conditioners_capacity }}</td>
-                            <td>{{ $airconditioner->site_id }}</td>
-                            <td>{{ $airconditioner->created_at }}</td>
-                            <td>{{ $airconditioner->updated_at }}</td>
-                            <td><a href="{{route('airconditioners.edit', $airconditioner->id)}}"
-                                   class="btn btn-info btn-sm">Update</a></td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" onclick="handleDelete({{$airconditioner->id}})">
-                                    Delete
-                                </button>
-                            </td>
+                @if($airconditioners->isNotEmpty())
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                        <tr class="bg-gradient-primary">
+                            <th scope="col">Id</th>
+                            <th scope="col">Air Conditioner Type</th>
+                            <th scope="col">Air Conditioner Model</th>
+                            <th scope="col">Air Conditioner Capacity</th>
+                            <th scope="col">Functional Type</th>
+                            <th scope="col">Gas Type</th>
+                            <th scope="col">LLD Number</th>
+                            <th scope="col">Commission Date</th>
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Work Order Id</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Updated At</th>
+                            @canany(['site-create','site-edit','site-delete'])
+                                <th scope="col">Update</th>
+                                <th scope="col">Delete</th>
+                            @endcanany
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($airconditioners as $airconditioner)
+                            <tr>
+                                <th scope="row">{{ $airconditioner->id }}</th>
+                                <td>{{ $airconditioner->air_conditioners_type }}</td>
+                                <td>{{ $airconditioner->air_conditioners_model }}</td>
+                                <td>{{ $airconditioner->air_conditioners_capacity }}</td>
+                                <td>{{ $airconditioner->functional_type }}</td>
+                                <td>{{ $airconditioner->gas_type }}</td>
+                                <td>{{ $airconditioner->lld_number }}</td>
+                                <td>{{ $airconditioner->commission_date }}</td>
+                                <td>{{ $airconditioner->site_id }}</td>
+                                <td>{{$airconditioner->work_order_id}}</td>
+                                <td>{{ $airconditioner->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $airconditioner->updated_at->format('Y-m-d') }}</td>
+                                @can('site-edit')
+                                    <td><a href="{{route('airconditioners.edit', $airconditioner->id)}}"
+                                           class="btn btn-primary btn-sm">Update</a></td>
+                                @endcan
+                                @can('site-delete')
+                                    <td>
+                                        <button class="btn btn-danger btn-sm"
+                                                onclick="handleDelete({{$airconditioner->id}})">
+                                            Delete
+                                        </button>
+                                    </td>
+                                @endcan
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="alert alert-danger px-4" role="alert">
+                        No results found for query {{ request()->query('search') }}
+                    </div>
+                @endif
                 <div class="d-flex justify-content-center">
-                    {!! $airconditioners->links() !!}
+                    {!! $airconditioners->appends(['search' => request()->query('search')])->links() !!}
+                    {{--                    {!! $airconditioners->appends(\Request::except('page'))->render() !!}--}}
                 </div>
             </div>
         </div>

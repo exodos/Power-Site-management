@@ -15,9 +15,18 @@ class Ups extends Model
 
     protected $fillable = [
         'id',
+        'ups_type',
         'ups_model',
         'ups_capacity',
+        'input_pob_type',
+        'input_pob_capacity',
         'number_of_ups_model',
+        'battery_type',
+        'numbers_of_battery_banks',
+        'battery_capacity',
+        'battery_holding_time',
+        'lld_number',
+        'commission_date',
         'site_id',
     ];
 

@@ -15,10 +15,17 @@ class SolarPanel extends Model
 
     protected $fillable = [
         'id',
-        'solar_panels_number',
-        'solar_panels_capacity',
-        'solar_panels_regulatory_model',
+        'number_solar_system',
+        'solar_panel_type',
         'solar_panels_module_capacity',
+        'number_of_arrays',
+        'solar_controller_type',
+        'regulator_capacity',
+        'solar_regulator_Qty',
+        'number_of_structure_group',
+        'solar_structure_front_height',
+        'solar_structure_rear_height',
+        'commission_date',
         'site_id',
     ];
 

@@ -14,9 +14,8 @@ class CreateWorkOrdersTable extends Migration
     public function up()
     {
         Schema::create('work_orders', function (Blueprint $table) {
-            $table->bigInteger('id')->unsigned();
+            $table->bigIncrements('id')->unsigned();
             $table->string('work_orders_number');
-            $table->foreignId('site_id')->constrained('sites')->onUpdate('cascade');
             $table->timestamps();
         });
     }
