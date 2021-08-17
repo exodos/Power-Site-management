@@ -16,7 +16,7 @@ class UserUpdateNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $user
      */
     public function __construct($user)
     {
@@ -45,7 +45,7 @@ class UserUpdateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One User Has Been Updated With Id :' . $this->user->id)
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('users'))
             ->line('Thank you for using our application!');
     }
 

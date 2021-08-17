@@ -85,13 +85,14 @@ class PowerController extends Controller
             'dg_lld_number' => 'required',
             'grid_power_line_voltage_and_transformer_capacity' => 'required',
             'transformer_installation_date' => 'required',
-            'site_id' => 'required'
+            'site_id' => 'required',
+            'work_order_id' => 'required|unique:powers',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -166,13 +167,14 @@ class PowerController extends Controller
             'dg_lld_number' => 'required',
             'grid_power_line_voltage_and_transformer_capacity' => 'required',
             'transformer_installation_date' => 'required',
-            'site_id' => 'required'
+            'site_id' => 'required',
+            'work_order_id' => 'required',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -201,8 +203,8 @@ class PowerController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();

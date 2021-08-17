@@ -16,7 +16,7 @@ class RoleDeleteNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $role
      */
     public function __construct($role)
     {
@@ -45,7 +45,7 @@ class RoleDeleteNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Role Attribute With Id :' . $this->role->id . ' Has Been Deleted')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('roles'))
             ->line('Thank you for using our application!');
     }
 

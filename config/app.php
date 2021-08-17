@@ -1,5 +1,6 @@
 <?php
 
+use Felixkiss\UniqueWithValidator\ServiceProvider;
 use Maatwebsite\Excel\ExcelServiceProvider;
 
 return [
@@ -165,6 +166,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         ExcelServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
+        OwenIt\Auditing\AuditingServiceProvider::class,
+        Felixkiss\UniqueWithValidator\ServiceProvider::class,
 
 
         /*

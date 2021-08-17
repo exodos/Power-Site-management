@@ -16,7 +16,7 @@ class TowerUpdateNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $tower
      */
     public function __construct($tower)
     {
@@ -45,7 +45,7 @@ class TowerUpdateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Tower Attribute With Id ' . $this->tower->id . ' Has Been updated')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('towers'))
             ->line('Thank you for using our application!');
     }
 

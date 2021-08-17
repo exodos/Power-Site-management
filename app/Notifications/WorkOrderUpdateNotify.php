@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 class WorkOrderUpdateNotify extends Notification
 {
     use Queueable;
+
     public $workOrder;
 
     /**
@@ -19,13 +20,13 @@ class WorkOrderUpdateNotify extends Notification
      */
     public function __construct($workOrder)
     {
-        $this->workOrder=$workOrder;
+        $this->workOrder = $workOrder;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -36,7 +37,7 @@ class WorkOrderUpdateNotify extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -44,14 +45,14 @@ class WorkOrderUpdateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Work Order Attribute With Id ' . $this->workOrder->id . ' Has Been Updated')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->action('Notification Action', url('workorders'))
+            ->line('Thank you for using our application!');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)

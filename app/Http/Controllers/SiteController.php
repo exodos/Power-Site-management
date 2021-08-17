@@ -94,13 +94,14 @@ class SiteController extends Controller
             'number_of_airconditioners' => 'required',
             'number_of_rectifiers' => 'required',
             'number_of_solar_system' => 'required',
-            'number_of_down_links'=>'required'
+            'number_of_down_links' => 'required',
+            'work_order_id' => 'required|unique:sites',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -142,10 +143,10 @@ class SiteController extends Controller
 
     }
 
-    public function search()
-    {
-        return view('sites.search');
-    }
+//    public function search()
+//    {
+//        return view('sites.search');
+//    }
 
 
     /**
@@ -190,13 +191,14 @@ class SiteController extends Controller
             'number_of_airconditioners' => 'required',
             'number_of_rectifiers' => 'required',
             'number_of_solar_system' => 'required',
-            'number_of_down_links'=>'required'
+            'number_of_down_links' => 'required',
+            'work_order_id' => 'required',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -234,8 +236,8 @@ class SiteController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -257,20 +259,52 @@ class SiteController extends Controller
             session()->flash('unable', 'Cannot Delete Site With This Id: Please Check If This Site Id Is Connected To Any Devices');
             return redirect()->route('sites.index');
         }
+    }
 
-        /*
-        try {
-            $site->delete();
+    public function search(Request $request)
+    {
 
-            Notification::route('mail', 'exodosbob@gmail.com')
-                ->notify(new SiteDeleteNotify($site));
+        $ps_configuration = $request->input('ps_configuration');
+        $sites_region_zone = $request->input('sites_region_zone');
+        $sites_political_region = $request->input('sites_political_region');
 
-            session()->flash('deleted', 'Site Successfully Deleted!');
-            return redirect()->route('sites.index');
-        } catch (QueryException $e) {
-            session()->flash('unable', 'Integrity constraint violation: Cannot Delete Site With This Id!');
-            return redirect()->route('sites.index');
-        }*/
+        if ($ps_configuration && !$sites_region_zone && !$sites_political_region) {
+            $simpleSearch = Site::where('ps_configuration', 'LIKE', "%{$ps_configuration}%")
+                ->paginate(10);
+            $simpleSearch->appends(['ps_configuration' => $ps_configuration]);
+
+        } elseif ($ps_configuration && $sites_region_zone && !$sites_political_region) {
+            $simpleSearch = Site::where('ps_configuration', 'LIKE', "%{$ps_configuration}%")
+                ->where('sites_region_zone', 'LIKE', "%{$sites_region_zone}%")
+                ->paginate(10);
+            $simpleSearch->appends(['ps_configuration' => $ps_configuration, 'sites_region_zone' => $sites_region_zone]);
+
+        } else {
+            $simpleSearch = Site::where('ps_configuration', 'LIKE', "%{$ps_configuration}%")
+                ->where('sites_region_zone', 'LIKE', "%{$sites_region_zone}%")
+                ->where('sites_political_region', 'LIKE', "%{$sites_political_region}%")
+                ->paginate(10);
+            $simpleSearch->appends(['ps_configuration' => $ps_configuration, 'sites_region_zone' => $sites_region_zone, 'sites_political_region' => $sites_political_region]);
+        }
+
+        return View('sites.search')->with('data', $simpleSearch);
+
+
+//        if (!empty($ps_configuration) && empty($sites_region_zone) && empty($sites_political_region)) {
+//            $search = Site::where('ps_configuration', 'LIKE', "%{$ps_configuration}%")
+//                ->paginate(5);
+//        } elseif (!empty($ps_configuration) && !empty($sites_region_zone) && empty($sites_political_region)) {
+//            $search = Site::where('ps_configuration', 'LIKE', "%{$ps_configuration}%")
+//                ->where('sites_region_zone', 'LIKE', "%{$sites_region_zone}%")
+//                ->paginate(5);
+//        } else {
+//            $search = Site::where('ps_configuration', 'LIKE', "%{$ps_configuration}%")
+//                ->where('sites_region_zone', 'LIKE', "%{$sites_region_zone}%")
+//                ->where('sites_political_region', 'LIKE', "%{$sites_political_region}%")
+//                ->paginate(5);
+//        }
+
+//        return view('sites.search', compact('simpleSearch'));
     }
 
 }

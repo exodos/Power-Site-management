@@ -8,6 +8,38 @@
     <div class="container-fluid">
         <div class="card border-success mb-3">
             <div class="card-header bg-gradient-primary font-weight-bold">Search Site</div>
+            @isset($_GET['search'])
+                @empty($_GET['ps_configuration'])
+                    <div class="alert alert-danger mt-1" role="alert">
+                        The power source configuration field is required.
+                    </div>
+                @endempty
+                @empty($_GET['sites_region_zone'])
+                    <div class="alert alert-danger mt-1" role="alert">
+                        The sites region zone field is required.
+                    </div>
+                @endempty
+                @empty($_GET['sites_political_region'])
+                    <div class="alert alert-danger mt-1" role="alert">
+                        The sites political region field is required.
+                    </div>
+                @endempty
+                @empty($_GET['generator_type'])
+                    <div class="alert alert-danger mt-1" role="alert">
+                        The generator type field is required.
+                    </div>
+                @endempty
+                @empty($_GET['generator_capacity'])
+                    <div class="alert alert-danger mt-1" role="alert">
+                        The generator capacity field is required!.
+                    </div>
+                @endempty
+                @empty($_GET['fuel_tanker_capacity'])
+                    <div class="alert alert-danger mt-1" role="alert">
+                        The fuel tanker capacity field is required!.
+                    </div>
+                @endempty
+            @endisset
             <div class="card-body text-black-50">
                 <form action="{{route('search')}}" method="get">
                     @csrf
@@ -92,40 +124,6 @@
             </div>
         </div>
         @isset($_GET['search'])
-            <div class="alert alert-danger">
-                <ul class="list-group">
-                    @empty($_GET['ps_configuration'])
-                        <li class="list-group-item text-danger">
-                            The power source configuration field is required.
-                        </li>
-                    @endempty
-                    @empty($_GET['sites_region_zone'])
-                        <li class="list-group-item text-danger">
-                            The sites region zone field is required.
-                        </li>
-                    @endempty
-                    @empty($_GET['sites_political_region'])
-                        <li class="list-group-item text-danger">
-                            The sites political region field is required.
-                        </li>
-                    @endempty
-                    @empty($_GET['generator_type'])
-                        <li class="list-group-item text-danger">
-                            The generator type field is required.
-                        </li>
-                    @endempty
-                    @empty($_GET['generator_capacity'])
-                        <li class="list-group-item text-danger">
-                            The generator capacity field is required!.
-                        </li>
-                    @endempty
-                    @empty($_GET['fuel_tanker_capacity'])
-                        <li class="list-group-item text-danger">
-                            The fuel tanker capacity field is required!.
-                        </li>
-                    @endempty
-                </ul>
-            </div>
             @if(!empty($_GET['ps_configuration']) && !empty($_GET['sites_region_zone']) && !empty($_GET['sites_political_region']) && !empty($_GET['generator_type']) && !empty($_GET['generator_capacity']) && !empty($_GET['fuel_tanker_capacity']))
                 <div class="card border-success mb-3">
                     <div class="card-header bg-gradient-primary font-weight-bold">Site Details</div>

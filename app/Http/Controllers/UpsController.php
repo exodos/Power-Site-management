@@ -76,13 +76,14 @@ class UpsController extends Controller
             'battery_holding_time' => 'required',
             'lld_number' => 'required',
             'commission_date' => 'required',
-            'site_id' => 'required'
+            'site_id' => 'required',
+            'work_order_id' => 'required|unique:ups',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -150,12 +151,13 @@ class UpsController extends Controller
             'battery_holding_time' => 'required',
             'lld_number' => 'required',
             'commission_date' => 'required',
-            'site_id' => 'required'
+            'site_id' => 'required',
+            'work_order_id' => 'required',
         ]);
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -183,8 +185,8 @@ class UpsController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 

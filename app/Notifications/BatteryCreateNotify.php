@@ -10,7 +10,9 @@ use Illuminate\Notifications\Notification;
 class BatteryCreateNotify extends Notification
 {
     use Queueable;
+
     public $battery;
+
     /**
      * Create a new notification instance.
      *
@@ -24,7 +26,7 @@ class BatteryCreateNotify extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -35,7 +37,7 @@ class BatteryCreateNotify extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -43,14 +45,14 @@ class BatteryCreateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Battery Attribute With Id ' . $this->battery->id . ' Has Been Created')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->action('Notification Action', url('batteries'))
+            ->line('Thank you for using our application!');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)

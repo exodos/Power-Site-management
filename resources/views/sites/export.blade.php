@@ -21,6 +21,7 @@
         <th scope="col">Number Of Air Conditioners</th>
         <th scope="col">Number Of Rectifiers</th>
         <th scope="col">Number Of Solar System</th>
+        <th scope="col">Work Order Id</th>
         <th scope="col">Created At</th>
         <th scope="col">Updated At</th>
     </tr>
@@ -48,6 +49,7 @@
             <td>{{ $site->number_of_airconditioners }}</td>
             <td>{{ $site->number_of_rectifiers }}</td>
             <td>{{ $site->number_of_solar_system }}</td>
+            <td>{{$site->work_order_id}}</td>
             <td>{{ $site->created_at->format('Y-m-d') }}</td>
             <td>{{ $site->updated_at->format('Y-m-d') }}</td>
         </tr>

@@ -6,11 +6,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="text-right">
-            <a href="{{route('users.index')}}" class="btn btn-outline-info btn-sm mb-2"><i
+            <a href="{{route('users.index')}}" class="btn btn-outline-dark btn-sm mb-2"><i
                     class="fas fa-caret-left fa-2x"></i></a>
         </div>
-        <div class="card border-success mb-3">
-            <div class="card-header bg-gradient-primary font-weight-bold">User Details</div>
+        <div class="card border-dark mb-3">
+            <div class="card-header bg-gradient-gray-dark font-weight-bold">User Details</div>
             <div class="card-body text-black-50">
                 <table class="table table-bordered">
                     <thead>
@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{$user->employee_id}}</td>
+                        <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>

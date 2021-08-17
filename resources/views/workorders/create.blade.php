@@ -36,16 +36,6 @@
                         <label for="work_orders_number">Work Orders Number</label>
                         <input type="text" class="form-control" id="work_orders_number" name="work_orders_number">
                     </div>
-                    <div class="form-group">
-                        <label for="site_id">Site Id</label>
-                        <select class="form-control form-control-lg mb-3" name="site_id"
-                                id="site_id">
-                            <option value="">Please Select</option>
-                            @foreach(\App\Models\Site::all() as $sites)
-                                <option value="{{$sites->id}}">{{$sites->id}}</option>
-                            @endforeach
-                        </select>
-                    </div>
                     <div class="form-group text-center">
                         <button class="btn btn-primary btn-lg">Add</button>
                     </div>

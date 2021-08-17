@@ -6,15 +6,13 @@ use App\Models\AirConditioner;
 use App\Notifications\AirConditionerCreateNotify;
 use App\Notifications\AirConditionerDeleteNotify;
 use App\Notifications\AirConditionerUpdateNotify;
-use App\Notifications\SiteCreateNotify;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Notification;
 use Swift_SmtpTransport;
 
 class AirConditionerController extends Controller
 {
-
 
     function __construct()
     {
@@ -41,9 +39,7 @@ class AirConditionerController extends Controller
             $airconditioners = AirConditioner::latest()->paginate(10);
         }
 
-
         return view('airconditioners.index', compact('airconditioners'));
-
     }
 
     /**
@@ -54,6 +50,7 @@ class AirConditionerController extends Controller
     public function create()
     {
         return view('airconditioners.create');
+
     }
 
     /**
@@ -64,7 +61,6 @@ class AirConditionerController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'id' => 'required|unique:air_conditioners|min:6|max:6',
             'air_conditioners_type' => 'required',
@@ -75,30 +71,26 @@ class AirConditionerController extends Controller
             'lld_number' => 'required',
             'commission_date' => 'required',
             'site_id' => 'required',
+            'work_order_id' => 'required|unique:air_conditioners',
         ]);
-
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
-
             $airConditioner = AirConditioner::create($request->all());
-
-            Notification::route('mail', 'exodosbob@gmail.com') //Sending mail to subscriber
-            ->notify(new AirConditionerCreateNotify($airConditioner));
-
-            session()->flash('success', 'Air Conditioner Created Successfully.');
+            Notification::route('mail', 'exodosbob@gmail.com')
+                ->notify(new AirConditionerCreateNotify($airConditioner));
+            session()->flash('success', 'Air Conditioner Created Successfully');
             return redirect()->route('airconditioners.index');
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
             session()->flash('connection', $message);
             return redirect()->route('airconditioners.index');
         }
-
     }
 
     /**
@@ -121,7 +113,6 @@ class AirConditionerController extends Controller
     public function edit($id)
     {
         $air = AirConditioner::find($id);
-
         return View::make('airconditioners.edit')->with('air', $air);
     }
 
@@ -130,9 +121,8 @@ class AirConditionerController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return string
+     * @return \Illuminate\Http\Response
      */
-
     public function update(Request $request, $id)
     {
 
@@ -147,13 +137,13 @@ class AirConditionerController extends Controller
             'lld_number' => 'required',
             'commission_date' => 'required',
             'site_id' => 'required',
+            'work_order_id' => 'required',
         ]);
-
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -162,15 +152,13 @@ class AirConditionerController extends Controller
             $airConditioner->fill($input)->save();
             Notification::route('mail', 'exodosbob@gmail.com')
                 ->notify(new AirConditionerUpdateNotify($airConditioner));
-
-            session()->flash('updated', 'Air Conditioners Successfully Updated!');
+            session()->flash('updated', 'Air Conditioner Successfully Updated!');
             return redirect()->route('airconditioners.index');
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
             session()->flash('connection', $message);
             return redirect()->route('airconditioners.index');
         }
-
 
     }
 
@@ -184,8 +172,8 @@ class AirConditionerController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -194,14 +182,12 @@ class AirConditionerController extends Controller
             $airConditioner->delete();
             Notification::route('mail', 'exodosbob@gmail.com')
                 ->notify(new AirConditionerDeleteNotify($airConditioner));
-
-            session()->flash('deleted', 'Air Conditioners Successfully Deleted!');
+            session()->flash('deleted', 'Air Conditioner Successfully Deleted!');
             return redirect()->route('airconditioners.index');
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
             session()->flash('connection', $message);
             return redirect()->route('airconditioners.index');
         }
-
     }
 }

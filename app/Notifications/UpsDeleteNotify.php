@@ -45,7 +45,7 @@ class UpsDeleteNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Ups Attribute With Id ' . $this->ups->id . ' Has Been Deleted')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('ups'))
             ->line('Thank you for using our application!');
     }
 

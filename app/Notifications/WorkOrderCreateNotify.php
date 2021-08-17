@@ -44,7 +44,7 @@ class WorkOrderCreateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Work Order Attribute With Id ' . $this->workOrder->id . ' Has Been Created')
-                    ->action('Notification Action', url('/'))
+                    ->action('Notification Action', url('workorders'))
                     ->line('Thank you for using our application!');
     }
 

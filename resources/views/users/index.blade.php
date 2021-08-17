@@ -12,18 +12,26 @@
     <div class="container-fluid">
         @if(session()->has('success'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('success')}}
             </div>
         @elseif(session()->has('updated'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('updated')}}
             </div>
         @elseif(session()->has('deleted'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('deleted')}}
             </div>
         @elseif(session()->has('connection'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('connection')}}
             </div>
         @endif
@@ -32,7 +40,7 @@
                 <div class="sidebar px-4 py-md-0">
                     <form action="{{route('users.index')}}" class="input-group" method="get">
                         <input type="text" class="form-control" name="search"
-                               placeholder="Search By User Id, Employee Id Or Email"
+                               placeholder="Search By Employee Id, Employee Name Or Email"
                                value="{{request()->query('search')}}">
                         <div class="input-group-addon">
                             <button id="search" type="button" class="btn btn-primary">
@@ -45,32 +53,32 @@
             <div class="col">
                 @can('user-create')
                     <div class="text-right">
-                        <a href="{{route('users.create')}}" class="btn btn-outline-primary mb-2"><i
+                        <a href="{{route('users.create')}}" class="btn btn-outline-dark mb-2"><i
                                 class="fas fa-plus-square fa-2x"></i></a>
                     </div>
                 @endcan
             </div>
         </div>
-        <div class="card border-success mb-3">
-            <div class="card-header bg-gradient-primary font-weight-bold">User Information</div>
+        <div class="card border-dark mb-3">
+            <div class="card-header bg-gradient-gray-dark font-weight-bold">User Information</div>
             <div class="card-body text-black-50">
                 @if($data->isNotEmpty())
                     <table class="table table-bordered">
                         <thead>
                         <tr class="bg-gradient-primary">
-                            <th scope="col">Id</th>
                             <th scope="col">Employee Id</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Roles</th>
-                            <th width="280px">Action</th>
+                            @canany(['user-edit','user-delete'])
+                                <th width="280px">Action</th>
+                            @endcanany
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($data as $key => $user)
                             <tr>
-                                <th scope="row">{{ ++$i }}</th>
-                                <td>{{ $user->employee_id }}</td>
+                                <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>

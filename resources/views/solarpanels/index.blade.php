@@ -14,18 +14,26 @@
     <div class="container-fluid">
         @if(session()->has('success'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('success')}}
             </div>
         @elseif(session()->has('updated'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('updated')}}
             </div>
         @elseif(session()->has('deleted'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('deleted')}}
             </div>
         @elseif(session()->has('connection'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('connection')}}
             </div>
         @endif
@@ -36,7 +44,6 @@
                         <input type="text" class="form-control" name="search" placeholder="Search By Id, Number Of Solar System Or Solar Panel Type"
                                value="{{request()->query('search')}}">
                         <div class="input-group-addon">
-                            {{--                            <span class="input-group-text"><i class="fas fa-search"></i></span>--}}
                             <button id="search" type="button" class="btn btn-primary">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -45,19 +52,19 @@
                 </div>
             </div>
             <div class="col">
-                @canany(['site-create','site-edit','site-delete'])
+                @can('site-create')
                     <div class="text-right">
-                        <a href="{{route('solarpanels.create')}}" class="btn btn-outline-primary mb-2"><i
+                        <a href="{{route('solarpanels.create')}}" class="btn btn-outline-dark mb-2"><i
                                 class="fas fa-plus-square fa-2x"></i></a>
                     </div>
-                @endcanany
+                @endcan
             </div>
         </div>
-        <div class="card border-success mb-3">
-            <div class="card-header bg-gradient-primary font-weight-bold">Solar Panel</div>
+        <div class="card border-dark mb-3">
+            <div class="card-header bg-gradient-gray-dark font-weight-bold">Solar Panel</div>
             <div class="card-body text-black-50">
                 @if($solarpanels->isNotEmpty())
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-bordered table-responsive border-primary">
                         <thead>
                         <tr class="bg-gradient-primary">
                             <th scope="col">Id</th>
@@ -73,12 +80,15 @@
                             <th scope="col">Solar Structure Rear Height</th>
                             <th scope="col">Commission Date</th>
                             <th scope="col">Site Id</th>
+                            <th scope="col">Work Order Id</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
-                            @canany(['site-create','site-edit','site-delete'])
+                            @can('site-edit')
                                 <th scope="col">Update</th>
+                            @endcan
+                            @can('site-delete')
                                 <th scope="col">Delete</th>
-                            @endcanany
+                            @endcan
                         </tr>
                         </thead>
                         <tbody>
@@ -97,18 +107,22 @@
                                 <td>{{ $solarpanel->solar_structure_rear_height }}</td>
                                 <td>{{ $solarpanel->commission_date }}</td>
                                 <td>{{ $solarpanel->site_id }}</td>
+                                <td>{{$solarpanel->work_order_id}}</td>
                                 <td>{{ $solarpanel->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $solarpanel->updated_at->format('Y-m-d') }}</td>
-                                @canany(['site-create','site-edit','site-delete'])
+                                @can('site-edit')
                                     <td><a href="{{route('solarpanels.edit', $solarpanel->id)}}"
-                                           class="btn btn-primary btn-sm">Update</a></td>
+                                           class="btn btn-primary btn-sm">Update</a>
+                                    </td>
+                                @endcan
+                                @can('site-delete')
                                     <td>
                                         <button class="btn btn-danger btn-sm"
                                                 onclick="handleDelete({{$solarpanel->id}})">
                                             Delete
                                         </button>
                                     </td>
-                                @endcanany
+                                @endcan
                             </tr>
                         @endforeach
                         </tbody>

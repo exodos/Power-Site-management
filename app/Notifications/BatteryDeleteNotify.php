@@ -45,7 +45,7 @@ class BatteryDeleteNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Battery Attribute With Id ' . $this->battery->id . ' Has Been Deleted')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('batteries'))
             ->line('Thank you for using our application!');
     }
 

@@ -6,11 +6,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="text-right">
-            <a href="{{route('sites.index')}}" class="btn btn-outline-primary mb-1"><i
+            <a href="{{route('sites.index')}}" class="btn btn-outline-dark mb-1"><i
                     class="fas fa-caret-left fa-2x"></i></a>
         </div>
         <div class="card border-success mb-3">
-            <div class="card-header bg-gradient-primary font-weight-bold">Site Details</div>
+            <div class="card-header bg-gradient-gray-dark font-weight-bold">Site Details</div>
             <div class="card-body text-black-50">
                 <table class="table table-bordered table-responsive">
                     <thead>
@@ -34,6 +34,7 @@
                         <th scope="col">Number Of Air Conditioners</th>
                         <th scope="col">Number Of Rectifiers</th>
                         <th scope="col">Number Of Solar System</th>
+                        <th scope="col">Work Order Id</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Updated At</th>
                     </tr>
@@ -59,6 +60,7 @@
                         <td>{{ $site->number_of_airconditioners }}</td>
                         <td>{{ $site->number_of_rectifiers }}</td>
                         <td>{{ $site->number_of_solar_system }}</td>
+                        <td>{{$site->work_order_id}}</td>
                         <td>{{ $site->created_at }}</td>
                         <td>{{ $site->updated_at }}</td>
                     </tr>
@@ -69,7 +71,7 @@
         </div>
         @if($site->air_conditioners->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Air Conditioners Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Air Conditioners Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered">
                         <thead>
@@ -108,7 +110,7 @@
         @endif
         @if($site->batteries->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Battery Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Battery Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered">
                         <thead>
@@ -149,7 +151,7 @@
         @endif
         @if($site->powers->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Powers Source Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Generator Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered table-responsive">
                         <thead>
@@ -215,7 +217,7 @@
         @endif
         @if($site->rectifiers->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Rectifier Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Rectifier Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered table-responsive">
                         <thead>
@@ -268,7 +270,7 @@
         @endif
         @if($site->solar_panels->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Solar Panels Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Solar Panels Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered">
                         <thead>
@@ -317,7 +319,7 @@
         @endif
         @if($site->towers->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Towers Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Towers Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered table-responsive">
                         <thead>
@@ -372,7 +374,7 @@
         @endif
         @if($site->ups->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Ups Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Ups Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered">
                         <thead>
@@ -421,37 +423,8 @@
                 </div>
             </div>
         @endif
-        @if($site->work_orders->isNotEmpty())
-            <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-primary font-weight-bold">Work Orders Details</div>
-                <div class="card-body text-black-50">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr class="bg-gradient-primary">
-                            <th scope="col">Id</th>
-                            <th scope="col">Work Order Number</th>
-                            <th scope="col">Site Id</th>
-                            <th scope="col">Created At</th>
-                            <th scope="col">Updated At</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($site->work_orders as $workorder)
-                            <tr>
-                                <th scope="row">{{ $workorder->id }}</th>
-                                <td>{{ $workorder->work_orders_number }}</td>
-                                <td>{{ $workorder->site_id }}</td>
-                                <td>{{ $workorder->created_at->format('Y-m-d') }}</td>
-                                <td>{{ $workorder->updated_at->format('Y-m-d') }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        @endif
         <div class="text-right">
-            <a href="{{route('sites.index')}}" class="btn btn-outline-info btn-lg nav-item mb-2"><i
+            <a href="{{route('sites.index')}}" class="btn btn-outline-dark btn-lg nav-item mb-2"><i
                     class="fas fa-caret-left fa-2x"></i></a>
         </div>
     </div>

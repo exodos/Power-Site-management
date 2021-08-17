@@ -30,8 +30,8 @@
                 <form action="{{route('users.store')}}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="employee_id">Employee Id</label>
-                        <input type="number" class="form-control" id="employee_id" name="employee_id">
+                        <label for="id">Employee Id</label>
+                        <input type="number" class="form-control" id="id" name="id">
                     </div>
                     <div class="form-group">
                         <label for="name">User Name</label>

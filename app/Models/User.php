@@ -6,11 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, \OwenIt\Auditing\Auditable;
+
+//    protected static $logFillable = true;
 
     /**
      * The attributes that are mass assignable.
@@ -18,10 +21,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'employee_id',
+        'id',
         'name',
         'email',
         'password',
+    ];
+
+    protected $auditInclude = [
+        'id',
+        'name',
+        'email',
     ];
 
     /**

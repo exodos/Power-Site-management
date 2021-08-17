@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 class SolarPanelDeleteNotify extends Notification
 {
     use Queueable;
+
     public $solarPanel;
 
     /**
@@ -19,13 +20,13 @@ class SolarPanelDeleteNotify extends Notification
      */
     public function __construct($solarPanel)
     {
-        $this->solarPanel=$solarPanel;
+        $this->solarPanel = $solarPanel;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -36,7 +37,7 @@ class SolarPanelDeleteNotify extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -44,14 +45,14 @@ class SolarPanelDeleteNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Solar Panel Attribute With Id ' . $this->solarPanel->id . ' Has Been Deleted')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->action('Notification Action', url('solarpanels'))
+            ->line('Thank you for using our application!');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)

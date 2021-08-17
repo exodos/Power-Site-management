@@ -14,6 +14,7 @@
         <th scope="col">Solar Structure Rear Height</th>
         <th scope="col">Commission Date</th>
         <th scope="col">Site Id</th>
+        <th scope="col">Work Order Id</th>
         <th scope="col">Created At</th>
         <th scope="col">Updated At</th>
     </tr>
@@ -34,6 +35,7 @@
             <td>{{ $solarpanel->solar_structure_rear_height }}</td>
             <td>{{ $solarpanel->commission_date }}</td>
             <td>{{ $solarpanel->site_id }}</td>
+            <td>{{$solarpanel->work_order_id}}</td>
             <td>{{ $solarpanel->created_at->format('Y-m-d') }}</td>
             <td>{{ $solarpanel->updated_at->format('Y-m-d') }}</td>
         </tr>

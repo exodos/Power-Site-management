@@ -16,7 +16,7 @@ class AirConditionerUpdateNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param $air_id
+     * @param $airConditioner
      */
     public function __construct($airConditioner)
     {
@@ -45,7 +45,7 @@ class AirConditionerUpdateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of Air Conditioner Attribute With Id ' . $this->airConditioner->id . ' Has Been Updated')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('airconditioners'))
             ->line('Thank you for using our application!');
     }
 

@@ -57,12 +57,11 @@ class WorkOrderController extends Controller
         $this->validate($request, [
             'id' => 'required|unique:work_orders|max:6',
             'work_orders_number' => 'required',
-            'site_id' => 'required'
         ]);
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 
@@ -81,12 +80,17 @@ class WorkOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
-        //
+        $workOrders = WorkOrder::find($id);
+        if (empty($workOrders)){
+            redirect()->route('workorders.index');
+        }
+
+        return \view('workorders.show', compact('workOrders'));
     }
 
     /**
@@ -117,12 +121,11 @@ class WorkOrderController extends Controller
         $this->validate($request, [
             'id' => 'required|min:6|max:6',
             'work_orders_number' => 'required',
-            'site_id' => 'required',
         ]);
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 
@@ -150,8 +153,8 @@ class WorkOrderController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 

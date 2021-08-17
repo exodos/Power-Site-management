@@ -56,6 +56,11 @@
                         Role</a>
                 @endcanany
             </li>
+            <li class="nav-link">
+                @can('audit-list')
+                    <a class="btn btn-outline-primary btn-sm" role="button" href="{{route('audits')}}">View Log</a>
+                @endcan
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link btn" data-toggle="dropdown" href="#">
                     <i class="fas fa-user fa-lg"></i>
@@ -74,6 +79,9 @@
                             <i class="fas fa-edit mr-2"></i>Update
                         </a>
                     @endcan
+                    <a class="dropdown-item" href="{{route('change.password')}}">
+                        <i class="fas fa-key mr-2"></i>Change Password
+                    </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
@@ -128,7 +136,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-{{--                            <i class="icon fas fa-sitemap"></i>--}}
+                            {{--                            <i class="icon fas fa-sitemap"></i>--}}
                             <i class="icon fab fa-playstation"></i>
                             <p>
                                 Site Management
@@ -467,10 +475,101 @@
                                 </ul>
                             </li>
                         </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon fas fa-network-wired"></i>
+                            <p>
+                                Network Management
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fab fa-product-hunt"></i>
+                                    <p>
+                                        Port Usage
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('network-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('ports.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View Port Usage</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('network-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('ports.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add Port Usage</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['network-list','network-create','network-edit','network-delete'])
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="fas fa-file-export nav-icon"></i>
+                                                <p>Export Port Usage</p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-bold"></i>
+                                    <p>
+                                        Ip Address
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('network-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('ipaddresses.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View Ip Address</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('network-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('ipaddresses.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add Ip Address</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['network-list','network-create','network-edit','network-delete'])
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="fas fa-file-export nav-icon"></i>
+                                                <p>Export Ip Address</p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a href="{{route('search')}}" class="nav-link">
-                            <i class="icon fas fa-search-plus"></i>
+                            <i class="nav-icon fas fa-search-plus"></i>
                             <p> Advanced Search</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('sites.search')}}" class="nav-link">
+                            <i class="nav-icon fas fa-search"></i>
+                            <p>Simple Search</p>
                         </a>
                     </li>
                 </ul>
@@ -550,39 +649,62 @@
 <div class="modal fade" id="ModalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-{{--        <h1 class="card-img-top"><i class="fas fa-address-card fa-2x"></i></h1>--}}
-
-
+        {{--        <h1 class="card-img-top"><i class="fas fa-address-card fa-2x"></i></h1>--}}
 
 
         <div class="modal-content">
-            <div class="modal-header bg-gradient-primary text-center">
-                <h4 class="modal-title font-weight-bold">User Details</h4>
+            <div class="modal-header bg-gradient-success text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Your Details</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body mx-3">
-                @if (Auth()->check())
-                    <div class="md-form mb-3">
-                        <strong>Employee Id </strong>
-                        <br/>
-                        {{auth()->user()->employee_id}}
+            @if (Auth()->check())
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <i class="fas fa-id-card-alt fa-3x" style="color: #0c84ff"></i>
+                        </div>
+                        <div class="col-3">{{auth()->user()->id}}
+                        </div>
                     </div>
-                    <div class="md-form mb-3">
-                        <strong>Name </strong>
-                        <br/>
-                        {{auth()->user()->name}}
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <i class="fas fa-user fa-3x" style="color: #0c84ff"></i>
+                        </div>
+                        <div class="col-3">{{auth()->user()->name}}
+                        </div>
                     </div>
-                    <div class="md-form mb-3">
-                        <strong>Email </strong>
-                        <br/>
-                        {{auth()->user()->email}}
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <i class="fas fa-envelope fa-3x" style="color: #0c84ff"></i>
+                        </div>
+                        <div class="col-3">
+                            {{auth()->user()->email}}
+                        </div>
                     </div>
-                @endif
-            </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <i class="fab fa-critical-role fa-3x" style="color: #0c84ff"></i>
+                        </div>
+                        <div class="col-3">
+                            @if(!empty(auth()->user()->getRoleNames()))
+                                @foreach(auth()->user()->getRoleNames() as $v)
+                                    {{ $v }}
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -35,9 +35,9 @@
                     @csrf
                     @method('put')
                     <div class="form-group">
-                        <label for="employee_id">Employee Id</label>
-                        <input type="number" class="form-control" id="employee_id"
-                               name="employee_id" value="{{$user->employee_id}}">
+                        <label for="id">Employee Id</label>
+                        <input type="number" class="form-control" id="id"
+                               name="id" value="{{$user->id}}">
                     </div>
                     <div class="form-group">
                         <label for="name">User Name</label>
@@ -49,16 +49,16 @@
                         <input type="email" class="form-control" id="email"
                                name="email" value="{{$user->email}}">
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password"
-                               name="password" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm password</label>
-                        <input type="password" class="form-control" id="confirm-password"
-                               name="confirm-password" placeholder="Confirm Password">
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="password">Password</label>--}}
+{{--                        <input type="password" class="form-control" id="password"--}}
+{{--                               name="password" placeholder="Password">--}}
+{{--                    </div>--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label for="confirm-password">Confirm password</label>--}}
+{{--                        <input type="password" class="form-control" id="confirm-password"--}}
+{{--                               name="confirm-password" placeholder="Confirm Password">--}}
+{{--                    </div>--}}
                     <div class="form-group">
                         <strong>Role:</strong>
                         {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}

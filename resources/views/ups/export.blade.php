@@ -15,29 +15,31 @@
         <th scope="col">LLD Number</th>
         <th scope="col">Commission Date</th>
         <th scope="col">Site Id</th>
+        <th scope="col">Work Order Id</th>
         <th scope="col">Created At</th>
         <th scope="col">Updated At</th>
     </tr>
     </thead>
     <tbody>
-    @foreach($ups as $ups)
+    @foreach($ups as $up)
         <tr>
-            <th scope="row">{{ $ups->id }}</th>
-            <td>{{ $ups->ups_type }}</td>
-            <td>{{ $ups->ups_model }}</td>
-            <td>{{ $ups->ups_capacity }}</td>
-            <td>{{ $ups->input_pob_type }}</td>
-            <td>{{ $ups->input_pob_capacity }}</td>
-            <td>{{ $ups->number_of_ups_model }}</td>
-            <td>{{ $ups->battery_type }}</td>
-            <td>{{ $ups->numbers_of_battery_banks }}</td>
-            <td>{{ $ups->battery_capacity }}</td>
-            <td>{{ $ups->battery_holding_time }}</td>
-            <td>{{ $ups->lld_number }}</td>
-            <td>{{ $ups->commission_date }}</td>
-            <td>{{ $ups->site_id }}</td>
-            <td>{{ $ups->created_at->format('Y-m-d') }}</td>
-            <td>{{ $ups->updated_at->format('Y-m-d') }}</td>
+            <th scope="row">{{ $up->id }}</th>
+            <td>{{ $up->ups_type }}</td>
+            <td>{{ $up->ups_model }}</td>
+            <td>{{ $up->ups_capacity }}</td>
+            <td>{{ $up->input_pob_type }}</td>
+            <td>{{ $up->input_pob_capacity }}</td>
+            <td>{{ $up->number_of_ups_model }}</td>
+            <td>{{ $up->battery_type }}</td>
+            <td>{{ $up->numbers_of_battery_banks }}</td>
+            <td>{{ $up->battery_capacity }}</td>
+            <td>{{ $up->battery_holding_time }}</td>
+            <td>{{ $up->lld_number }}</td>
+            <td>{{ $up->commission_date }}</td>
+            <td>{{ $up->site_id }}</td>
+            <td>{{$up->work_order_id}}</td>
+            <td>{{ $up->created_at->format('Y-m-d') }}</td>
+            <td>{{ $up->updated_at->format('Y-m-d') }}</td>
         </tr>
     @endforeach
     </tbody>

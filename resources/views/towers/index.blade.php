@@ -13,18 +13,26 @@
     <div class="container-fluid">
         @if(session()->has('success'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('success')}}
             </div>
         @elseif(session()->has('updated'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('updated')}}
             </div>
         @elseif(session()->has('deleted'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('deleted')}}
             </div>
         @elseif(session()->has('connection'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('connection')}}
             </div>
         @endif
@@ -32,7 +40,8 @@
             <div class="col-md-4 col-xl-4 mb-3">
                 <div class="sidebar px-4 py-md-0">
                     <form action="{{route('towers.index')}}" class="input-group" method="get">
-                        <input type="text" class="form-control" name="search" placeholder="Search By Tower Id, Type Or Brand">
+                        <input type="text" class="form-control" name="search"
+                               placeholder="Search By Tower Id, Type Or Brand">
                         <div class="input-group-addon">
                             <button id="search" type="button" class="btn btn-primary">
                                 <i class="fas fa-search"></i>
@@ -42,19 +51,19 @@
                 </div>
             </div>
             <div class="col">
-                @canany(['site-create','site-edit','site-delete'])
+                @can('site-create')
                     <div class="text-right">
-                        <a href="{{route('towers.create')}}" class="btn btn-outline-primary mb-2"><i
+                        <a href="{{route('towers.create')}}" class="btn btn-outline-dark mb-2"><i
                                 class="fas fa-plus-square fa-2x"></i></a>
                     </div>
-                @endcanany
+                @endcan
             </div>
         </div>
-        <div class="card border-success mb-3">
-            <div class="card-header bg-gradient-primary font-weight-bold">Tower</div>
+        <div class="card border-dark mb-3">
+            <div class="card-header bg-gradient-gray-dark font-weight-bold">Tower</div>
             <div class="card-body text-black-50">
                 @if($towers->isNotEmpty())
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-bordered table-responsive border-primary">
                         <thead>
                         <tr class="bg-gradient-primary">
                             <th scope="col">Id</th>
@@ -73,12 +82,15 @@
                             <th scope="col">Operator Antenna Weight</th>
                             <th scope="col">Tower Installation Date</th>
                             <th scope="col">Site Id</th>
+                            <th scope="col">Work Order Id</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
-                            @canany(['site-create','site-edit','site-delete'])
+                            @can('site-edit')
                                 <th scope="col">Update</th>
+                            @endcan
+                            @can('site-delete')
                                 <th scope="col">Delete</th>
-                            @endcanany
+                            @endcan
                         </tr>
                         </thead>
                         <tbody>
@@ -100,17 +112,21 @@
                                 <td>{{ $tower->operator_antenna_weight }}</td>
                                 <td>{{ $tower->tower_installation_date }}</td>
                                 <td>{{ $tower->site_id }}</td>
+                                <td>{{$tower->work_order_id}}</td>
                                 <td>{{ $tower->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $tower->updated_at->format('Y-m-d') }}</td>
-                                @canany(['site-create','site-edit','site-delete'])
+                                @can('site-edit')
                                     <td><a href="{{route('towers.edit', $tower->id)}}"
-                                           class="btn btn-primary btn-sm">Update</a></td>
+                                           class="btn btn-primary btn-sm">Update</a>
+                                    </td>
+                                @endcan
+                                @can('site-delete')
                                     <td>
                                         <button class="btn btn-danger btn-sm" onclick="handleDelete({{$tower->id}})">
                                             Delete
                                         </button>
                                     </td>
-                                @endcanany
+                                @endcan
                             </tr>
                         @endforeach
                         </tbody>

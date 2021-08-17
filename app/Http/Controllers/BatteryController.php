@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AirConditioner;
 use App\Models\Battery;
-use App\Notifications\AirConditionerDeleteNotify;
 use App\Notifications\BatteryCreateNotify;
 use App\Notifications\BatteryDeleteNotify;
 use App\Notifications\BatteryUpdateNotify;
@@ -75,12 +73,13 @@ class BatteryController extends Controller
             'commission_date' => 'required',
             'lld_number' => 'required',
             'site_id' => 'required',
+            'work_order_id' => 'required|unique:batteries',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -145,12 +144,13 @@ class BatteryController extends Controller
             'commission_date' => 'required',
             'lld_number' => 'required',
             'site_id' => 'required',
+            'work_order_id' => 'required',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -179,8 +179,8 @@ class BatteryController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();

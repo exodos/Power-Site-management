@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\WorkOrder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,6 +25,8 @@ class DatabaseSeeder extends Seeder
             SolarPanelSeeder::class,
             TowerSeeder::class,
             UpsSeeder::class,
+            PortSeeder::class,
+            IpAddressSeeder::class,
         ]);
     }
 }

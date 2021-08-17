@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WorkOrder;
 use App\Notifications\UserCreateNotify;
 use App\Notifications\UserDeleteNotify;
 use App\Notifications\UserUpdateNotify;
-use App\Notifications\WorkOrderDeleteNotify;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -40,7 +38,7 @@ class UserController extends Controller
         $search = request()->query('search');
         if ($search) {
             $data = User::where('id', 'LIKE', "%{$search}%")
-                ->orWhere('employee_id', 'LIKE', "{$search}")
+                ->orWhere('name', 'LIKE', "{$search}")
                 ->orWhere('email', 'LIKE', "{$search}")
                 ->paginate(5);
         } else {
@@ -73,7 +71,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'employee_id' => 'required|unique:users',
+            'id' => 'required|unique:users',
             'name' => 'required',
             'email' => 'required|email|allowed_domain|unique:users,email',
             'password' => ['required', 'same:confirm-password', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
@@ -81,8 +79,8 @@ class UserController extends Controller
         ]);
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 
@@ -141,16 +139,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'employee_id' => 'required',
+            'id' => 'required',
             'name' => 'required',
             'email' => 'required|email|allowed_domain|unique:users,email,' . $id,
-            'password' => ['same:confirm-password', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
+//            'password' => ['same:confirm-password', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
             'roles' => 'required'
         ]);
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 
@@ -188,8 +186,8 @@ class UserController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 
@@ -197,7 +195,7 @@ class UserController extends Controller
             $user->delete();
             Notification::route('mail', 'exodosbob@gmail.com')
                 ->notify(new UserDeleteNotify($user));
-            session()->flash('success', 'User Deleted successfully.');
+            session()->flash('deleted', 'User Deleted successfully.');
             return redirect()->route('users.index');
         } catch (\Exception $exception) {
             $message = $exception->getMessage();

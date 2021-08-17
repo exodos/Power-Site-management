@@ -45,7 +45,7 @@ class WorkOrderDeleteNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Work Order Attribute With Id ' . $this->workOrder->id . ' Has Been Deleted')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('workorders'))
             ->line('Thank you for using our application!');
     }
 

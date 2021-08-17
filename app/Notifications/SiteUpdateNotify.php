@@ -44,7 +44,7 @@ class SiteUpdateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Site Attribute With Id ' . $this->site->id . ' Has Been Updated')
-                    ->action('Notification Action', url('/'))
+                    ->action('Notification Action', url('sites'))
                     ->line('Thank you for using our application!');
     }
 

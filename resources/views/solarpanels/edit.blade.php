@@ -103,8 +103,16 @@
                             @foreach(\Illuminate\Support\Facades\DB::table('sites')->where('ps_configuration','=','Solar Hybrid')->orWhere('ps_configuration','=','Pure Solar')->orderBy('id','ASC')->get() as $sites)
                                 <option value="{{$sites->id}}">{{$sites->id}}</option>
                             @endforeach
-
-
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="work_order_id">Work Order Id</label>
+                        <select class="form-control form-control-lg mb-3" name="work_order_id"
+                                id="work_order_id">
+                            <option value="none" selected disabled hidden>Please Select</option>
+                            @foreach(\App\Models\WorkOrder::all() as $workOrder)
+                                <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group text-center">

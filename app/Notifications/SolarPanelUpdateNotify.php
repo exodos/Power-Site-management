@@ -45,7 +45,7 @@ class SolarPanelUpdateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Solar Panel Attribute With Id ' . $this->solarPanel->id . ' Has Been Updated')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('solarpanels'))
             ->line('Thank you for using our application!');
     }
 

@@ -488,92 +488,490 @@ class HomeController extends Controller
             ->where('sites_region_zone', '=', 'SAAZ')
             ->where('ps_configuration', '=', 'Pure Solar')->count();
 
-
-        $NWRCount = Site::query()
+//        Generators
+        $NWRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'NWR')
             ->sum('number_of_generator');
-        $SWWRCount = Site::query()
+        $SWWRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'SWWR')
             ->sum('number_of_generator');
-        $NEERCount = Site::query()
+        $NEERGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'NEER')
             ->sum('number_of_generator');
-        $CNRCount = Site::query()
+        $CNRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'CNR')
             ->sum('number_of_generator');
-        $CWRCount = Site::query()
+        $CWRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'CWR')
             ->sum('number_of_generator');
-        $NERCount = Site::query()
+        $NERGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'NER')
             ->sum('number_of_generator');
-        $CERCount = Site::query()
+        $CERGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'CER')
             ->sum('number_of_generator');
-        $ERCount = Site::query()
+        $ERGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'ER')
             ->sum('number_of_generator');
-        $EERCount = Site::query()
+        $EERGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'EER')
             ->sum('number_of_generator');
-        $SSWRCount = Site::query()
+        $SSWRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'SSWR')
             ->sum('number_of_generator');
-        $NNWRCount = Site::query()
+        $NNWRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'NNWR')
             ->sum('number_of_generator');
-        $SRCount = Site::query()
+        $SRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'SR')
             ->sum('number_of_generator');
-        $SERCount = Site::query()
+        $SERGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'SER')
             ->sum('number_of_generator');
-        $WRCount = Site::query()
+        $WRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'WR')
             ->sum('number_of_generator');
-        $SWRCount = Site::query()
+        $SWRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'SWR')
             ->sum('number_of_generator');
-        $WWRCount = Site::query()
+        $WWRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'WWR')
             ->sum('number_of_generator');
-        $NRCount = Site::query()
+        $NRGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'NR')
             ->sum('number_of_generator');
-        $CAAZCount = Site::query()
+        $CAAZGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'CAAZ')
             ->sum('number_of_generator');
-        $WAAZCount = Site::query()
+        $WAAZGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'WAAZ')
             ->sum('number_of_generator');
-        $SWAAZCount = Site::query()
+        $SWAAZGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'SWAAZ')
             ->sum('number_of_generator');
-        $NAAZCount = Site::query()
+        $NAAZGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'NAAZ')
             ->sum('number_of_generator');
-        $EAAZCount = Site::query()
+        $EAAZGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'EAAZ')
             ->sum('number_of_generator');
-        $SAAZCount = Site::query()
+        $SAAZGeneratorCount = Site::query()
             ->where('sites_region_zone', '=', 'SAAZ')
             ->sum('number_of_generator');
 
+
+//        AirConditioner
+        $NWRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NWR')
+            ->sum('number_of_airconditioners');
+        $SWWRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWWR')
+            ->sum('number_of_airconditioners');
+        $NEERAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NEER')
+            ->sum('number_of_airconditioners');
+        $CNRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CNR')
+            ->sum('number_of_airconditioners');
+        $CWRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CWR')
+            ->sum('number_of_airconditioners');
+        $NERAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NER')
+            ->sum('number_of_airconditioners');
+        $CERAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CER')
+            ->sum('number_of_airconditioners');
+        $ERAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'ER')
+            ->sum('number_of_airconditioners');
+        $EERAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'EER')
+            ->sum('number_of_airconditioners');
+        $SSWRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SSWR')
+            ->sum('number_of_airconditioners');
+        $NNWRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NNWR')
+            ->sum('number_of_airconditioners');
+        $SRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SR')
+            ->sum('number_of_airconditioners');
+        $SERAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SER')
+            ->sum('number_of_airconditioners');
+        $WRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'WR')
+            ->sum('number_of_airconditioners');
+        $SWRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWR')
+            ->sum('number_of_airconditioners');
+        $WWRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'WWR')
+            ->sum('number_of_airconditioners');
+        $NRAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NR')
+            ->sum('number_of_airconditioners');
+        $CAAZAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CAAZ')
+            ->sum('number_of_airconditioners');
+        $WAAZAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'WAAZ')
+            ->sum('number_of_airconditioners');
+        $SWAAZAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWAAZ')
+            ->sum('number_of_airconditioners');
+        $NAAZAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NAAZ')
+            ->sum('number_of_airconditioners');
+        $EAAZAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'EAAZ')
+            ->sum('number_of_airconditioners');
+        $SAAZAirConditionerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SAAZ')
+            ->sum('number_of_airconditioners');
+
+
+//        Towers
+        $NWRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NWR')
+            ->sum('number_of_towers');
+        $SWWRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWWR')
+            ->sum('number_of_towers');
+        $NEERTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NEER')
+            ->sum('number_of_towers');
+        $CNRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CNR')
+            ->sum('number_of_towers');
+        $CWRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CWR')
+            ->sum('number_of_towers');
+        $NERTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NER')
+            ->sum('number_of_towers');
+        $CERTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CER')
+            ->sum('number_of_towers');
+        $ERTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'ER')
+            ->sum('number_of_towers');
+        $EERTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'EER')
+            ->sum('number_of_towers');
+        $SSWRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SSWR')
+            ->sum('number_of_towers');
+        $NNWRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NNWR')
+            ->sum('number_of_towers');
+        $SRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SR')
+            ->sum('number_of_towers');
+        $SERTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SER')
+            ->sum('number_of_towers');
+        $WRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'WR')
+            ->sum('number_of_towers');
+        $SWRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWR')
+            ->sum('number_of_towers');
+        $WWRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'WWR')
+            ->sum('number_of_towers');
+        $NRTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NR')
+            ->sum('number_of_towers');
+        $CAAZTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'CAAZ')
+            ->sum('number_of_towers');
+        $WAAZTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'WAAZ')
+            ->sum('number_of_towers');
+        $SWAAZTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWAAZ')
+            ->sum('number_of_towers');
+        $NAAZTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'NAAZ')
+            ->sum('number_of_towers');
+        $EAAZTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'EAAZ')
+            ->sum('number_of_towers');
+        $SAAZTowerCount = Site::query()
+            ->where('sites_region_zone', '=', 'SAAZ')
+            ->sum('number_of_towers');
+
+
+//        Rectifiers
+        $NWRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'NWR')
+            ->sum('number_of_Rectifiers');
+        $SWWRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWWR')
+            ->sum('number_of_Rectifiers');
+        $NEERRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'NEER')
+            ->sum('number_of_Rectifiers');
+        $CNRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'CNR')
+            ->sum('number_of_Rectifiers');
+        $CWRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'CWR')
+            ->sum('number_of_Rectifiers');
+        $NERRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'NER')
+            ->sum('number_of_Rectifiers');
+        $CERRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'CER')
+            ->sum('number_of_Rectifiers');
+        $ERRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'ER')
+            ->sum('number_of_Rectifiers');
+        $EERRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'EER')
+            ->sum('number_of_Rectifiers');
+        $SSWRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'SSWR')
+            ->sum('number_of_Rectifiers');
+        $NNWRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'NNWR')
+            ->sum('number_of_Rectifiers');
+        $SRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'SR')
+            ->sum('number_of_Rectifiers');
+        $SERRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'SER')
+            ->sum('number_of_Rectifiers');
+        $WRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'WR')
+            ->sum('number_of_Rectifiers');
+        $SWRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWR')
+            ->sum('number_of_Rectifiers');
+        $WWRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'WWR')
+            ->sum('number_of_Rectifiers');
+        $NRRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'NR')
+            ->sum('number_of_Rectifiers');
+        $CAAZRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'CAAZ')
+            ->sum('number_of_Rectifiers');
+        $WAAZRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'WAAZ')
+            ->sum('number_of_Rectifiers');
+        $SWAAZRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWAAZ')
+            ->sum('number_of_Rectifiers');
+        $NAAZRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'NAAZ')
+            ->sum('number_of_Rectifiers');
+        $EAAZRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'EAAZ')
+            ->sum('number_of_Rectifiers');
+        $SAAZRectifierCount = Site::query()
+            ->where('sites_region_zone', '=', 'SAAZ')
+            ->sum('number_of_Rectifiers');
+
+
+
+//        SolarSystem
+        $NWRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'NWR')
+            ->sum('number_of_solar_system');
+        $SWWRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWWR')
+            ->sum('number_of_solar_system');
+        $NEERSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'NEER')
+            ->sum('number_of_solar_system');
+        $CNRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'CNR')
+            ->sum('number_of_solar_system');
+        $CWRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'CWR')
+            ->sum('number_of_solar_system');
+        $NERSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'NER')
+            ->sum('number_of_solar_system');
+        $CERSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'CER')
+            ->sum('number_of_solar_system');
+        $ERSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'ER')
+            ->sum('number_of_solar_system');
+        $EERSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'EER')
+            ->sum('number_of_solar_system');
+        $SSWRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'SSWR')
+            ->sum('number_of_solar_system');
+        $NNWRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'NNWR')
+            ->sum('number_of_solar_system');
+        $SRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'SR')
+            ->sum('number_of_solar_system');
+        $SERSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'SER')
+            ->sum('number_of_solar_system');
+        $WRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'WR')
+            ->sum('number_of_solar_system');
+        $SWRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWR')
+            ->sum('number_of_solar_system');
+        $WWRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'WWR')
+            ->sum('number_of_solar_system');
+        $NRSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'NR')
+            ->sum('number_of_solar_system');
+        $CAAZSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'CAAZ')
+            ->sum('number_of_solar_system');
+        $WAAZSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'WAAZ')
+            ->sum('number_of_solar_system');
+        $SWAAZSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWAAZ')
+            ->sum('number_of_solar_system');
+        $NAAZSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'NAAZ')
+            ->sum('number_of_solar_system');
+        $EAAZSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'EAAZ')
+            ->sum('number_of_solar_system');
+        $SAAZSolarSystemCount = Site::query()
+            ->where('sites_region_zone', '=', 'SAAZ')
+            ->sum('number_of_solar_system');
+
+
+//        DownLinks
+        $NWRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'NWR')
+            ->sum('number_of_down_links');
+        $SWWRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWWR')
+            ->sum('number_of_down_links');
+        $NEERDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'NEER')
+            ->sum('number_of_down_links');
+        $CNRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'CNR')
+            ->sum('number_of_down_links');
+        $CWRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'CWR')
+            ->sum('number_of_down_links');
+        $NERDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'NER')
+            ->sum('number_of_down_links');
+        $CERDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'CER')
+            ->sum('number_of_down_links');
+        $ERDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'ER')
+            ->sum('number_of_down_links');
+        $EERDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'EER')
+            ->sum('number_of_down_links');
+        $SSWRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'SSWR')
+            ->sum('number_of_down_links');
+        $NNWRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'NNWR')
+            ->sum('number_of_down_links');
+        $SRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'SR')
+            ->sum('number_of_down_links');
+        $SERDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'SER')
+            ->sum('number_of_down_links');
+        $WRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'WR')
+            ->sum('number_of_down_links');
+        $SWRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWR')
+            ->sum('number_of_down_links');
+        $WWRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'WWR')
+            ->sum('number_of_down_links');
+        $NRDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'NR')
+            ->sum('number_of_down_links');
+        $CAAZDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'CAAZ')
+            ->sum('number_of_down_links');
+        $WAAZDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'WAAZ')
+            ->sum('number_of_down_links');
+        $SWAAZDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'SWAAZ')
+            ->sum('number_of_down_links');
+        $NAAZDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'NAAZ')
+            ->sum('number_of_down_links');
+        $EAAZDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'EAAZ')
+            ->sum('number_of_down_links');
+        $SAAZDownLinksCount = Site::query()
+            ->where('sites_region_zone', '=', 'SAAZ')
+            ->sum('number_of_down_links');
+
+
         $chartNumberGenerator = new HomeChart();
         $chartNumberGenerator->labels(['NWR', 'SWWR', 'NEER', 'CNR', 'CWR', 'NER', 'CER', 'ER', 'EER', 'SSWR', 'NNWR', 'SR', 'SER', 'WR', 'SWR', 'WWR', 'NR', 'CAAZ', 'WAAZ', 'SWAAZ', 'NAAZ', 'EAAZ', 'SAAZ']);
-        $chartNumberGenerator->dataset('Number Of Generators', 'line', [$NWRCount, $SWWRCount, $NEERCount, $CNRCount, $CWRCount, $NERCount, $CERCount, $ERCount, $EERCount, $SSWRCount, $NNWRCount, $SRCount, $SERCount, $WRCount, $SWRCount, $WWRCount, $NRCount, $CAAZCount, $WAAZCount, $SWAAZCount, $NAAZCount, $EAAZCount, $SAAZCount])
+        $chartNumberGenerator->dataset('Number Of Generators', 'line', [$NWRGeneratorCount, $SWWRGeneratorCount, $NEERGeneratorCount, $CNRGeneratorCount, $CWRGeneratorCount, $NERGeneratorCount, $CERGeneratorCount, $ERGeneratorCount, $EERGeneratorCount, $SSWRGeneratorCount, $NNWRGeneratorCount, $SRGeneratorCount, $SERGeneratorCount, $WRGeneratorCount, $SWRGeneratorCount, $WWRGeneratorCount, $NRGeneratorCount, $CAAZGeneratorCount, $WAAZGeneratorCount, $SWAAZGeneratorCount, $NAAZGeneratorCount, $EAAZGeneratorCount, $SAAZGeneratorCount])
             ->options([
-                'borderColor' => 'rgb(75, 192, 192)',
+                'borderColor' => 'blue',
                 'fill' => 'false',
                 'tension' => '0.1',
             ]);
+        $chartNumberGenerator->dataset('Number Of Air Conditioners', 'line', [$NWRAirConditionerCount, $SWWRAirConditionerCount, $NEERAirConditionerCount, $CNRAirConditionerCount, $CWRAirConditionerCount, $NERAirConditionerCount, $CERAirConditionerCount, $ERAirConditionerCount, $EERAirConditionerCount, $SSWRAirConditionerCount, $NNWRAirConditionerCount, $SRAirConditionerCount, $SERAirConditionerCount, $WRAirConditionerCount, $SWRAirConditionerCount, $WWRAirConditionerCount, $NRAirConditionerCount, $CAAZAirConditionerCount, $WAAZAirConditionerCount, $SWAAZAirConditionerCount, $NAAZAirConditionerCount, $EAAZAirConditionerCount, $SAAZAirConditionerCount])
+            ->options([
+                'borderColor' => 'orange',
+                'fill' => 'false',
+                'tension' => '0.1',
+            ]);
+
+        $chartNumberGenerator->dataset('Number Of Towers', 'line', [$NWRTowerCount, $SWWRTowerCount, $NEERTowerCount, $CNRTowerCount, $CWRTowerCount, $NERTowerCount, $CERTowerCount, $ERTowerCount, $EERTowerCount, $SSWRTowerCount, $NNWRTowerCount, $SRTowerCount, $SERTowerCount, $WRTowerCount, $SWRTowerCount, $WWRTowerCount, $NRTowerCount, $CAAZTowerCount, $WAAZTowerCount, $SWAAZTowerCount, $NAAZTowerCount, $EAAZTowerCount, $SAAZTowerCount])
+            ->options([
+                'borderColor' => 'red',
+                'fill' => 'false',
+                'tension' => '0.1',
+            ]);
+
+        $chartNumberGenerator->dataset('Number Of Rectifiers', 'line', [$NWRRectifierCount, $SWWRRectifierCount, $NEERRectifierCount, $CNRRectifierCount, $CWRRectifierCount, $NERRectifierCount, $CERRectifierCount, $ERRectifierCount, $EERRectifierCount, $SSWRRectifierCount, $NNWRRectifierCount, $SRRectifierCount, $SERRectifierCount, $WRRectifierCount, $SWRRectifierCount, $WWRRectifierCount, $NRRectifierCount, $CAAZRectifierCount, $WAAZRectifierCount, $SWAAZRectifierCount, $NAAZRectifierCount, $EAAZRectifierCount, $SAAZRectifierCount])
+            ->options([
+                'borderColor' => 'lime',
+                'fill' => 'false',
+                'tension' => '0.1',
+            ]);
+
+        $chartNumberGenerator->dataset('Number Of Solar System', 'line', [$NWRSolarSystemCount, $SWWRSolarSystemCount, $NEERSolarSystemCount, $CNRSolarSystemCount, $CWRSolarSystemCount, $NERSolarSystemCount, $CERSolarSystemCount, $ERSolarSystemCount, $EERSolarSystemCount, $SSWRSolarSystemCount, $NNWRSolarSystemCount, $SRSolarSystemCount, $SERSolarSystemCount, $WRSolarSystemCount, $SWRSolarSystemCount, $WWRSolarSystemCount, $NRSolarSystemCount, $CAAZSolarSystemCount, $WAAZSolarSystemCount, $SWAAZSolarSystemCount, $NAAZSolarSystemCount, $EAAZSolarSystemCount, $SAAZSolarSystemCount])
+            ->options([
+                'borderColor' => 'yellow',
+                'fill' => 'false',
+                'tension' => '0.1',
+            ]);
+
+
+        $chartNumberGenerator->dataset('Number Of Down Links', 'line', [$NWRDownLinksCount, $SWWRDownLinksCount, $NEERDownLinksCount, $CNRDownLinksCount, $CWRDownLinksCount, $NERDownLinksCount, $CERDownLinksCount, $ERDownLinksCount, $EERDownLinksCount, $SSWRDownLinksCount, $NNWRDownLinksCount, $SRDownLinksCount, $SERDownLinksCount, $WRDownLinksCount, $SWRDownLinksCount, $WWRDownLinksCount, $NRDownLinksCount, $CAAZDownLinksCount, $WAAZDownLinksCount, $SWAAZDownLinksCount, $NAAZDownLinksCount, $EAAZDownLinksCount, $SAAZDownLinksCount])
+            ->options([
+                'borderColor' => 'green',
+                'fill' => 'false',
+                'tension' => '0.1',
+            ]);
+
 
         $chart = new HomeChart;
         $chart->labels(['Mains Only', 'Mains + DG', 'Dual DG', 'Dual BB', 'Solar Hybrid', 'Pure Solar']);
         $chart->dataset('Power Source', 'doughnut', [$mainsOnly, $mainsDG, $dualDG, $dGBB, $solarHybrid, $pureSolar])
             ->options([
-                'hoverOffset'=>'4',
-                'backgroundColor'=>['blue', 'orange', 'red', 'lime', 'yellow', 'green']
+                'hoverOffset' => '4',
+                'backgroundColor' => ['blue', 'orange', 'red', 'lime', 'yellow', 'green']
             ]);
 
         $chartRegion = new HomeChart();
@@ -600,7 +998,7 @@ class HomeController extends Controller
 
 
         $chartRegion->labels(['Mains Only', 'Mains + DG', 'Dual DG', 'Dual BB', 'Solar Hybrid', 'Pure Solar']);
-        $chartRegion->dataset('NER', 'bar', [$NERMainOnly, $NERMainDg, $NERDualDg, $NERDgBB, $NERSolarHybrid])
+        $chartRegion->dataset('NER', 'bar', [$NERMainOnly, $NERMainDg, $NERDualDg, $NERDgBB, $NERSolarHybrid, $NERPureSolar])
             ->backgroundColor('#EDC9AF');
 
 

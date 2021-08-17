@@ -17,6 +17,7 @@
         <th scope="col">Operator Antenna Weight</th>
         <th scope="col">Tower Installation Date</th>
         <th scope="col">Site Id</th>
+        <th scope="col">Work Order Id</th>
         <th scope="col">Created At</th>
         <th scope="col">Updated At</th>
     </tr>
@@ -39,7 +40,8 @@
             <td>{{ $tower->operator_tower_load }}</td>
             <td>{{ $tower->operator_antenna_weight }}</td>
             <td>{{ $tower->tower_installation_date }}</td>
-            <td>{{ $tower->site_id }}</td>
+            <td>{{ $tower->site_id }}</td>]
+            <td>{{$tower->work_order_id}}</td>
             <td>{{ $tower->created_at->format('Y-m-d') }}</td>
             <td>{{ $tower->updated_at->format('Y-m-d') }}</td>
         </tr>

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Site extends Model
+class Site extends Model implements Auditable
 {
-    use HasFactory;
+    use HasFactory, \OwenIt\Auditing\Auditable;
 
 //    protected $guard_name = 'web';
 
@@ -34,11 +35,37 @@ class Site extends Model
         'number_of_airconditioners',
         'number_of_rectifiers',
         'number_of_solar_system',
-        'number_of_down_links'
+        'number_of_down_links',
+        'work_order_id',
     ];
 
     protected $hidden = [
         'created_at', 'updated_at',
+    ];
+
+    protected $auditInclude = [
+        'id',
+        'sites_name',
+        'ps_configuration',
+        'monitoring_status',
+        'sites_latitude',
+        'sites_longitude',
+        'sites_region_zone',
+        'sites_political_region',
+        'sites_location',
+        'sites_class',
+        'sites_value',
+        'sites_type',
+        'maintenance_center',
+        'distance_mc',
+        'list_of_ne',
+        'number_of_towers',
+        'number_of_generator',
+        'number_of_airconditioners',
+        'number_of_rectifiers',
+        'number_of_solar_system',
+        'number_of_down_links',
+        'work_order_id',
     ];
 
     public function air_conditioners()
@@ -76,9 +103,14 @@ class Site extends Model
         return $this->hasMany(Ups::class);
     }
 
+//    public function work_orders()
+//    {
+//        return $this->hasMany(WorkOrder::class);
+//    }
+
     public function work_orders()
     {
-        return $this->hasMany(WorkOrder::class);
+        return $this->belongsTo(WorkOrder::class);
     }
 
 

@@ -44,7 +44,7 @@ class RoleCreateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Role Attribute With Id :' . $this->role->id . ' Has Been Created')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('roles'))
             ->line('Thank you for using our application!');
     }
 

@@ -78,13 +78,14 @@ class SolarPanelController extends Controller
             'solar_structure_front_height' => 'required',
             'solar_structure_rear_height' => 'required',
             'commission_date' => 'required',
-            'site_id' => 'required'
+            'site_id' => 'required',
+            'work_order_id' => 'required|unique:solar_panels',
         ]);
 
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -151,12 +152,13 @@ class SolarPanelController extends Controller
             'solar_structure_front_height' => 'required',
             'solar_structure_rear_height' => 'required',
             'commission_date' => 'required',
-            'site_id' => 'required'
+            'site_id' => 'required',
+            'work_order_id' => 'required',
         ]);
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
@@ -184,8 +186,8 @@ class SolarPanelController extends Controller
     {
         try {
             $transport = (new Swift_SmtpTransport('smtp.mailtrap.io', 2525, 'tls'))
-                ->setUsername('645ace6a2e58b0')
-                ->setPassword('68fbc1cbe10b31');
+                ->setUsername('d64ebeb2b3a8d6')
+                ->setPassword('29853082ca6ace');
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();

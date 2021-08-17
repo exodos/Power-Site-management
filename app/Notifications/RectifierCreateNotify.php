@@ -44,7 +44,7 @@ class RectifierCreateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Rectifier Attribute With Id ' . $this->rectifier->id . ' Has Been Created')
-                    ->action('Notification Action', url('/'))
+                    ->action('Notification Action', url('rectifiers'))
                     ->line('Thank you for using our application!');
     }
 

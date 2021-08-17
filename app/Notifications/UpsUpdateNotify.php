@@ -16,7 +16,7 @@ class UpsUpdateNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $ups
      */
     public function __construct($ups)
     {
@@ -45,7 +45,7 @@ class UpsUpdateNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Ups Attribute With Id ' . $this->ups->id . ' Has Been updated')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('ups'))
             ->line('Thank you for using our application!');
     }
 

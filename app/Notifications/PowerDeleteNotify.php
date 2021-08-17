@@ -45,7 +45,7 @@ class PowerDeleteNotify extends Notification
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of The Power Attribute With Id ' . $this->power->id . ' Has Been Deleted')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('powers'))
             ->line('Thank you for using our application!');
     }
 

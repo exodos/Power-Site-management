@@ -3,20 +3,22 @@
 use App\Exports\SiteExport;
 use App\Http\Controllers\AirConditionerController;
 use App\Http\Controllers\AirConditionersExportController;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\BatteriesExportController;
 use App\Http\Controllers\BatteryController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\ChartsController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\IpAddressController;
+use App\Http\Controllers\PortController;
 use App\Http\Controllers\PowerController;
 use App\Http\Controllers\PowersExportController;
 use App\Http\Controllers\RectifierController;
 use App\Http\Controllers\RectifiersExportController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\SearchBuckUpController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SiteController;
-use App\Http\Controllers\SiteExportController;
 use App\Http\Controllers\SitesExportController;
 use App\Http\Controllers\SolarPanelController;
 use App\Http\Controllers\SolarPanelsExportController;
@@ -28,7 +30,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkOrderController;
 use App\Http\Controllers\WorkOrdersExportController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
+    Route::get('/sites/search', [SiteController::class, 'search'])->name('sites.search');
     Route::get('/sites/export', [SitesExportController::class, 'export'])->name('sites.export');
     Route::get('/airconditioners/export', [AirConditionersExportController::class, 'export'])->name('airconditioners.export');
     Route::get('/batteries/export', [BatteriesExportController::class, 'export'])->name('batteries.export');
@@ -70,6 +72,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('towers', TowerController::class);
     Route::resource('ups', UpsController::class);
     Route::resource('workorders', WorkOrderController::class);
-//    Route::resource('searches', SearchController::class);
+    Route::resource('ports', PortController::class);
+    Route::resource('ipaddresses', IpAddressController::class);
 
+//    Route::resource('classbs', ClassBController::class);
+//    Route::resource('classcs', ClassCController::class);
+    Route::get('audits', [AuditController::class, 'index'])->name('audits');
+    Route::get('change-password', [ChangePasswordController::class, 'index']);
+    Route::post('change-password', [ChangePasswordController::class, 'changePassword'])->name('change.password');
 });

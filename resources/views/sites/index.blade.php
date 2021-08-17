@@ -13,23 +13,27 @@
     <div class="container-fluid">
         @if(session()->has('success'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('success')}}
             </div>
         @elseif(session()->has('updated'))
             <div class="alert alert-success">
+                <span style="font-size: 2em; color: #00a87d">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('updated')}}
             </div>
         @elseif(session()->has('deleted'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('deleted')}}
             </div>
         @elseif(session()->has('connection'))
             <div class="alert alert-danger">
+                <span style="font-size: 2em; color: #ff0000">
+                    <i class="fas fa-info-circle"></i></span>
                 {{session()->get('connection')}}
-            </div>
-        @elseif(session()->has('unable'))
-            <div class="alert alert-danger" role="alert">
-                {{session()->get('unable')}}
             </div>
         @endif
         <div class="row">
@@ -49,19 +53,19 @@
                 </div>
             </div>
             <div class="col">
-                @canany(['site-create','site-edit','site-delete'])
+                @can('site-create')
                     <div class="text-right">
-                        <a href="{{route('sites.create')}}" class="btn btn-outline-primary mb-2"><i
+                        <a href="{{route('sites.create')}}" class="btn btn-outline-dark mb-2"><i
                                 class="fas fa-plus-square fa-2x"></i></a>
                     </div>
-                @endcanany
+                @endcan
             </div>
         </div>
-        <div class="card border-success mb-3">
-            <div class="card-header bg-gradient-primary font-weight-bold">Site Information</div>
+        <div class="card border-dark mb-3">
+            <div class="card-header bg-gradient-gray-dark font-weight-bold">Site Information</div>
             <div class="card-body text-black-50">
                 @if($sites->isNotEmpty())
-                    <table class="table table-responsive table-bordered">
+                    <table class="table table-responsive table-bordered border-primary">
                         <thead>
                         <tr class="bg-gradient-primary">
                             <th scope="col">Id</th>
@@ -89,10 +93,12 @@
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
                             <th scope="col">Detail</th>
-                            @canany(['site-create','site-edit','site-delete'])
+                            @can('site-edit')
                                 <th scope="col">Update</th>
+                            @endcan
+                            @can('site-delete')
                                 <th scope="col">Delete</th>
-                            @endcanany
+                            @endcan
                         </tr>
                         </thead>
                         <tbody>
@@ -126,15 +132,17 @@
                                     <a href="{{route('sites.show', $site->id)}}"
                                        class="btn btn-success btn-sm">Detail</a>
                                 </td>
-                                @canany(['site-create','site-edit','site-delete'])
+                                @can('site-edit')
                                     <td><a href="{{route('sites.edit', $site->id)}}"
                                            class="btn btn-primary btn-sm">Update</a></td>
+                                @endcan
+                                @can('site-delete')
                                     <td>
                                         <button class="btn btn-danger btn-sm" onclick="handleDelete({{$site->id}})">
                                             Delete
                                         </button>
                                     </td>
-                                @endcanany
+                                @endcan
                             </tr>
                         @endforeach
                         </tbody>

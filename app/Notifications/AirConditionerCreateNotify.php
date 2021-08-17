@@ -46,7 +46,7 @@ class AirConditionerCreateNotify extends Notification implements ShouldQueue
         return (new MailMessage)
             ->greeting('Hello Administrator')
             ->line('One Of Air Conditioner Attribute With Id ' . $this->airConditioner->id . ' Has Been Created')
-            ->action('Notification Action', url('/'))
+            ->action('Notification Action', url('airconditioners'))
             ->line('Thank you for using our application!');
     }
 
