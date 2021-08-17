@@ -16,7 +16,7 @@ class UserCreateNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $user
      */
     public function __construct($user)
     {

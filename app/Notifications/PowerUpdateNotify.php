@@ -15,7 +15,7 @@ class PowerUpdateNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $power
      */
     public function __construct($power)
     {

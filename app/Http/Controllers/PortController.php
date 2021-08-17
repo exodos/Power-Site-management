@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AirConditioner;
 use App\Models\Port;
-use App\Notifications\AirConditionerCreateNotify;
-use App\Notifications\AirConditionerDeleteNotify;
-use App\Notifications\AirConditionerUpdateNotify;
+use App\Notifications\PortCreateNotify;
+use App\Notifications\PortDeleteNotify;
+use App\Notifications\PortUpdateNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Notification;
 use Swift_SmtpTransport;
+
 
 class PortController extends Controller
 {
@@ -33,14 +33,15 @@ class PortController extends Controller
         $search = request()->query('search');
         if ($search) {
             $ports = Port::where('id', 'LIKE', "%{$search}%")
-                ->orWhere('name', 'LIKE', "{$search}")
-                ->orWhere('device_role', 'LIKE', "{$search}")
+                ->orWhere('name', 'LIKE', "%{$search}%")
+                ->orWhere('device_role', 'LIKE', "%{$search}%")
                 ->paginate(10);
         } else {
             $ports = Port::latest()->paginate(10);
+
         }
 
-        return view('airconditioners.index', compact('airconditioners'));
+        return view('ports.index', compact('ports'));
     }
 
     /**
@@ -50,8 +51,7 @@ class PortController extends Controller
      */
     public function create()
     {
-        return view('airconditioners.create');
-
+        return view('ports.create');
     }
 
     /**
@@ -63,16 +63,13 @@ class PortController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required|unique:air_conditioners|min:6|max:6',
-            'air_conditioners_type' => 'required',
-            'air_conditioners_model' => 'required',
-            'air_conditioners_capacity' => 'required',
-            'functional_type' => 'required',
-            'gas_type' => 'required',
-            'lld_number' => 'required',
-            'commission_date' => 'required',
-            'site_id' => 'required',
-            'work_order_id' => 'required|unique:air_conditioners',
+            'id' => 'required',
+            'name' => 'required',
+            'device_role' => 'required',
+            'slot' => 'required',
+            'slot_usage' => 'required',
+            'card_type' => 'required',
+            'port_usage' => 'required'
         ]);
 
         try {
@@ -82,16 +79,19 @@ class PortController extends Controller
 
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
-            $airConditioner = AirConditioner::create($request->all());
+
+            $ports = Port::create($request->all());
+
             Notification::route('mail', 'exodosbob@gmail.com')
-                ->notify(new AirConditionerCreateNotify($airConditioner));
-            session()->flash('success', 'Air Conditioner Created Successfully');
-            return redirect()->route('airconditioners.index');
+                ->notify(new PortCreateNotify($ports));
+            session()->flash('success', 'Ports Created Successfully.');
+            return redirect()->route('ports.index');
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
             session()->flash('connection', $message);
-            return redirect()->route('airconditioners.index');
+            return redirect()->route('ports.index');
         }
+
     }
 
     /**
@@ -113,8 +113,9 @@ class PortController extends Controller
      */
     public function edit($id)
     {
-        $air = AirConditioner::find($id);
-        return View::make('airconditioners.edit')->with('air', $air);
+        $ports = Port::find($id);
+
+        return View::make('ports.edit')->with('ports', $ports);
     }
 
     /**
@@ -126,19 +127,17 @@ class PortController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $ports = Port::find($id);
 
-        $airConditioner = AirConditioner::find($id);
+
         $this->validate($request, [
-            'id' => 'required|min:6|max:6',
-            'air_conditioners_type' => 'required',
-            'air_conditioners_model' => 'required',
-            'air_conditioners_capacity' => 'required',
-            'functional_type' => 'required',
-            'gas_type' => 'required',
-            'lld_number' => 'required',
-            'commission_date' => 'required',
-            'site_id' => 'required',
-            'work_order_id' => 'required',
+            'id' => 'required',
+            'name' => 'required',
+            'device_role' => 'required',
+            'slot' => 'required',
+            'slot_usage' => 'required',
+            'card_type' => 'required',
+            'port_usage' => 'required'
         ]);
 
         try {
@@ -150,17 +149,17 @@ class PortController extends Controller
             $mailer->getTransport()->start();
 
             $input = $request->all();
-            $airConditioner->fill($input)->save();
+            $ports->fill($input)->save();
+
             Notification::route('mail', 'exodosbob@gmail.com')
-                ->notify(new AirConditionerUpdateNotify($airConditioner));
-            session()->flash('updated', 'Air Conditioner Successfully Updated!');
-            return redirect()->route('airconditioners.index');
+                ->notify(new PortUpdateNotify($ports));
+            session()->flash('updated', 'Ports Successfully Updated!');
+            return redirect()->route('ports.index');
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
             session()->flash('connection', $message);
-            return redirect()->route('airconditioners.index');
+            return redirect()->route('ports.index');
         }
-
     }
 
     /**
@@ -179,16 +178,17 @@ class PortController extends Controller
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
 
-            $airConditioner = AirConditioner::find($id);
-            $airConditioner->delete();
+            $ports = Port::find($id);
+
+            $ports->delete();
             Notification::route('mail', 'exodosbob@gmail.com')
-                ->notify(new AirConditionerDeleteNotify($airConditioner));
-            session()->flash('deleted', 'Air Conditioner Successfully Deleted!');
-            return redirect()->route('airconditioners.index');
+                ->notify(new PortDeleteNotify($ports));
+            session()->flash('deleted', 'Port Successfully Deleted!');
+            return redirect()->route('ports.index');
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
             session()->flash('connection', $message);
-            return redirect()->route('airconditioners.index');
+            return redirect()->route('ports.index');
         }
     }
 }

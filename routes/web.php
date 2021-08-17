@@ -74,9 +74,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('workorders', WorkOrderController::class);
     Route::resource('ports', PortController::class);
     Route::resource('ipaddresses', IpAddressController::class);
-
-//    Route::resource('classbs', ClassBController::class);
-//    Route::resource('classcs', ClassCController::class);
     Route::get('audits', [AuditController::class, 'index'])->name('audits');
     Route::get('change-password', [ChangePasswordController::class, 'index']);
     Route::post('change-password', [ChangePasswordController::class, 'changePassword'])->name('change.password');

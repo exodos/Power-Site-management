@@ -16,7 +16,7 @@ class BatteryCreateNotify extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $battery
      */
     public function __construct($battery)
     {
