@@ -30,11 +30,11 @@
                     @csrf
                     <div class="form-group">
                         <label for="id">Id</label>
-                        <input type="number" class="form-control" id="id" name="id">
+                        <input type="number" class="form-control" id="id" name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="work_orders_number">Work Orders Number</label>
-                        <input type="text" class="form-control" id="work_orders_number" name="work_orders_number">
+                        <input type="text" class="form-control" id="work_orders_number" name="work_orders_number" value="{{request()->old('work_orders_number')}}">
                     </div>
                     <div class="form-group text-center">
                         <button class="btn btn-primary btn-lg">Add</button>

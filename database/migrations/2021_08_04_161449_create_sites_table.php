@@ -18,8 +18,8 @@ class CreateSitesTable extends Migration
             $table->string('sites_name');
             $table->string('ps_configuration');
             $table->string('monitoring_status');
-            $table->decimal('sites_latitude');
-            $table->decimal('sites_longitude');
+            $table->decimal('sites_latitude', 10,8);
+            $table->decimal('sites_longitude',11,8);
             $table->string('sites_region_zone');
             $table->string('sites_political_region');
             $table->string('sites_location');

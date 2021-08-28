@@ -163,7 +163,7 @@
                             @canany(['site-list','site-create','site-edit','site-delete'])
                                 <li class="nav-item">
                                     <a href="{{route('sites.export')}}" class="nav-link">
-                                        <i class="fas fa-file-export nav-icon"></i>
+                                        <i class="nav-icon fas fa-arrow-circle-down"></i>
                                         <p>Export Site</p>
                                     </a>
                                 </li>
@@ -191,24 +191,24 @@
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('airconditioners.index')}}" class="nav-link">
-                                                <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Air Conditioner</p>
+                                                <i class="nav-icon fas fa-eye"></i>
+                                                <p>View</p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('airconditioners.create')}}" class="nav-link">
-                                                <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Air Conditioner</p>
+                                                <i class="nav-icon fas fa-plus-square"></i>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('airconditioners.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Air Conditioner</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export</p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -228,24 +228,24 @@
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('batteries.index')}}" class="nav-link">
-                                                <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Batteries</p>
+                                                <i class="nav-icon fas fa-eye"></i>
+                                                <p>View </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('batteries.create')}}" class="nav-link">
-                                                <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Battery</p>
+                                                <i class="nav-icon fas fa-plus-square"></i>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('batteries.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Battery</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export</p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -266,7 +266,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('powers.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Generator</p>
+                                                <p>View </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -274,15 +274,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('powers.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Generator</p>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('powers.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Generator</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -303,7 +303,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('rectifiers.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Rectifiers</p>
+                                                <p>View </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -311,15 +311,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('rectifiers.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Rectifier</p>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('rectifiers.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Rectifier</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -341,7 +341,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('solarpanels.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Solar Panel</p>
+                                                <p>View </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -349,15 +349,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('solarpanels.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Solar Panel</p>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('solarpanels.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Solar Panel</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -378,7 +378,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('towers.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Tower</p>
+                                                <p>View </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -386,15 +386,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('towers.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Tower</p>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('towers.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Tower</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -415,7 +415,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('ups.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Ups</p>
+                                                <p>View </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -423,15 +423,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('ups.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Ups</p>
+                                                <p>Add</p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('ups.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export UPS</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export</p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -452,7 +452,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('workorders.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Work Order</p>
+                                                <p>View</p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -460,15 +460,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('workorders.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Work Order</p>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcanany
                                     @canany(['site-list','site-create','site-edit','site-delete'])
                                         <li class="nav-item">
                                             <a href="{{route('workorders.export')}}" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Work Orders</p>
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -476,7 +476,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="icon fas fa-network-wired"></i>
@@ -499,7 +498,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('ports.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Port Usage</p>
+                                                <p>View</p>
                                             </a>
                                         </li>
                                     @endcan
@@ -507,15 +506,15 @@
                                         <li class="nav-item">
                                             <a href="{{route('ports.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Port Usage</p>
+                                                <p>Add</p>
                                             </a>
                                         </li>
                                     @endcan
                                     @canany(['network-list','network-create','network-edit','network-delete'])
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Port Usage</p>
+                                            <a href="{{route('ports.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
                                             </a>
                                         </li>
                                     @endcanany
@@ -536,7 +535,7 @@
                                         <li class="nav-item">
                                             <a href="{{route('ipaddresses.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
-                                                <p>View Ip Address</p>
+                                                <p>View</p>
                                             </a>
                                         </li>
                                     @endcan
@@ -544,15 +543,432 @@
                                         <li class="nav-item">
                                             <a href="{{route('ipaddresses.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
-                                                <p>Add Ip Address</p>
+                                                <p>Add </p>
                                             </a>
                                         </li>
                                     @endcan
                                     @canany(['network-list','network-create','network-edit','network-delete'])
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-file-export nav-icon"></i>
-                                                <p>Export Ip Address</p>
+                                            <a href="{{route('ipaddresses.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export</p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="icon fas fa-trademark"></i>
+                            <p>
+                                Transmission
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fab fa-tumblr-square"></i>
+                                    <p>
+                                        Transmission Site
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('transmission_site.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('transmission_site.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('transmission_site.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-opera"></i>
+                                    <p>
+                                        OTN NE
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('otn_nes.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('otn_nes.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('otn_nes.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export</p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-etsy"></i>
+                                    <p>
+                                        Equipment
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('equipment.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('equipment.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('equipment.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-line"></i>
+                                    <p>
+                                        Line Boards
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('line_boards.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('line_boards.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('line_boards.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-copyright"></i>
+                                    <p>
+                                        Client Boards
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('client_boards.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('client_boards.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('client_boards.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-speakap"></i>
+                                    <p>
+                                        Otn Services
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('otn_services.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('otn_services.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('otn_services.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-wordpress"></i>
+                                    <p>
+                                        Line Board Wdm Trails
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('line_boards_wdm_trails.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('line_boards_wdm_trails.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('line_boards_wdm_trails.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export</p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-medium"></i>
+                                    <p>
+                                        Mux Demux Boards
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('mux_demux_boards.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('mux_demux_boards.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('mux_demux_boards.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-registered"></i>
+                                    <p>
+                                        Roadm Boards
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('roadm_boards.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('roadm_boards.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('roadm_boards.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-angular"></i>
+                                    <p>
+                                        Amplifier Boards
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('amplifier_boards.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('amplifier_boards.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('amplifier_boards.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-fonticons"></i>
+                                    <p>
+                                        Site Line Fibers
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('site_line_fibers.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('site_line_fibers.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('site_line_fibers.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
                                             </a>
                                         </li>
                                     @endcanany

@@ -9,7 +9,7 @@ class AuditController extends Controller
 {
     public function index()
     {
-        $search = \request()->query('search');
+        $search = request()->query('search');
         if ($search){
             $audits = Audit::where('user_id','LIKE',"%{$search}%")
                 ->orWhere('event','LIKE',"%{$search}%")
@@ -19,7 +19,7 @@ class AuditController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate(5);
         }
-        return view('audits', compact('audits'));
-//        return view('audits', ['audits' => $audits]);
+//        return view('audits', compact('audits'));
+        return view('audits', ['audits' => $audits]);
     }
 }

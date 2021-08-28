@@ -30,7 +30,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{request()->old('name')}}">
                     </div>
                     <div class="form-group">
                         <strong>Permission:</strong>

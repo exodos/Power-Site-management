@@ -32,42 +32,42 @@
                     @csrf
                     <div class="form-group">
                         <label for="id">Id</label>
-                        <input type="number" class="form-control" id="id" name="id">
+                        <input type="number" class="form-control" id="id" name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="ups_type">Ups Type</label>
                         <input type="text" class="form-control" id="ups_type"
-                               name="ups_type">
+                               name="ups_type" value="{{request()->old('ups_type')}}">
                     </div>
                     <div class="form-group">
                         <label for="ups_model">Ups Model</label>
                         <input type="text" class="form-control" id="ups_model"
-                               name="ups_model">
+                               name="ups_model" value="{{request()->old('ups_model')}}">
                     </div>
                     <div class="form-group">
                         <label for="ups_capacity">Ups Capacity</label>
                         <input type="number" class="form-control" id="ups_capacity"
-                               name="ups_capacity" step="0.01">
+                               name="ups_capacity" step="0.01" value="{{request()->old('ups_capacity')}}">
                     </div>
                     <div class="form-group">
                         <label for="input_pob_type">Input POB Type</label>
                         <input type="text" class="form-control" id="input_pob_type"
-                               name="input_pob_type">
+                               name="input_pob_type" value="{{request()->old('input_pob_type')}}">
                     </div>
                     <div class="form-group">
                         <label for="input_pob_capacity">Input POB Capacity</label>
                         <input type="number" class="form-control" id="input_pob_capacity"
-                               name="input_pob_capacity" step="0.01">
+                               name="input_pob_capacity" step="0.01" value="{{request()->old('input_pob_capacity')}}">
                     </div>
                     <div class="form-group">
                         <label for="number_of_ups_model">Number Of Ups Model</label>
                         <input type="number" class="form-control" id="number_of_ups_model"
-                               name="number_of_ups_model">
+                               name="number_of_ups_model" value="{{request()->old('number_of_ups_model')}}">
                     </div>
                     <div class="form-group">
                         <label for="battery_type">Battery Type</label>
                         <input type="text" class="form-control" id="battery_type"
-                               name="battery_type">
+                               name="battery_type" value="{{request()->old('battery_type')}}">
                     </div>
                     <div class="form-group">
                         <label for="numbers_of_battery_banks">Number Of Batteries Bank</label>
@@ -154,17 +154,17 @@
                     <div class="form-group">
                         <label for="battery_holding_time">Battery Holding Time</label>
                         <input type="time" class="form-control" id="battery_holding_time"
-                               name="battery_holding_time">
+                               name="battery_holding_time" value="{{request()->old('battery_holding_time')}}">
                     </div>
                     <div class="form-group">
                         <label for="lld_number">LLD Number</label>
                         <input type="number" class="form-control" id="lld_number"
-                               name="lld_number">
+                               name="lld_number" value="{{request()->old('lld_number')}}">
                     </div>
                     <div class="form-group">
                         <label for="commission_date">Commission Date</label>
                         <input type="date" class="form-control" id="commission_date"
-                               name="commission_date">
+                               name="commission_date" value="{{request()->old('commission_date')}}">
                     </div>
                     <div class="form-group">
                         <label for="site_id">Site Id</label>
@@ -176,12 +176,24 @@
                             @endforeach
                         </select>
                     </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="work_order_id">Work Order Id</label>--}}
+{{--                        <select class="form-control form-control-lg mb-3" name="work_order_id"--}}
+{{--                                id="work_order_id">--}}
+{{--                            <option value="none" selected disabled hidden>Please Select</option>--}}
+{{--                            @foreach(\App\Models\WorkOrder::all() as $workOrder)--}}
+{{--                                <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+
                     <div class="form-group">
                         <label for="work_order_id">Work Order Id</label>
                         <select class="form-control form-control-lg mb-3" name="work_order_id"
                                 id="work_order_id">
                             <option value="none" selected disabled hidden>Please Select</option>
-                            @foreach(\App\Models\WorkOrder::all() as $workOrder)
+                            @foreach(\App\Models\WorkOrder::whereNotIn('id', function ($query){
+                                   $query->select('work_order_id')->from('ups');})->get() as $workOrder)
                                 <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>
                             @endforeach
                         </select>

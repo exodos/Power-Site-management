@@ -33,12 +33,12 @@
                     <div class="form-group">
                         <label for="id">Id</label>
                         <input type="number" class="form-control" id="id"
-                               name="id">
+                               name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name"
-                               name="name">
+                               name="name" value="{{request()->old('name')}}">
                     </div>
                     <div class="form-group">
                         <label for="device_role">Device Role</label>

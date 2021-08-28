@@ -31,15 +31,15 @@
                     @csrf
                     <div class="form-group">
                         <label for="id">Id</label>
-                        <input type="number" class="form-control" id="id" name="id">
+                        <input type="number" class="form-control" id="id" name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="batteries_type">Battery Type</label>
-                        <input type="text" class="form-control" id="batteries_type" name="batteries_type">
+                        <input type="text" class="form-control" id="batteries_type" name="batteries_type" value="{{request()->old('batteries_type')}}">
                     </div>
                     <div class="form-group">
                         <label for="batteries_model">Battery Model</label>
-                        <input type="text" class="form-control" id="batteries_model" name="batteries_model">
+                        <input type="text" class="form-control" id="batteries_model" name="batteries_model" value="{{request()->old('batteries_model')}}">
                     </div>
                     <div class="form-group">
                         <label for="batteries_voltage">Battery Voltage</label>
@@ -134,16 +134,16 @@
                     </div>
                     <div class="form-group">
                         <label for="battery_holding_time">Battery Holding Time</label>
-                        <input type="time" class="form-control" id="battery_holding_time" name="battery_holding_time">
+                        <input type="number" class="form-control" id="battery_holding_time" name="battery_holding_time" value="{{request()->old('battery_holding_time')}}" step="0.01">
                     </div>
                     <div class="form-group">
                         <label for="commission_date">Commission Date</label>
                         <input type="date" class="form-control" id="commission_date"
-                               name="commission_date">
+                               name="commission_date" value="{{request()->old('commission_date')}}">
                     </div>
                     <div class="form-group">
                         <label for="lld_number">LLD Number</label>
-                        <input type="number" class="form-control" id="lld_number" name="lld_number">
+                        <input type="number" class="form-control" id="lld_number" name="lld_number" value="{{request()->old('lld_number')}}">
                     </div>
                     <div class="form-group">
                         <label for="site_id">Sites Id</label>
@@ -156,11 +156,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="Work_order_id">Work Order Id</label>
+                        <label for="work_order_id">Work Order Id</label>
                         <select class="form-control form-control-lg mb-3" name="work_order_id"
-                                id="Work_order_id">
+                                id="work_order_id">
                             <option value="none" selected disabled hidden>Please Select</option>
-                            @foreach(\App\Models\WorkOrder::all() as $workOrder)
+                            @foreach(\App\Models\WorkOrder::whereNotIn('id', function ($query){
+                                   $query->select('work_order_id')->from('batteries');})->get() as $workOrder)
                                 <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>
                             @endforeach
                         </select>

@@ -31,7 +31,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="id">Id</label>
-                        <input type="number" class="form-control" id="id" name="id">
+                        <input type="number" class="form-control" id="id" name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="generator_type">Generator Type</label>
@@ -89,57 +89,61 @@
                     </div>
                     <div class="form-group">
                         <label for="engine_model">Engine Model</label>
-                        <input type="text" class="form-control" id="engine_model" name="engine_model">
+                        <input type="text" class="form-control" id="engine_model" name="engine_model"
+                               value="{{request()->old('engine_model')}}">
                     </div>
                     <div class="form-group">
                         <label for="fuel_tanker_capacity">Fuel Tanker Capacity</label>
                         <input type="number" class="form-control" id="fuel_tanker_capacity"
-                               name="fuel_tanker_capacity" step="0.01">
+                               name="fuel_tanker_capacity" step="0.01"
+                               value="{{request()->old('fuel_tanker_capacity')}}">
                     </div>
                     <div class="form-group">
                         <label for="alternator_model">Alternator Model</label>
                         <input type="text" class="form-control" id="alternator_model"
-                               name="alternator_model">
+                               name="alternator_model" value="{{request()->old('alternator_model')}}">
                     </div>
                     <div class="form-group">
                         <label for="alternator_capacity">Alternator Capacity</label>
                         <input type="number" class="form-control" id="alternator_capacity"
-                               name="alternator_capacity" step="0.01">
+                               name="alternator_capacity" step="0.01" value="{{request()->old('alternator_capacity')}}">
                     </div>
                     <div class="form-group">
                         <label for="controller_mode_model">Controller Mode Model</label>
                         <input type="text" class="form-control" id="controller_mode_model"
-                               name="controller_mode_model">
+                               name="controller_mode_model" value="{{request()->old('controller_mode_model')}}">
                     </div>
                     <div class="form-group">
                         <label for="ats_model">ATS Model</label>
                         <input type="text" class="form-control" id="ats_model"
-                               name="ats_model">
+                               name="ats_model" value="{{request()->old('ats_model')}}">
                     </div>
                     <div class="form-group">
                         <label for="ats_capacity">ATS Capacity</label>
                         <input type="number" class="form-control" id="ats_capacity"
-                               name="ats_capacity" step="0.01">
+                               name="ats_capacity" step="0.01" value="{{request()->old('ats_capacity')}}">
                     </div>
                     <div class="form-group">
                         <label for="generator_foundation_size">Generator Foundation Size</label>
                         <input type="number" class="form-control" id="generator_foundation_size"
-                               name="generator_foundation_size" step="0.01">
+                               name="generator_foundation_size" step="0.01"
+                               value="{{request()->old('generator_foundation_size')}}">
                     </div>
                     <div class="form-group">
                         <label for="fuel_tank_foundation_size">Fuel Tank Foundation Size</label>
                         <input type="number" class="form-control" id="fuel_tank_foundation_size"
-                               name="fuel_tank_foundation_size" step="0.01">
+                               name="fuel_tank_foundation_size" step="0.01"
+                               value="{{request()->old('fuel_tank_foundation_size')}}">
                     </div>
                     <div class="form-group">
                         <label for="fuel_tanker_type">Fuel Tank Type</label>
                         <input type="text" class="form-control" id="fuel_tanker_type"
-                               name="fuel_tanker_type">
+                               name="fuel_tanker_type" value="{{request()->old('fuel_tanker_type')}}">
                     </div>
                     <div class="form-group">
                         <label for="fuel_tank_Qty">Fuel Tank QTY</label>
                         <input type="number" class="form-control" id="fuel_tank_Qty"
-                               name="fuel_tank_Qty">
+                               name="fuel_tank_Qty" value="{{request()->old('fuel_tank_Qty')}}">
                     </div>
                     <div class="form-group">
                         <label for="starter_battery_capacity">Starter Battery Capacity</label>
@@ -156,7 +160,8 @@
                     </div>
                     <div class="form-group">
                         <label for="starter_battery_type">Starter Battery Type</label>
-                        <input type="text" class="form-control" id="starter_battery_type" name="starter_battery_type">
+                        <input type="text" class="form-control" id="starter_battery_type" name="starter_battery_type"
+                               value="{{request()->old('starter_battery_type')}}">
                     </div>
                     <div class="form-group">
                         <label for="functionality_status">Functionality Type</label>
@@ -172,12 +177,12 @@
                     <div class="form-group">
                         <label for="dg_commission_date">DG Commission Date</label>
                         <input type="date" class="form-control" id="dg_commission_date"
-                               name="dg_commission_date">
+                               name="dg_commission_date" value="{{request()->old('dg_commission_date')}}">
                     </div>
                     <div class="form-group">
                         <label for="dg_lld_number">DG LLD Number</label>
                         <input type="number" class="form-control" id="dg_lld_number"
-                               name="dg_lld_number">
+                               name="dg_lld_number" value="{{request()->old('dg_lld_number')}}">
                     </div>
                     <div class="form-group">
                         <label for="grid_power_line_voltage_and_transformer_capacity">Grid Power Line Voltage And
@@ -201,7 +206,8 @@
                     <div class="form-group">
                         <label for="transformer_installation_date">Transformer Installation Date</label>
                         <input type="date" class="form-control" id="transformer_installation_date"
-                               name="transformer_installation_date">
+                               name="transformer_installation_date"
+                               value="{{request()->old('transformer_installation_date')}}">
                     </div>
                     <div class="form-group">
                         <label for="site_id">Sites Id</label>
@@ -219,7 +225,8 @@
                         <select class="form-control form-control-lg mb-3" name="work_order_id"
                                 id="work_order_id">
                             <option value="none" selected disabled hidden>Please Select</option>
-                            @foreach(\App\Models\WorkOrder::all() as $workOrder)
+                            @foreach(\App\Models\WorkOrder::whereNotIn('id', function ($query){
+                                   $query->select('work_order_id')->from('powers');})->get() as $workOrder)
                                 <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>
                             @endforeach
                         </select>

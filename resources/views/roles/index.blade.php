@@ -37,7 +37,7 @@
         @endif
         <div class="row">
             <div class="col-md-4 col-xl-3 mb-3">
-                <div class="sidebar px-4 py-md-0">
+{{--                <div class="sidebar px-4 py-md-0">--}}
                     <form action="{{route('roles.index')}}" class="input-group" method="get">
                         <input type="text" class="form-control" name="search" placeholder="Search By Role Id Or Name"
                                value="{{request()->query('search')}}">
@@ -47,7 +47,7 @@
                             </button>
                         </div>
                     </form>
-                </div>
+{{--                </div>--}}
             </div>
             <div class="col">
                 @can('role-create')
@@ -116,7 +116,7 @@
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-gradient-danger">
                             <h5 class="modal-title" id="deleteModalLabel">Delete Role</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

@@ -39,17 +39,18 @@
         @endif
         <div class="row">
             <div class="col-md-3 col-xl-4 mb-3">
-                <div class="sidebar px-4 py-md-0">
-                    <form action="{{route('solarpanels.index')}}" class="input-group" method="get">
-                        <input type="text" class="form-control" name="search" placeholder="Search By Id, Number Of Solar System Or Solar Panel Type"
-                               value="{{request()->query('search')}}">
-                        <div class="input-group-addon">
-                            <button id="search" type="button" class="btn btn-primary">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                {{--                <div class="sidebar px-4 py-md-0">--}}
+                <form action="{{route('solarpanels.index')}}" class="input-group" method="get">
+                    <input type="text" class="form-control" name="search"
+                           placeholder="Search By Id, Number Of Solar System Or Solar Panel Type"
+                           value="{{request()->query('search')}}">
+                    <div class="input-group-addon">
+                        <button id="search" type="button" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                {{--                </div>--}}
             </div>
             <div class="col">
                 @can('site-create')
@@ -146,7 +147,7 @@
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-gradient-danger">
                             <h5 class="modal-title" id="deleteModalLabel">Delete Solar Panels</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

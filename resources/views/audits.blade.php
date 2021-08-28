@@ -36,7 +36,6 @@
                             <th scope="col">Model</th>
                             <th scope="col">Employee Id</th>
                             <th scope="col">Action</th>
-                            <th scope="col">User</th>
                             <th scope="col">Time</th>
                             <th scope="col">Old Value</th>
                             <th scope="col">New Values</th>
@@ -51,7 +50,6 @@
                                 <td>{{ $audit->auditable_type }} (id: {{ $audit->auditable_id }})</td>
                                 <td>{{ $audit->user_id }}</td>
                                 <td>{{ $audit->event }}</td>
-                                <td>{{ $audit->user->name }}</td>
                                 <td>{{ $audit->created_at }}</td>
                                 <td>
                                     <table class="table">
@@ -73,7 +71,8 @@
                                         @endforeach
                                     </table>
                                 </td>
-
+                                <td>{{$audit->ip_address}}</td>
+                                <td>{{$audit->user_agent}}</td>
                             </tr>
                         @endforeach
                         </tbody>

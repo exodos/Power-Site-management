@@ -92,7 +92,7 @@
                                 <td>{{ $port->slot }}</td>
                                 <td>{{ $port->slot_usage }}</td>
                                 <td>{{ $port->card_type }}</td>
-                                <td>{{ $port->port_type }}</td>
+                                <td>{{ $port->port_usage }}</td>
                                 <td>{{ $port->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $port->updated_at->format('Y-m-d') }}</td>
                                 @can('network-edit')
@@ -131,7 +131,7 @@
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-gradient-danger">
                             <h5 class="modal-title" id="deleteModalLabel">Delete Ports</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

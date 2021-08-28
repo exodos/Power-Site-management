@@ -10,6 +10,7 @@
       <w>classbs</w>
       <w>classc</w>
       <w>classcs</w>
+      <w>demux</w>
       <w>ethio</w>
       <w>ethiotelecom</w>
       <w>fideloper</w>
@@ -19,6 +20,7 @@
       <w>nunomaduro</w>
       <w>portusage</w>
       <w>portusages</w>
+      <w>roadm</w>
       <w>searchall</w>
       <w>simplesearch</w>
       <w>smtp</w>
@@ -26,6 +28,7 @@
       <w>spatie</w>
       <w>subnetb</w>
       <w>subnetc</w>
+      <w>subrack</w>
       <w>upss</w>
       <w>workorders</w>
     </words>

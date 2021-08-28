@@ -32,12 +32,12 @@
                     <div class="form-group">
                         <label for="class_b">Class B Ip</label>
                         <input type="text" class="form-control" id="class_b"
-                               name="class_b">
+                               name="class_b" value="{{request()->old('class_b')}}">
                     </div>
                     <div class="form-group">
                         <label for="class_c">Class C Ip</label>
                         <input type="text" class="form-control" id="class_c"
-                               name="class_c">
+                               name="class_c" value="{{request()->old('class_c')}}">
                     </div>
                     <div class="form-group">
                         <label for="usage">Usage</label>

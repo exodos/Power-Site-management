@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IpAddressesExport;
+use App\Exports\PortsExport;
 use App\Models\Port;
 use App\Notifications\PortCreateNotify;
 use App\Notifications\PortDeleteNotify;
@@ -9,6 +11,7 @@ use App\Notifications\PortUpdateNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Notification;
+use Maatwebsite\Excel\Facades\Excel;
 use Swift_SmtpTransport;
 
 
@@ -103,6 +106,12 @@ class PortController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function export()
+    {
+        return Excel::download(new PortsExport, 'ports.xlsx');
+
     }
 
     /**

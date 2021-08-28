@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IpAddressesExport;
 use App\Models\IpAddress;
 use App\Notifications\IpAddressCreateNotify;
 use App\Notifications\IpAddressDeleteNotify;
@@ -9,6 +10,7 @@ use App\Notifications\IpAddressUpdateNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Notification;
+use Maatwebsite\Excel\Facades\Excel;
 use Swift_SmtpTransport;
 
 
@@ -63,8 +65,8 @@ class IpAddressController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'class_b' => 'required|unique_with:ip_addresses,class_c',
-            'class_c' => 'required',
+            'class_b' => 'required|ip|unique_with:ip_addresses,class_c',
+            'class_c' => 'required|ip|gte:class_b',
             'usage' => 'required'
         ]);
 
@@ -101,6 +103,12 @@ class IpAddressController extends Controller
         //
     }
 
+    public function export()
+    {
+        return Excel::download(new IpAddressesExport, 'ipaddresses.xlsx');
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -126,8 +134,8 @@ class IpAddressController extends Controller
         $ipAddresses = IpAddress::find($id);
 
         $this->validate($request, [
-            'class_b' => 'required',
-            'class_c' => 'required',
+            'class_b' => 'required|ip',
+            'class_c' => 'required|ip|gte:class_b',
             'usage' => 'required'
         ]);
 

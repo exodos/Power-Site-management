@@ -14,7 +14,8 @@
 
     <div class="container">
         <div class="card border-primary">
-            <div class="card-header font-weight-bold bg-gradient-primary"><h3 class="mb-0">Create Air Conditioners</h3></div>
+            <div class="card-header font-weight-bold bg-gradient-primary"><h3 class="mb-0">Create Air Conditioners</h3>
+            </div>
             <div class="card-body">
                 @if($errors->any())
                     <div class="alert alert-danger">
@@ -32,7 +33,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="id">Id</label>
-                        <input type="number" class="form-control" id="id" name="id">
+                        <input type="number" class="form-control" id="id" name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="air_conditioners_type">Air Conditioner Type</label>
@@ -131,7 +132,8 @@
                     </div>
                     <div class="form-group">
                         <label for="lld_number">LLD Number</label>
-                        <input type="number" class="form-control" id="lld_number" name="lld_number">
+                        <input type="number" class="form-control" id="lld_number" name="lld_number"
+                               value="{{request()->old('lld_number')}}">
                     </div>
                     <div class="form-group">
                         <label for="commission_date">Commission Date</label>
@@ -153,7 +155,8 @@
                         <select class="form-control form-control-lg mb-3" name="work_order_id"
                                 id="work_order_id">
                             <option value="none" selected disabled hidden>Please Select</option>
-                            @foreach(\App\Models\WorkOrder::all() as $workOrder)
+                            @foreach(\App\Models\WorkOrder::whereNotIn('id', function ($query){
+                                   $query->select('work_order_id')->from('air_conditioners');})->get() as $workOrder)
                                 <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>
                             @endforeach
                         </select>

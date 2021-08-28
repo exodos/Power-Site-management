@@ -31,15 +31,15 @@
                     @csrf
                     <div class="form-group">
                         <label for="id">Employee Id</label>
-                        <input type="number" class="form-control" id="id" name="id">
+                        <input type="number" class="form-control" id="id" name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="name">User Name</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name" value="{{request()->old('name')}}">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" value="{{request()->old('email')}}">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

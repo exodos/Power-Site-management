@@ -27,6 +27,17 @@ class DatabaseSeeder extends Seeder
             UpsSeeder::class,
             PortSeeder::class,
             IpAddressSeeder::class,
+            TransmissionSiteSeeder::class,
+            TransmissionOtnNesSeeder::class,
+            TransmissionEquipmentSeeder::class,
+            TransmissionLineBoardsSeeder::class,
+            TransmissionClientBoardsSeeder::class,
+            TransmissionOtnServicesSeeder::class,
+            TransmissionLineBoardWdmTrailsSeeder::class,
+            TransmissionMuxDemuxBoardsSeeder::class,
+            TransmissionRoadmBoardsSeeder::class,
+            TransmissionAmplifierBoardsSeeder::class,
+            TransmissionSiteLineFibersSeeder::class,
         ]);
     }
 }

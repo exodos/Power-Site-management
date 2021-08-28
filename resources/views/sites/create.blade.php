@@ -31,11 +31,11 @@
                     @csrf
                     <div class="form-group">
                         <label for="id">Site Id</label>
-                        <input type="number" class="form-control" id="id" name="id">
+                        <input type="number" class="form-control" id="id" name="id" value="{{request()->old('id')}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_name">Sites Name</label>
-                        <input type="text" class="form-control" id="sites_name" name="sites_name">
+                        <input type="text" class="form-control" id="sites_name" name="sites_name" value="{{request()->old('sites_name')}}">
                     </div>
                     <div class="form-group">
                         <label for="ps_configuration">Power Source Configuration</label>
@@ -61,12 +61,12 @@
                     </div>
                     <div class="form-group">
                         <label for="sites_latitude">Sites Latitude</label>
-                        <input type="number" class="form-control" id="sites_latitude" name="sites_latitude" step="0.01">
+                        <input type="number" class="form-control" id="sites_latitude" name="sites_latitude" step="0.000001" value="{{request()->old('sites_latitude')}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_longitude">Sites Longitude</label>
                         <input type="number" class="form-control" id="sites_longitude" name="sites_longitude"
-                               step="0.01">
+                               step="0.000001" value="{{request()->old('sites_longitude')}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_region_zone">Sites Region Zone</label>
@@ -119,7 +119,7 @@
                     </div>
                     <div class="form-group">
                         <label for="sites_location">Sites Location</label>
-                        <input type="text" class="form-control" id="sites_location" name="sites_location">
+                        <input type="text" class="form-control" id="sites_location" name="sites_location" value="{{request()->old('sites_location')}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_class">Sites Class</label>
@@ -135,7 +135,7 @@
                     </div>
                     <div class="form-group">
                         <label for="sites_value">Sites Value</label>
-                        <input type="text" class="form-control" id="sites_value" name="sites_value">
+                        <input type="text" class="form-control" id="sites_value" name="sites_value" value="{{request()->old('sites_value')}}">
                     </div>
                     <div class="form-group">
                         <label for="sites_type">Sites Type</label>
@@ -150,54 +150,66 @@
                     </div>
                     <div class="form-group">
                         <label for="maintenance_center">Maintenance Center</label>
-                        <input type="text" class="form-control" id="maintenance_center" name="maintenance_center">
+                        <input type="text" class="form-control" id="maintenance_center" name="maintenance_center" value="{{request()->old('maintenance_center')}}">
                     </div>
                     <div class="form-group">
                         <label for="distance_mc">Distance From MC</label>
                         <input type="number" class="form-control" id="distance_mc"
-                               name="distance_mc" step="0.01">
+                               name="distance_mc" step="0.01" value="{{request()->old('distance_mc')}}">
                     </div>
                     <div class="form-group">
                         <label for="list_of_ne">List Of NE</label>
                         <input type="text" class="form-control" id="list_of_ne"
-                               name="list_of_ne">
+                               name="list_of_ne" value="{{request()->old('list_of_ne')}}">
                     </div>
                     <div class="form-group">
                         <label for="number_of_towers">Number Of Towers</label>
                         <input type="number" class="form-control" id="number_of_towers"
-                               name="number_of_towers">
+                               name="number_of_towers" value="{{request()->old('number_of_towers')}}">
                     </div>
                     <div class="form-group">
                         <label for="number_of_generator">Number Of Generator</label>
                         <input type="number" class="form-control" id="number_of_generator"
-                               name="number_of_generator">
+                               name="number_of_generator" value="{{request()->old('number_of_generator')}}">
                     </div>
                     <div class="form-group">
                         <label for="number_of_airconditioners">Number Of Air Conditioners</label>
                         <input type="number" class="form-control" id="number_of_airconditioners"
-                               name="number_of_airconditioners">
+                               name="number_of_airconditioners" value="{{request()->old('number_of_airconditioners')}}">
                     </div>
                     <div class="form-group">
                         <label for="number_of_rectifiers">Number Of Rectifiers</label>
                         <input type="number" class="form-control" id="number_of_rectifiers"
-                               name="number_of_rectifiers">
+                               name="number_of_rectifiers" value="{{request()->old('number_of_rectifiers')}}">
                     </div>
                     <div class="form-group">
                         <label for="number_of_solar_system">Number Of Solar System</label>
                         <input type="number" class="form-control" id="number_of_solar_system"
-                               name="number_of_solar_system">
+                               name="number_of_solar_system" value="{{request()->old('number_of_solar_system')}}">
                     </div>
                     <div class="form-group">
                         <label for="number_of_down_links">Number Of Down Links</label>
                         <input type="number" class="form-control" id="number_of_down_links"
-                               name="number_of_down_links">
+                               name="number_of_down_links" value="{{request()->old('number_of_down_links')}}">
                     </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="work_order_id">Work Order Id</label>--}}
+{{--                        <select class="form-control form-control-lg mb-3" name="work_order_id"--}}
+{{--                                id="work_order_id">--}}
+{{--                            <option value="none" selected disabled hidden>Please Select</option>--}}
+{{--                            @foreach(\App\Models\WorkOrder::all() as $workOrder)--}}
+{{--                                <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+
                     <div class="form-group">
                         <label for="work_order_id">Work Order Id</label>
                         <select class="form-control form-control-lg mb-3" name="work_order_id"
                                 id="work_order_id">
                             <option value="none" selected disabled hidden>Please Select</option>
-                            @foreach(\App\Models\WorkOrder::all() as $workOrder)
+                            @foreach(\App\Models\WorkOrder::whereNotIn('id', function ($query){
+                                   $query->select('work_order_id')->from('sites');})->get() as $workOrder)
                                 <option value="{{$workOrder->id}}">{{$workOrder->id}}</option>
                             @endforeach
                         </select>
