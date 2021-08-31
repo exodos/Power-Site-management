@@ -30,6 +30,8 @@ class CreateRectifiersTable extends Migration
             $table->date('commission_date');
             $table->foreignId('site_id')->constrained('sites')->onUpdate('cascade');
             $table->foreignId('work_order_id')->constrained('work_orders');
+            $table->index('llvd_capacity');
+            $table->index('blvd_capacity');
             $table->timestamps();
         });
     }
