@@ -24,7 +24,7 @@ class TowerFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'towers_type' => $this->faker->randomElement(['Rooftop', 'Green field', 'Small cell', 'Pole', '3 Leg', '4 -leg', 'Camoflage', 'RT']),
             'towers_height' => $this->faker->randomElement(['6', '16', '18', '24', '30', '35', '45', '60', '70', '80']),
             'towers_brand' => $this->faker->sentence(1),

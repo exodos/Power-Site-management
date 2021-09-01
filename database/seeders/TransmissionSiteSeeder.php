@@ -14,6 +14,6 @@ class TransmissionSiteSeeder extends Seeder
      */
     public function run()
     {
-        TransmissionSite::factory(300)->create();
+        TransmissionSite::factory(200)->create();
     }
 }

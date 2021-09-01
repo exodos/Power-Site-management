@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\FiberLink;
 use App\Models\FiberSplicePoint;
 use App\Models\Site;
+use App\Models\TransmissionSite;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FiberSplicePointFactory extends Factory
@@ -24,14 +25,14 @@ class FiberSplicePointFactory extends Factory
     public function definition()
     {
         return [
-            'fiber_splice_point_id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,
-            'link_id' => function () {
-                return FiberLink::inRandomOrder()->first()->link_id;
+            'fiber_links_id' => function () {
+                return FiberLink::inRandomOrder()->first()->id;
             },
-            'site_id' => function () {
-                return Site::inRandomOrder()->first()->id;
+            'transmission_site_id'=>function(){
+                return TransmissionSite::inRandomOrder()->first()->id;
             },
         ];
     }

@@ -524,7 +524,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="" class="nav-link">
-                                    <i class="nav-icon fas fa-bold"></i>
+                                    <i class="nav-icon fas fa-italic"></i>
                                     <p>
                                         Ip Address
                                         <i class="right fas fa-angle-left"></i>
@@ -570,7 +570,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="" class="nav-link">
-                                    <i class="nav-icon fab fa-tumblr-square"></i>
+                                    <i class="nav-icon fas fa-trademark"></i>
                                     <p>
                                         Transmission Site
                                         <i class="right fas fa-angle-left"></i>
@@ -943,14 +943,14 @@
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fab fa-fonticons"></i>
                                     <p>
-                                        Site Line Fibers
+                                        Fiber Links
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     @can('transmission-list')
                                         <li class="nav-item">
-                                            <a href="{{route('site_line_fibers.index')}}" class="nav-link">
+                                            <a href="{{route('fiber_links.index')}}" class="nav-link">
                                                 <i class="fas fa-eye nav-icon"></i>
                                                 <p>View </p>
                                             </a>
@@ -958,7 +958,7 @@
                                     @endcan
                                     @can('transmission-create')
                                         <li class="nav-item">
-                                            <a href="{{route('site_line_fibers.create')}}" class="nav-link">
+                                            <a href="{{route('fiber_links.create')}}" class="nav-link">
                                                 <i class="fas fa-plus-square nav-icon"></i>
                                                 <p>Add </p>
                                             </a>
@@ -966,7 +966,82 @@
                                     @endcan
                                     @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
                                         <li class="nav-item">
-                                            <a href="{{route('site_line_fibers.export')}}" class="nav-link">
+                                            <a href="{{route('fiber_links.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-stripe-s"></i>
+                                    <p>
+                                        Fiber Splice Points
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('fiber_splice_points.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('fiber_splice_points.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('fiber_splice_points.export')}}" class="nav-link">
+                                                <i class="nav-icon fas fa-arrow-circle-down"></i>
+                                                <p>Export </p>
+                                            </a>
+                                        </li>
+                                    @endcanany
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fab fa-medium-m"></i>
+
+                                    <p>
+                                        Microwave
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('transmission-list')
+                                        <li class="nav-item">
+                                            <a href="{{route('microwaves.index')}}" class="nav-link">
+                                                <i class="fas fa-eye nav-icon"></i>
+                                                <p>View </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('transmission-create')
+                                        <li class="nav-item">
+                                            <a href="{{route('microwaves.create')}}" class="nav-link">
+                                                <i class="fas fa-plus-square nav-icon"></i>
+                                                <p>Add </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @canany(['transmission-list','transmission-create','transmission-edit','transmission-delete'])
+                                        <li class="nav-item">
+                                            <a href="{{route('microwaves.export')}}" class="nav-link">
                                                 <i class="nav-icon fas fa-arrow-circle-down"></i>
                                                 <p>Export </p>
                                             </a>

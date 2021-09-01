@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Line Fibers Information
+    Microwave Information
 @endsection
 
 {{--@section('sitemap')--}}
@@ -39,9 +39,9 @@
         <div class="row">
             <div class="col-md-4 col-xl-4">
                 {{--                <div class="sidebar px-4 py-md-0">--}}
-                <form action="{{route('site_line_fibers.index')}}" class="input-group" method="get">
+                <form action="{{route('microwaves.index')}}" class="input-group" method="get">
                     <input type="text" class="form-control" name="search"
-                           placeholder="Search By Id, Direction Name Or Cabling Method"
+                           placeholder="Search By Site Id Or Name"
                            value="{{request()->query('search')}}">
                     <div class="input-group-addon">
                         <button id="search" type="button" class="btn btn-primary">
@@ -54,27 +54,25 @@
             <div class="col">
                 @can('transmission-create')
                     <div class="text-right">
-                        <a href="{{route('site_line_fibers.create')}}" class="btn btn-outline-dark mb-2"><i
+                        <a href="{{route('microwaves.create')}}" class="btn btn-outline-dark mb-2"><i
                                 class="fas fa-plus-square fa-2x"></i></a>
                     </div>
                 @endcan
             </div>
         </div>
         <div class="card border-dark mb-3">
-            <div class="card-header bg-gradient-gray-dark font-weight-bold">Line Fiber</div>
+            <div class="card-header bg-gradient-gray-dark font-weight-bold">Microwave</div>
             <div class="card-body text-black-50">
-                @if($siteLines->isNotEmpty())
+                @if($microwaves->isNotEmpty())
                     <table class="table table-bordered border-primary">
                         <thead>
                         <tr class="bg-gradient-success">
-                            <th scope="col">Id</th>
-                            <th scope="col">Direction Name</th>
-                            <th scope="col">Cabling Method</th>
-                            <th scope="col">Fiber Type</th>
-                            <th scope="col">Core Number</th>
-                            <th scope="col">Next Hope NE Id</th>
-                            <th scope="col">Next Hope Distance</th>
-                            <th scope="col">Ne Id</th>
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Site Name</th>
+                            <th scope="col">Site Type</th>
+                            <th scope="col">Installed Capacity</th>
+                            <th scope="col">Maximum Capacity</th>
+                            <th scope="col">Polarization</th>
                             <th scope="col">Site Id</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
@@ -87,27 +85,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($siteLines as $siteLine)
+                        @foreach($microwaves as $microwave)
                             <tr>
-                                <th scope="row">{{ $siteLine->id }}</th>
-                                <td>{{ $siteLine->direction_name }}</td>
-                                <td>{{ $siteLine->cabling_method }}</td>
-                                <td>{{ $siteLine->fiber_type }}</td>
-                                <td>{{ $siteLine->core_number }}</td>
-                                <td>{{ $siteLine->next_hope_ne_id }}</td>
-                                <td>{{ $siteLine->next_hope_distance }}</td>
-                                <td>{{ $siteLine->transmission_otn_nes_id }}</td>
-                                <td>{{ $siteLine->transmission_site_id }}</td>
-                                <td>{{ $siteLine->created_at->format('Y-m-d') }}</td>
-                                <td>{{ $siteLine->updated_at->format('Y-m-d') }}</td>
+                                <th scope="row">{{ $microwave->id }}</th>
+                                <td>{{ $microwave->site_name }}</td>
+                                <td>{{ $microwave->site_type }}</td>
+                                <td>{{ $microwave->installed_capacity }}</td>
+                                <td>{{ $microwave->maximum_capacity}}</td>
+                                <td>{{ $microwave->polarization }}</td>
+                                <td>{{ $microwave->transmission_site_id }}</td>
+                                <td>{{ $microwave->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $microwave->updated_at->format('Y-m-d') }}</td>
                                 @can('transmission-edit')
-                                    <td><a href="{{route('site_line_fibers.edit', $siteLine->id)}}"
+                                    <td><a href="{{route('microwaves.edit', $microwave->id)}}"
                                            class="btn btn-primary btn-sm">Update</a></td>
                                 @endcan
                                 @can('transmission-delete')
                                     <td>
                                         <button class="btn btn-danger btn-sm"
-                                                onclick="handleDelete({{$siteLine->id}})">
+                                                onclick="handleDelete({{$microwave->id}})">
                                             Delete
                                         </button>
                                     </td>
@@ -122,7 +118,7 @@
                     </div>
                 @endif
                 <div class="d-flex justify-content-center">
-                    {!! $siteLines->appends(['search' => request()->query('search')])->links() !!}
+                    {!! $microwaves->appends(['search' => request()->query('search')])->links() !!}
                     {{--                    {!! $airconditioners->appends(\Request::except('page'))->render() !!}--}}
                 </div>
             </div>
@@ -137,14 +133,14 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header bg-gradient-danger">
-                            <h5 class="modal-title" id="deleteModalLabel">Delete Line Fiber</h5>
+                            <h5 class="modal-title" id="deleteModalLabel">Delete Microwave</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <p class="text-center text-danger font-weight-bold">
-                                Are You Sure You Want To Delete This Line Fiber Data ?
+                                Are You Sure You Want To Delete This Microwave Data ?
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -162,7 +158,7 @@
     <script>
         function handleDelete(id) {
             var form = document.getElementById('deleteForm')
-            form.action = '/site_line_fibers/' + id
+            form.action = '/microwaves/' + id
             // console.log('deleting', form);
             $('#deleteModal').modal('show')
         }

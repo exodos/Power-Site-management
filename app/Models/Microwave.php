@@ -12,16 +12,13 @@ class Microwave extends Model implements Auditable
 
     protected $table = 'microwaves';
     protected $fillable = [
-        'microwave_id',
-        'power_consumption',
-        'breaker_type',
-        'breaker_quantity', 'site_type',
+        'id',
+        'site_name',
+        'site_type',
         'installed_capacity',
         'maximum_capacity',
         'polarization',
-        'llvd_capacity',
-        'blvd_capacity',
-        'site_id',
+        'transmission_site_id',
     ];
 
     protected $hidden = [
@@ -29,25 +26,17 @@ class Microwave extends Model implements Auditable
     ];
 
     protected $auditInclude = [
-        'microwave_id',
-        'power_consumption',
-        'breaker_type',
-        'breaker_quantity', 'site_type',
+        'id',
+        'site_name',
+        'site_type',
         'installed_capacity',
         'maximum_capacity',
         'polarization',
-        'llvd_capacity',
-        'blvd_capacity',
-        'site_id',
+        'transmission_site_id',
     ];
 
-    public function site()
-    {
-        return $this->belongsTo(Site::class);
+    public function transmission_site(){
+        return $this->belongsTo(TransmissionSite::class);
     }
 
-    public function rectifier()
-    {
-        return $this->belongsTo(Rectifier::class);
-    }
 }

@@ -24,7 +24,7 @@ class PortFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'name' => $this->faker->name,
             'device_role' => $this->faker->randomElement(['IGW', 'P', 'PE', 'CS', 'OTHER']),
             'slot' => $this->faker->randomElement(['CONTROL', 'SERVICE', 'OTHER']),

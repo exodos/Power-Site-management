@@ -22,6 +22,7 @@ class TransmissionSiteFactory extends Factory
     public function definition()
     {
         return [
+            'id' => $this->faker->unique()->randomNumber(6),
             'site_name' => $this->faker->sentence(1),
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,

@@ -24,18 +24,18 @@ class FiberLinkFactory extends Factory
     public function definition()
     {
         return [
-            'link_id'=>$this->faker->unique()->randomNumber(),
-            'link_name'=>$this->faker->sentence(1),
-            'fiber_type'=>$this->faker->sentence(1),
-            'used_core'=>$this->faker->colorName,
-            'free_core'=>$this->faker->randomNumber(),
-            'number_splice_points'=>$this->faker->randomNumber(),
-            'average_link_loss'=>$this->faker->randomFloat(),
-            'ofc_type'=>$this->faker->sentence(1),
-            'a_end_odf_connector_type'=>$this->faker->sentence(1),
-            'z_end_odf_connector_type'=>$this->faker->sentence(1),
-            'site_id'=>function(){
-                return Site::inRandomOrder()->first()->id;
+            'id' => $this->faker->unique()->randomNumber(8),
+            'link_name' => $this->faker->sentence(1),
+            'fiber_type' => $this->faker->sentence(1),
+            'used_core' => $this->faker->randomNumber(),
+            'free_core' => $this->faker->randomNumber(),
+            'number_splice_points' => $this->faker->randomNumber(),
+            'average_link_loss' => $this->faker->randomFloat(),
+            'ofc_type' => $this->faker->sentence(1),
+            'a_end_odf_connector_type' => $this->faker->sentence(1),
+            'z_end_odf_connector_type' => $this->faker->sentence(1),
+            'transmission_site_id'=>function(){
+                return TransmissionSite::inRandomOrder()->first()->id;
             },
         ];
     }

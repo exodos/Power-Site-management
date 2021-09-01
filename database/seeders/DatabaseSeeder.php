@@ -37,11 +37,9 @@ class DatabaseSeeder extends Seeder
             TransmissionMuxDemuxBoardsSeeder::class,
             TransmissionRoadmBoardsSeeder::class,
             TransmissionAmplifierBoardsSeeder::class,
-            TransmissionSiteLineFibersSeeder::class,
             FiberLinkSeeder::class,
             FiberSplicePointSeeder::class,
             MicrowaveSeeder::class,
-            OtnSeeder::class,
         ]);
     }
 }

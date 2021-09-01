@@ -12,27 +12,26 @@ class FiberSplicePoint extends Model implements Auditable
 
     protected $table = 'fiber_splice_points';
     protected $fillable = [
-        'fiber_splice_point_id',
+        'id',
         'latitude',
         'longitude',
-        'link_id',
-        'site_id',
+        'fiber_links_id',
+        'transmission_site_id',
     ];
     protected $hidden = [
         'created_at', 'updated_at',
     ];
 
     protected $auditInclude = [
-        'fiber_splice_point_id',
+        'id',
         'latitude',
         'longitude',
-        'link_id',
-        'site_id',
+        'fiber_links_id',
+        'transmission_site_id',
     ];
 
-    public function site()
-    {
-        return $this->belongsTo(Site::class);
+    public function transmission_site(){
+        return $this->belongsTo(TransmissionSite::class);
     }
 
 }

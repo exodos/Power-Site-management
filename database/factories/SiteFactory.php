@@ -23,7 +23,7 @@ class SiteFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(6),
             'sites_name' => $this->faker->name,
             'ps_configuration' => $this->faker->randomElement(['Mains Only', 'Mains + DG', 'Dual DG', 'DG + BB', 'Solar Hybrid', 'Pure Solar']),
             'monitoring_status' => $this->faker->randomElement(['Monitored', 'Not Monitored']),
@@ -43,7 +43,7 @@ class SiteFactory extends Factory
             'number_of_airconditioners' => $this->faker->randomNumber(),
             'number_of_rectifiers' => $this->faker->randomNumber(),
             'number_of_solar_system' => $this->faker->randomNumber(),
-            'number_of_down_links'=>$this->faker->randomNumber(),
+            'number_of_down_links' => $this->faker->randomNumber(),
             'work_order_id' => function () {
                 return WorkOrder::inRandomOrder()->first()->id;
             },

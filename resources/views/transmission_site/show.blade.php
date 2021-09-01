@@ -413,40 +413,44 @@
                 </div>
             </div>
         @endif
-        @if($transmissionSite->transmission_site_line_fiber->isNotEmpty())
+        @if($transmissionSite->fiber_links->isNotEmpty())
             <div class="card border-success mb-3">
-                <div class="card-header bg-gradient-gray-dark font-weight-bold">Line Fiber Details</div>
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Fiber Links Details</div>
                 <div class="card-body text-black-50">
                     <table class="table table-bordered">
                         <thead>
                         <tr class="bg-gradient-success">
-                            <th scope="col">Id</th>
-                            <th scope="col">Direction Name</th>
-                            <th scope="col">Cabling Method</th>
+                            <th scope="col">Link Id</th>
+                            <th scope="col">Link Name</th>
                             <th scope="col">Fiber Type</th>
-                            <th scope="col">Core Number</th>
-                            <th scope="col">Next Hope NE Id</th>
-                            <th scope="col">Next Hope Distance</th>
-                            <th scope="col">Ne Id</th>
+                            <th scope="col">Used Core</th>
+                            <th scope="col">Free Core</th>
+                            <th scope="col">Number Of Splice Points</th>
+                            <th scope="col">Average Link Loss</th>
+                            <th scope="col">OFC Type</th>
+                            <th scope="col">A-End ODF Connector Type</th>
+                            <th scope="col">Z-End ODF Connector Type</th>
                             <th scope="col">Site Id</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($transmissionSite->transmission_site_line_fiber as $siteLine)
+                        @foreach($transmissionSite->fiber_links as $fiberLink)
                             <tr>
-                                <th scope="row">{{ $siteLine->id }}</th>
-                                <td>{{ $siteLine->direction_name }}</td>
-                                <td>{{ $siteLine->cabling_method }}</td>
-                                <td>{{ $siteLine->fiber_type }}</td>
-                                <td>{{ $siteLine->core_number }}</td>
-                                <td>{{ $siteLine->next_hope_ne_id }}</td>
-                                <td>{{ $siteLine->next_hope_distance }}</td>
-                                <td>{{ $siteLine->transmission_otn_nes_id }}</td>
-                                <td>{{ $siteLine->transmission_site_id }}</td>
-                                <td>{{ $siteLine->created_at->format('Y-m-d') }}</td>
-                                <td>{{ $siteLine->updated_at->format('Y-m-d') }}</td>
+                                <th scope="row">{{ $fiberLink->id }}</th>
+                                <td>{{ $fiberLink->link_name }}</td>
+                                <td>{{ $fiberLink->fiber_type }}</td>
+                                <td>{{ $fiberLink->used_core }}</td>
+                                <td>{{ $fiberLink->free_core}}</td>
+                                <td>{{ $fiberLink->number_splice_points }}</td>
+                                <td>{{ $fiberLink->average_link_loss }}</td>
+                                <td>{{ $fiberLink->ofc_type }}</td>
+                                <td>{{ $fiberLink->a_end_odf_connector_type }}</td>
+                                <td>{{ $fiberLink->z_end_odf_connector_type }}</td>
+                                <td>{{ $fiberLink->transmission_site_id }}</td>
+                                <td>{{ $fiberLink->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $fiberLink->updated_at->format('Y-m-d') }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -455,6 +459,76 @@
             </div>
         @endif
 
+        @if($transmissionSite->fiber_splice_points->isNotEmpty())
+            <div class="card border-success mb-3">
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Fiber Splice Points Details</div>
+                <div class="card-body text-black-50">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="bg-gradient-success">
+                            <th scope="col">Fiber Splice Point Id</th>
+                            <th scope="col">Latitude</th>
+                            <th scope="col">Longitude</th>
+                            <th scope="col">Link Id</th>
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Updated At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($transmissionSite->fiber_splice_points as $fiberSplice)
+                            <tr>
+                                <th scope="row">{{ $fiberSplice->id }}</th>
+                                <td>{{ $fiberSplice->latitude }}</td>
+                                <td>{{ $fiberSplice->longitude }}</td>
+                                <td>{{ $fiberSplice->fiber_links_id }}</td>
+                                <td>{{ $fiberSplice->transmission_site_id}}</td>
+                                <td>{{ $fiberSplice->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $fiberSplice->updated_at->format('Y-m-d') }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+        @if($transmissionSite->microwaves->isNotEmpty())
+            <div class="card border-success mb-3">
+                <div class="card-header bg-gradient-gray-dark font-weight-bold">Microwaves Details</div>
+                <div class="card-body text-black-50">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="bg-gradient-success">
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Site Name</th>
+                            <th scope="col">Site Type</th>
+                            <th scope="col">Installed Capacity</th>
+                            <th scope="col">Maximum Capacity</th>
+                            <th scope="col">Polarization</th>
+                            <th scope="col">Site Id</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Updated At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($transmissionSite->microwaves as $microwave)
+                            <tr>
+                                <th scope="row">{{ $microwave->id }}</th>
+                                <td>{{ $microwave->site_name }}</td>
+                                <td>{{ $microwave->site_type }}</td>
+                                <td>{{ $microwave->installed_capacity }}</td>
+                                <td>{{ $microwave->maximum_capacity}}</td>
+                                <td>{{ $microwave->polarization }}</td>
+                                <td>{{ $microwave->transmission_site_id }}</td>
+                                <td>{{ $microwave->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $microwave->updated_at->format('Y-m-d') }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
         <div class="text-right">
             <a href="{{route('transmission_site.index')}}" class="btn btn-outline-dark btn-lg nav-item mb-2"><i
                     class="fas fa-caret-left fa-2x"></i></a>

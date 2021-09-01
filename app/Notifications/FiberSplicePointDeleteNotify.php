@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SiteLineCreateNotify extends Notification
+class FiberSplicePointDeleteNotify extends Notification
 {
     use Queueable;
 
-    public $siteLine;
+    public $fiberSplice;
 
     /**
      * Create a new notification instance.
      *
-     * @param $siteLine
+     * @param $fiberSplice
      */
-    public function __construct($siteLine)
+    public function __construct($fiberSplice)
     {
-        $this->siteLine = $siteLine;
+        $this->fiberSplice = $fiberSplice;
     }
 
     /**
@@ -44,8 +44,8 @@ class SiteLineCreateNotify extends Notification
     {
         return (new MailMessage)
             ->greeting('Hello Administrator')
-            ->line('One Of Line Fiber Attribute With Id ' . $this->siteLine->id . ' Has Been Created')
-            ->action('Notification Action', url('site_line_fibers'))
+            ->line('One Of Fiber Splice Points Attribute With Id ' . $this->fiberSplice->id . ' Has Been Deleted')
+            ->action('Notification Action', url('fiber_splice_points'))
             ->line('Thank you for using our application!');
     }
 

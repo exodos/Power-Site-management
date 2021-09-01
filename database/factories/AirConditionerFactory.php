@@ -24,7 +24,7 @@ class AirConditionerFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'air_conditioners_type' => $this->faker->randomElement(['STULZ', 'AIRSYS', 'WEISS', 'Fjutisu', 'TADIRAN', 'Hisense']),
             'air_conditioners_model' => $this->faker->randomElement(['ASU812AS', 'ASU622AS', 'CSU542A', 'CSU442A', 'CSU431A', 'CSU352A', 'CCU251A', 'CCU271A', 'CCU201A', 'CCD91A'
                 , 'CCU81A', 'DXA40E1S7', 'DXA22E1S4', 'DATA240UV', 'DATA45UV', 'WVL2000S', 'AOY30EPAL', 'TCO-28H', 'KT3FR-250LW/01TDE', 'KT3FR-120LW/01TDE', 'KF-80W/T12SE-N1', 'KFR-68WT/TSE-N3'

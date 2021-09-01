@@ -24,7 +24,7 @@ class RectifierFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'rectifiers_model' => $this->faker->sentence(1),
             'rectifiers_capacity' => $this->faker->randomNumber(),
             'rectifiers_module_model' => $this->faker->sentence(1),

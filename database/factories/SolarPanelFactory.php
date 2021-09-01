@@ -24,7 +24,7 @@ class SolarPanelFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'number_solar_system' => $this->faker->randomNumber(),
             'solar_panel_type' => $this->faker->sentence(1),
             'solar_panels_module_capacity' => $this->faker->randomFloat(),

@@ -24,7 +24,7 @@ class PowerFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'generator_type' => $this->faker->randomElement(['Pramac', 'Cummins', 'Lionrock', 'Meiko', 'Cooltech', 'Greenpower', 'Colem', 'Tellhow', 'Johndeere', 'VM', 'Perkins', 'Volvo', 'Sidmo', 'Deutz', 'James Dring', 'Benie', 'Iveco', 'Dossan', 'Star power']),
             'generator_capacity' => $this->faker->randomElement(['10', '15', '20', '22', '25', '30', '40', '50', '60', '75', '100', '110', '120', '125', '200', '300', '400', '500', '600', '800', '1500']),
             'engine_model' => $this->faker->sentence(1),

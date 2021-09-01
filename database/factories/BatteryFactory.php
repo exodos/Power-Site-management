@@ -28,7 +28,7 @@ class BatteryFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
+            'id' => $this->faker->unique()->randomNumber(8),
             'batteries_type' => $this->faker->sentence(1),
             'batteries_model' => $this->faker->sentence(1),
             'batteries_voltage' => $this->faker->randomElement(['12', '2']),

@@ -13,7 +13,7 @@ class FiberLink extends Model implements Auditable
     protected $table = 'fiber_links';
 
     protected $fillable = [
-        'link_id',
+        'id',
         'link_name',
         'fiber_type',
         'used_core',
@@ -23,14 +23,14 @@ class FiberLink extends Model implements Auditable
         'ofc_type',
         'a_end_odf_connector_type',
         'z_end_odf_connector_type',
-        'site_id'
+        'transmission_site_id'
     ];
     protected $hidden = [
         'created_at', 'updated_at',
     ];
 
     protected $auditInclude = [
-        'link_id',
+        'id',
         'link_name',
         'fiber_type',
         'used_core',
@@ -40,12 +40,11 @@ class FiberLink extends Model implements Auditable
         'ofc_type',
         'a_end_odf_connector_type',
         'z_end_odf_connector_type',
-        'site_id'
+        'transmission_site_id'
     ];
 
-    public function site()
-    {
-        return $this->belongsTo(Site::class);
+    public function transmission_site(){
+        return $this->belongsTo(TransmissionSite::class);
     }
 
 }

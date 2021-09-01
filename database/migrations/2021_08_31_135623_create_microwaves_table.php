@@ -14,19 +14,13 @@ class CreateMicrowavesTable extends Migration
     public function up()
     {
         Schema::create('microwaves', function (Blueprint $table) {
-            $table->id('microwave_id');
-            $table->double('power_consumption');
-            $table->string('breaker_type');
-            $table->bigInteger('breaker_quantity');
-            $table->double('llvd_capacity');
-            $table->double('blvd_capacity');
+            $table->id();
+            $table->string('site_name');
             $table->string('site_type');
             $table->double('installed_capacity');
             $table->double('maximum_capacity');
             $table->double('polarization');
-            $table->foreignId('site_id')->constrained('sites')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('llvd_capacity')->references('llvd_capacity')->on('rectifiers')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('blvd_capacity')->references('blvd_capacity')->on('rectifiers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('transmission_site_id')->constrained('transmission_sites')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

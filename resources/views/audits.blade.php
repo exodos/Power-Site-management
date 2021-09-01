@@ -15,7 +15,7 @@
                 <div class="sidebar px-4 py-md-0">
                     <form action="{{route('audits')}}" class="input-group" method="get">
                         <input type="text" class="form-control" name="search"
-                               placeholder="Search By Employee Id, Action Or Event"
+                               placeholder="Search By Employee Id Or Event"
                                value="{{request()->query('search')}}">
                         <div class="input-group-addon">
                             <button id="search" type="button" class="btn btn-primary">

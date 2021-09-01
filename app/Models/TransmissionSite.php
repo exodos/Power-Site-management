@@ -82,8 +82,19 @@ class TransmissionSite extends Model implements Auditable
         return $this->hasMany(TransmissionRoadmBoards::class);
     }
 
-    public function transmission_site_line_fiber()
+    public function fiber_links()
     {
-        return $this->hasMany(TransmissionSiteLineFibers::class);
+        return $this->hasMany(FiberLink::class);
     }
+
+    public function fiber_splice_points()
+    {
+        return $this->hasMany(FiberSplicePoint::class);
+    }
+
+    public function microwaves()
+    {
+        return $this->hasMany(Microwave::class);
+    }
+
 }

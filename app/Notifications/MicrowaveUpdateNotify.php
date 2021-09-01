@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SiteLineUpdateNotify extends Notification
+class MicrowaveUpdateNotify extends Notification
 {
     use Queueable;
 
-    public $siteLine;
+    public $microwave;
 
     /**
      * Create a new notification instance.
      *
-     * @param $siteLine
+     * @param $microwave
      */
-    public function __construct($siteLine)
+    public function __construct($microwave)
     {
-        $this->siteLine = $siteLine;
+        $this->microwave = $microwave;
     }
 
     /**
@@ -44,8 +44,8 @@ class SiteLineUpdateNotify extends Notification
     {
         return (new MailMessage)
             ->greeting('Hello Administrator')
-            ->line('One Of Line Fiber Attribute With Id ' . $this->siteLine->id . ' Has Been Updated')
-            ->action('Notification Action', url('site_line_fibers'))
+            ->line('One Of Microwave Attribute With Id ' . $this->microwave->id . ' Has Been Updated')
+            ->action('Notification Action', url('microwaves'))
             ->line('Thank you for using our application!');
     }
 

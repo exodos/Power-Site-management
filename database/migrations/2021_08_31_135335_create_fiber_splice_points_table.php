@@ -14,12 +14,11 @@ class CreateFiberSplicePointsTable extends Migration
     public function up()
     {
         Schema::create('fiber_splice_points', function (Blueprint $table) {
-            $table->id('fiber_splice_point_id');
+            $table->id();
             $table->double('latitude', 10, 8);
             $table->double('longitude', 11, 8);
-            $table->bigInteger('link_id')->unsigned();
-            $table->foreign('link_id')->references('link_id')->on('fiber_links')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('site_id')->constrained('sites')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('fiber_links_id')->constrained('fiber_links')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('transmission_site_id')->constrained('transmission_sites')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
